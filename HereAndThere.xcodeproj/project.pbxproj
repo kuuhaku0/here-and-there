@@ -8,6 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		30C914B532DCF0E5DE004F6F /* Pods_HereAndThere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */; };
+		818C8CCC2011507C00E798C6 /* CreateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CC72011507B00E798C6 /* CreateCollectionViewController.swift */; };
+		818C8CCD2011507C00E798C6 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CC82011507B00E798C6 /* ResultsViewController.swift */; };
+		818C8CCE2011507C00E798C6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CC92011507C00E798C6 /* DetailViewController.swift */; };
+		818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */; };
+		818C8CD02011507C00E798C6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CCB2011507C00E798C6 /* SearchViewController.swift */; };
+		818C8CD6201150EC00E798C6 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CD1201150EC00E798C6 /* Annotation.swift */; };
+		818C8CD7201150EC00E798C6 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CD2201150EC00E798C6 /* Search.swift */; };
+		818C8CD8201150EC00E798C6 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CD3201150EC00E798C6 /* Photo.swift */; };
+		818C8CD9201150EC00E798C6 /* PhotoAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CD4201150EC00E798C6 /* PhotoAPIClient.swift */; };
+		818C8CDA201150EC00E798C6 /* SearchAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CD5201150EC00E798C6 /* SearchAPIClient.swift */; };
+		818C8CE1201150FE00E798C6 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CDB201150FE00E798C6 /* DetailView.swift */; };
+		818C8CE2201150FE00E798C6 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CDC201150FE00E798C6 /* ResultsView.swift */; };
+		818C8CE3201150FE00E798C6 /* SearchCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CDD201150FE00E798C6 /* SearchCVCell.swift */; };
+		818C8CE4201150FE00E798C6 /* CreateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CDE201150FE00E798C6 /* CreateCollectionView.swift */; };
+		818C8CE5201150FE00E798C6 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CDF201150FE00E798C6 /* SearchView.swift */; };
+		818C8CE6201150FE00E798C6 /* CollectionsCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CE0201150FE00E798C6 /* CollectionsCVCell.swift */; };
+		818C8CEB2011523400E798C6 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CE82011523300E798C6 /* ImageCache.swift */; };
+		818C8CEC2011523400E798C6 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CE92011523300E798C6 /* NetworkHelper.swift */; };
+		818C8CED2011523400E798C6 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CEA2011523400E798C6 /* FileManagerHelper.swift */; };
 		81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC7A8A200EA72400010174 /* AppDelegate.swift */; };
 		81AC7A8D200EA72400010174 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC7A8C200EA72400010174 /* ViewController.swift */; };
 		81AC7A90200EA72400010174 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A8E200EA72400010174 /* Main.storyboard */; };
@@ -20,6 +39,25 @@
 /* Begin PBXFileReference section */
 		0A808A0BB7A51400B35104DB /* Pods-HereAndThere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndThere.release.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere.release.xcconfig"; sourceTree = "<group>"; };
 		59EC7478E320668F8C843A3D /* Pods-HereAndThere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndThere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere.debug.xcconfig"; sourceTree = "<group>"; };
+		818C8CC72011507B00E798C6 /* CreateCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCollectionViewController.swift; sourceTree = "<group>"; };
+		818C8CC82011507B00E798C6 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		818C8CC92011507C00E798C6 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
+		818C8CCB2011507C00E798C6 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		818C8CD1201150EC00E798C6 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		818C8CD2201150EC00E798C6 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		818C8CD3201150EC00E798C6 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		818C8CD4201150EC00E798C6 /* PhotoAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAPIClient.swift; sourceTree = "<group>"; };
+		818C8CD5201150EC00E798C6 /* SearchAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAPIClient.swift; sourceTree = "<group>"; };
+		818C8CDB201150FE00E798C6 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		818C8CDC201150FE00E798C6 /* ResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
+		818C8CDD201150FE00E798C6 /* SearchCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCVCell.swift; sourceTree = "<group>"; };
+		818C8CDE201150FE00E798C6 /* CreateCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCollectionView.swift; sourceTree = "<group>"; };
+		818C8CDF201150FE00E798C6 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		818C8CE0201150FE00E798C6 /* CollectionsCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsCVCell.swift; sourceTree = "<group>"; };
+		818C8CE82011523300E798C6 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		818C8CE92011523300E798C6 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
+		818C8CEA2011523400E798C6 /* FileManagerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
 		81AC7A87200EA72400010174 /* HereAndThere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HereAndThere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AC7A8A200EA72400010174 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81AC7A8C200EA72400010174 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +99,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		818C8CE7201151F900E798C6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				818C8CEA2011523400E798C6 /* FileManagerHelper.swift */,
+				818C8CE82011523300E798C6 /* ImageCache.swift */,
+				818C8CE92011523300E798C6 /* NetworkHelper.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		81AC7A7E200EA72400010174 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				81AC7A8A200EA72400010174 /* AppDelegate.swift */,
+				818C8CE7201151F900E798C6 /* Service */,
 				81AC7AA3200EA86D00010174 /* Models */,
 				81AC7AA0200EA85700010174 /* Views */,
 				81AC7A9C200EA83100010174 /* View Controllers */,
@@ -96,6 +145,11 @@
 		81AC7A9C200EA83100010174 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				818C8CCB2011507C00E798C6 /* SearchViewController.swift */,
+				818C8CC82011507B00E798C6 /* ResultsViewController.swift */,
+				818C8CC92011507C00E798C6 /* DetailViewController.swift */,
+				818C8CC72011507B00E798C6 /* CreateCollectionViewController.swift */,
+				818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */,
 				81AC7A8C200EA72400010174 /* ViewController.swift */,
 			);
 			path = "View Controllers";
@@ -113,6 +167,12 @@
 		81AC7AA0200EA85700010174 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				818C8CDF201150FE00E798C6 /* SearchView.swift */,
+				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
+				818C8CE0201150FE00E798C6 /* CollectionsCVCell.swift */,
+				818C8CDE201150FE00E798C6 /* CreateCollectionView.swift */,
+				818C8CDB201150FE00E798C6 /* DetailView.swift */,
+				818C8CDC201150FE00E798C6 /* ResultsView.swift */,
 				81AC7A9E200EA85300010174 /* View.swift */,
 			);
 			path = Views;
@@ -121,6 +181,11 @@
 		81AC7AA3200EA86D00010174 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				818C8CD1201150EC00E798C6 /* Annotation.swift */,
+				818C8CD3201150EC00E798C6 /* Photo.swift */,
+				818C8CD4201150EC00E798C6 /* PhotoAPIClient.swift */,
+				818C8CD2201150EC00E798C6 /* Search.swift */,
+				818C8CD5201150EC00E798C6 /* SearchAPIClient.swift */,
 				81AC7AA1200EA86A00010174 /* Model.swift */,
 			);
 			path = Models;
@@ -261,10 +326,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				818C8CD8201150EC00E798C6 /* Photo.swift in Sources */,
+				818C8CE5201150FE00E798C6 /* SearchView.swift in Sources */,
+				818C8CD7201150EC00E798C6 /* Search.swift in Sources */,
+				818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */,
+				818C8CEC2011523400E798C6 /* NetworkHelper.swift in Sources */,
+				818C8CCC2011507C00E798C6 /* CreateCollectionViewController.swift in Sources */,
+				818C8CED2011523400E798C6 /* FileManagerHelper.swift in Sources */,
+				818C8CE4201150FE00E798C6 /* CreateCollectionView.swift in Sources */,
 				81AC7A8D200EA72400010174 /* ViewController.swift in Sources */,
+				818C8CD02011507C00E798C6 /* SearchViewController.swift in Sources */,
 				81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */,
+				818C8CE3201150FE00E798C6 /* SearchCVCell.swift in Sources */,
+				818C8CE6201150FE00E798C6 /* CollectionsCVCell.swift in Sources */,
+				818C8CDA201150EC00E798C6 /* SearchAPIClient.swift in Sources */,
+				818C8CEB2011523400E798C6 /* ImageCache.swift in Sources */,
 				81AC7A9F200EA85300010174 /* View.swift in Sources */,
+				818C8CE2201150FE00E798C6 /* ResultsView.swift in Sources */,
+				818C8CD6201150EC00E798C6 /* Annotation.swift in Sources */,
 				81AC7AA2200EA86A00010174 /* Model.swift in Sources */,
+				818C8CD9201150EC00E798C6 /* PhotoAPIClient.swift in Sources */,
+				818C8CCD2011507C00E798C6 /* ResultsViewController.swift in Sources */,
+				818C8CE1201150FE00E798C6 /* DetailView.swift in Sources */,
+				818C8CCE2011507C00E798C6 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
