@@ -1,10 +1,7 @@
-//
 //  AppDelegate.swift
 //  HereAndThere
-//
 //  Created by Reiaz Gafar on 1/16/18.
 //  Copyright © 2018 HereAndThere. All rights reserved.
-//
 
 import UIKit
 
@@ -16,6 +13,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+			
+			//Search VC
+			let searchVC = SearchViewController()
+			searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+			let searchNavController = UINavigationController(rootViewController: searchVC)
+
+			//Collections VC
+			let collectionsVC = CollectionsViewController()
+			collectionsVC.tabBarItem = UITabBarItem(title: "Collections", image: #imageLiteral(resourceName: "listCollection1"), tag: 1)
+			let collectionsNavController = UINavigationController(rootViewController: collectionsVC)
+
+			//TabBar Controller
+			let tabBC = UITabBarController()
+			tabBC.setViewControllers([searchNavController, collectionsNavController], animated: true)
+
+			//setup Window
+			window = UIWindow(frame: UIScreen.main.bounds)
+			window?.rootViewController = tabBC
+			window?.makeKeyAndVisible()
         return true
     }
 
