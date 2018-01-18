@@ -19,7 +19,8 @@ class SearchViewController: UIViewController {
 
 	//Location for Search
 	var locationManager: CLLocationManager! //instance of Location Manager
-	var annotation: MKAnnotation!
+	var venueLocations: [MKAnnotation] = []
+	var currentLocation: CLLocation!
 
 	//Search
 	var searchController: UISearchController!
@@ -27,7 +28,6 @@ class SearchViewController: UIViewController {
 	var localSearch: MKLocalSearch!
 	var localSearchResponse: MKLocalSearchResponse!
 
-	var currentLocation: CLLocation!
 	var latLong: String = ""
 	var near: String = ""
 	var venueSearchTerm = "" {
@@ -52,6 +52,8 @@ class SearchViewController: UIViewController {
 		}
 	}
 	let cellSpacing: CGFloat = 1.0 //cellspacing Property for collectionView Flow Layout
+
+
 
 	//MARK: View Overrides
 	override func viewDidLoad() {
@@ -118,23 +120,22 @@ class SearchViewController: UIViewController {
 		present(searchController, animated: true, completion: nil)
 	}
 
-//	func checkUserPermissions(){
-//		//checking user authorization permissions
-//			if CLLocationManager.locationServicesEnabled() { 		//if location is enabled
-//					if locationManager == nil {
-//						//set a new location Manager instance
-//						locationManager = CLLocationManager()
-//					}
-//					locationManager?.requestWhenInUseAuthorization()
-//					locationManager.delegate = self
-//					locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//					locationManager.requestAlwaysAuthorization()
-//					locationManager.startUpdatingLocation()
-//			} else { //not enabled - asks for permission
-//				//TO-DO:
-//
-//			}
-//	}
+	func checkUserPermissions(){
+		//checking user authorization permissions
+			if CLLocationManager.locationServicesEnabled() { 		//if location is enabled
+					if locationManager == nil {
+						//set a new location Manager instance
+						locationManager = CLLocationManager()
+					}
+					locationManager?.requestWhenInUseAuthorization()
+					locationManager.delegate = self
+					locationManager.desiredAccuracy = kCLLocationAccuracyBest
+					locationManager.requestAlwaysAuthorization()
+					locationManager.startUpdatingLocation()
+			} else { //not enabled - asks for permission
+				//TO-DO:
+			}
+	}
 
 	func checkUserLocationPermission(){
 		//this is a class property. Not available on instance
