@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30C914B532DCF0E5DE004F6F /* Pods_HereAndThere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */; };
 		81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC7A8A200EA72400010174 /* AppDelegate.swift */; };
 		81AC7A8D200EA72400010174 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC7A8C200EA72400010174 /* ViewController.swift */; };
 		81AC7A90200EA72400010174 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A8E200EA72400010174 /* Main.storyboard */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A808A0BB7A51400B35104DB /* Pods-HereAndThere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndThere.release.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere.release.xcconfig"; sourceTree = "<group>"; };
+		59EC7478E320668F8C843A3D /* Pods-HereAndThere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndThere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere.debug.xcconfig"; sourceTree = "<group>"; };
 		81AC7A87200EA72400010174 /* HereAndThere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HereAndThere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AC7A8A200EA72400010174 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81AC7A8C200EA72400010174 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,6 +29,7 @@
 		81AC7A96200EA72400010174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81AC7A9E200EA85300010174 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		81AC7AA1200EA86A00010174 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HereAndThere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30C914B532DCF0E5DE004F6F /* Pods_HereAndThere.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09AF7B8B6EAB7A23ECA80696 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		25499A849466AD2B68A993EB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				59EC7478E320668F8C843A3D /* Pods-HereAndThere.debug.xcconfig */,
+				0A808A0BB7A51400B35104DB /* Pods-HereAndThere.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		81AC7A7E200EA72400010174 = {
 			isa = PBXGroup;
 			children = (
 				81AC7A89200EA72400010174 /* HereAndThere */,
 				81AC7A88200EA72400010174 /* Products */,
+				25499A849466AD2B68A993EB /* Pods */,
+				09AF7B8B6EAB7A23ECA80696 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,9 +133,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81AC7A99200EA72400010174 /* Build configuration list for PBXNativeTarget "HereAndThere" */;
 			buildPhases = (
+				4194B995F59912E609139F60 /* [CP] Check Pods Manifest.lock */,
 				81AC7A83200EA72400010174 /* Sources */,
 				81AC7A84200EA72400010174 /* Frameworks */,
 				81AC7A85200EA72400010174 /* Resources */,
+				4347F1E50D1576AEEC5B427A /* [CP] Embed Pods Frameworks */,
+				FC1DDC59B4B6D8575D1F18E0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -168,6 +195,66 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4194B995F59912E609139F60 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HereAndThere-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4347F1E50D1576AEEC5B427A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC1DDC59B4B6D8575D1F18E0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		81AC7A83200EA72400010174 /* Sources */ = {
@@ -312,6 +399,7 @@
 		};
 		81AC7A9A200EA72400010174 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59EC7478E320668F8C843A3D /* Pods-HereAndThere.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -326,6 +414,7 @@
 		};
 		81AC7A9B200EA72400010174 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A808A0BB7A51400B35104DB /* Pods-HereAndThere.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
