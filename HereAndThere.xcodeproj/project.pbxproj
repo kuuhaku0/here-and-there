@@ -181,11 +181,11 @@
 		81AC7AA3200EA86D00010174 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				818C8CD1201150EC00E798C6 /* Annotation.swift */,
-				818C8CD3201150EC00E798C6 /* Photo.swift */,
-				818C8CD4201150EC00E798C6 /* PhotoAPIClient.swift */,
 				818C8CD2201150EC00E798C6 /* Search.swift */,
 				818C8CD5201150EC00E798C6 /* SearchAPIClient.swift */,
+				818C8CD3201150EC00E798C6 /* Photo.swift */,
+				818C8CD4201150EC00E798C6 /* PhotoAPIClient.swift */,
+				818C8CD1201150EC00E798C6 /* Annotation.swift */,
 				81AC7AA1200EA86A00010174 /* Model.swift */,
 			);
 			path = Models;

@@ -6,16 +6,8 @@
 import UIKit
 import CoreLocation
 import MapKit
-
-
-//TO DO - install SnapKit (programmatic layout)
-//TO DO - install AlamoFire (networking)
-//TO-DO:
-//		MKAnnotation
-//		MKAnnotationView = visual representation of one of the annotation
-//		MKPinAnnotationView
-//		MKPointAnnotation
-//		MKMarkerAnnotationView
+import SnapKit
+import Alamofire
 
 
 class SearchViewController: UIViewController {
@@ -34,7 +26,7 @@ class SearchViewController: UIViewController {
 	var localSearchRequest: MKLocalSearchRequest!
 	var localSearch: MKLocalSearch!
 	var localSearchResponse: MKLocalSearchResponse!
-	
+
 	var currentLocation: CLLocation!
 	var latLong: String = ""
 	var near: String = ""
@@ -76,19 +68,16 @@ class SearchViewController: UIViewController {
 		setupUI()
 		setupLocation()
 		loadVenues(search: "chinese", latLong: latLong, near: near) //load default venues on startup
-		PhotoAPIClient.manager.getVenuePhotos(venueID: "525eeb3811d2c49bf03e23ec") { (error, onlinePhotos) in
-			if let error = error { print(error) }
-			if let onlinePhotos = onlinePhotos { self.venuesPhotos = onlinePhotos }
-		}
+//		PhotoAPIClient.manager.getVenuePhotos(venueID: "525eeb3811d2c49bf03e23ec") { (error, onlinePhotos) in
+//			if let error = error { print(error) }
+//			if let onlinePhotos = onlinePhotos { self.venuesPhotos = onlinePhotos }
+//		}
 	}
 
-//	override func viewWillLayoutSubviews() {
-//		super.viewWillLayoutSubviews()
-//	}
-//	override func viewWillAppear(_ animated: Bool) {
-//		super.viewWillAppear(animated)
-////		determineMyCurrentLocation() //core location
-//	}
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		determineMyLocation()
+	}
 
 	//Custom Methods
 	func setupUI(){
@@ -264,28 +253,35 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 		searchView.searchMap.setRegion(coordinateRegion, animated: true) //display the region
 	}
 
-	func determineMyCurrentLocation() {
+	func determineMyLocation() {
 		locationManager = CLLocationManager()
 		locationManager.delegate = self
-		//locationManager.desiredAccuracy = kCLLocationAccuracyBest
-		locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+		locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		locationManager.distanceFilter = 200 //meters
 		locationManager.requestAlwaysAuthorization()
 
+		//if user opted in for location services, start updating
 		if CLLocationManager.locationServicesEnabled() {
 			locationManager.startUpdatingLocation()
-			//locationManager.startUpdatingHeading()
 		}
 	}
 
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		let userLocation: CLLocation = locations[0] as CLLocation
-		// Call stopUpdatingLocation() to stop listening for location updates,
-		// other wise this function will be called every time when user location changes.
-		// manager.stopUpdatingLocation()
-		print("user latitude = \(userLocation.coordinate.latitude)")
-		print("user longitude = \(userLocation.coordinate.longitude)")
+		let userLocation: CLLocation = locations[0]
+		print("User latitude = \(userLocation.coordinate.latitude)")
+		print("User longitude = \(userLocation.coordinate.longitude)")
+		let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+//		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
+		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+		//        let userAnnotation = MKPointAnnotation()
+		//        userAnnotation.coordinate = userLocation.coordinate
+		//        userAnnotation.title = "This is us!"
+		//        mapView.addAnnotation(userAnnotation)
+		searchView.searchMap.setRegion(region, animated: true)
+		searchView.searchMap.showsUserLocation = true
+		//        locationManager.stopUpdatingLocation()
 	}
+
 
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
@@ -299,7 +295,10 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 //		searchView.searchMap.addAnnotation(userAnnotation)
 		searchView.searchMap.setRegion(region, animated: true)
 		searchView.searchMap.showsUserLocation = true
+	}
 
+	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+		print("Error: \(error)")
 	}
 }
 
