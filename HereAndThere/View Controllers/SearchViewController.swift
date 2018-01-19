@@ -114,13 +114,9 @@ class SearchViewController: UIViewController {
 	}
 
 	//load the venues (API Call) in venues array
-	func loadVenues(search: String, latLong: String, near: String){
-		SearchAPIClient.manager.getVenues(venueSearch: search, latLong: latLong, near: near, completion: { (error, onlineVenues) in
-			if let error = error { print("Error loading Venues in View Controller: \(error)")}
-			if let onlineVenues = onlineVenues {
-				self.venues = onlineVenues
-			}
-		})
+	func loadVenues(search: String, latLong: String, near: String) {
+        let results = SearchAPIClient.manager.getVenues(from: search, latLong: latLong, near: near)
+        self.venues = results
 	}
 
 	func addVenueLocationsOnMap(){
@@ -251,9 +247,9 @@ extension SearchViewController : UICollectionViewDataSource {
 //		let imageStr = "\(prefix)\(size)\(suffix)"
 
 		//call ImageHelper
-			ImageHelper.manager.getImage(from: "https://igx.4sqi.net/img/general/300x500/5163668_xXFcZo7sU8aa1ZMhiQ2kIP7NllD48m7qsSwr1mJnFj4.jpg",
-																	 completionHandler: { customCell.imageView.image = $0; customCell.setNeedsLayout();},
-																	 errorHandler: {print($0)})
+//            ImageHelper.manager.getImage(from: "https://igx.4sqi.net/img/general/300x500/5163668_xXFcZo7sU8aa1ZMhiQ2kIP7NllD48m7qsSwr1mJnFj4.jpg",
+//                                                                     completionHandler: { customCell.imageView.image = $0; customCell.setNeedsLayout();},
+//                                                                     errorHandler: {print($0)})
 
 		return customCell
 	}
