@@ -32,7 +32,8 @@ struct Venue: Codable {
 //	let menu: Menu?
 //	let delivery: Delivery?
 	//added property
-	var imageStr: String?
+	var smallImageStr: String?
+	var largeImageStr: String?
 }
 
 struct Contact:  Codable {
