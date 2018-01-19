@@ -7,7 +7,6 @@ import UIKit
 import CoreLocation
 import MapKit
 //import SnapKit
-//import Alamofire
 
 class SearchViewController: UIViewController {
 
@@ -20,26 +19,27 @@ class SearchViewController: UIViewController {
 	var latLong: String = ""
 	var near: String = "" //New%20York,%20NY
 	var venueSearchTerm = "" {
-		didSet { loadVenues(search: venueSearchTerm, latLong: latLong, near: near) }
+		didSet {
+            loadVenues(search: venueSearchTerm, latLong: latLong, near: near)
+        }
 	}
+    
 	var venues: [Venue] = [] {
 		didSet {
 			DispatchQueue.main.async {
-				self.searchView.collectionView.reloadData()
+//                self.searchView.collectionView.reloadData()
 				self.addVenueLocationsOnMap()
 			}
 		}
 	}
-	var venuesPhotos: [PhotosItem] = [] {
+    
+	var venuesPhotos = [PhotosItem]() {
 		didSet {
-			DispatchQueue.main.async {
-				self.searchView.collectionView.reloadData()
-			}
+//            self.searchView.collectionView.reloadData()
 		}
 	}
+    
 	let cellSpacing: CGFloat = 1.0 //cellspacing Property for collectionView Flow Layout
-
-
 
 	//MARK: View Overrides
 	override func viewDidLoad() {
@@ -51,16 +51,15 @@ class SearchViewController: UIViewController {
 		searchView.collectionView.dataSource = self
 		searchView.citySearchBar.delegate = self
 		searchView.searchMap.delegate = self
-
+        searchView.venueSearchBar.delegate = self
+        
 		//Setup
 		setupUI()
 		setupLocation()
 		loadVenues(search: "chinese", latLong: latLong, near: near) //load default venues on startup
-//		PhotoAPIClient.manager.getVenuePhotos(venueID: "525eeb3811d2c49bf03e23ec") { (error, onlinePhotos) in
-//			if let error = error { print(error) }
-//			if let onlinePhotos = onlinePhotos { self.venuesPhotos = onlinePhotos }
-//		}
+//      PhotoAPIClient.manager.getVenuePhotos(venueID: "525eeb3811d2c49bf03e23ec")
 	}
+    
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupLocation()
@@ -77,15 +76,9 @@ class SearchViewController: UIViewController {
 		latLong = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
 	}
 	func setupNavigationBar() {
-		navigationItem.title = "Search"
-
+//        navigationItem.title = "Search"
+        navigationItem.titleView = searchView.venueSearchBar
 		//navigation Search bar
-		let venueSearchBar = UISearchBar()
-		venueSearchBar.showsCancelButton = false
-		venueSearchBar.placeholder = "Search for Venue"
-		venueSearchBar.tag = 0
-		venueSearchBar.delegate = self
-		self.navigationItem.titleView = venueSearchBar
 
 		//right bar button for toggling between map & list
 		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
@@ -102,6 +95,7 @@ class SearchViewController: UIViewController {
 				print(); print("Authorized"); print()
 			case .denied:
 				print(); print("Denied"); print()
+                
 				//opens phone Settings so user can authorize permission
 				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
 				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
@@ -115,10 +109,9 @@ class SearchViewController: UIViewController {
 
 	//load the venues (API Call) in venues array
 	func loadVenues(search: String, latLong: String, near: String) {
-        let results = SearchAPIClient.manager.getVenues(from: search, latLong: latLong, near: near)
-        self.venues = results
-	}
-
+        SearchAPIClient.manager.getVenues(from: search, latLong: latLong, near: near) { self.venues = $0 }
+    }
+    
 	func addVenueLocationsOnMap(){
 		var venueAnnotations: [MKAnnotation] = []
 		//add each venue annotation to an array
@@ -130,13 +123,13 @@ class SearchViewController: UIViewController {
 	}
 }
 
-
 // MARK: Search Bars (venueSearch (0) and near (1))
 extension SearchViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.resignFirstResponder()
 		if searchBar.tag == 0 { self.venueSearchTerm = searchBar.text ?? "" }
 		if searchBar.tag == 1 { self.near = searchBar.text?.replacingOccurrences(of: " ", with: "%20") ?? ""}
+        searchBar.text = ""
 	}
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.text = ""
@@ -231,7 +224,6 @@ extension SearchViewController : UICollectionViewDataSource {
 
 		//setup attributes
 		customCell.backgroundColor = UIColor.clear //cell color
-
 		// property
 		let venue = venues[indexPath.row]
 
@@ -239,10 +231,7 @@ extension SearchViewController : UICollectionViewDataSource {
 		customCell.imageView.image = nil
 
 		//Get Photo Data from venue ID
-//		PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (error, onlineItems) in
-//			if let error = error { print("Error loading Venues in View Controller: \(error)")}
-//			if let photoItem = onlineItems { self.venues = onlineVenues }
-//		}
+//        PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) {self.venuesPhotos = $0}
 
 //		let imageStr = "\(prefix)\(size)\(suffix)"
 
@@ -278,7 +267,6 @@ extension SearchViewController : UICollectionViewDelegateFlowLayout {
 		return cellSpacing
 	}
 }
-
 
 //MARK: CollectionView Delegate
 extension SearchViewController : UICollectionViewDelegate {
