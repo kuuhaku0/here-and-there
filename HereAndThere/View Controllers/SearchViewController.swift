@@ -49,6 +49,7 @@ class SearchViewController: UIViewController {
 		//Delegates and Datasource
 		searchView.collectionView.delegate = self
 		searchView.collectionView.dataSource = self
+		searchView.venueSearchBar.delegate = self
 		searchView.citySearchBar.delegate = self
 		searchView.searchMap.delegate = self
 
@@ -78,14 +79,9 @@ class SearchViewController: UIViewController {
 	}
 	func setupNavigationBar() {
 		navigationItem.title = "Search"
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.titleView = searchView.venueSearchBar
 
-		//navigation Search bar
-		let venueSearchBar = UISearchBar()
-		venueSearchBar.showsCancelButton = false
-		venueSearchBar.placeholder = "Search for Venue"
-		venueSearchBar.tag = 0
-		venueSearchBar.delegate = self
-		self.navigationItem.titleView = venueSearchBar
 
 		//right bar button for toggling between map & list
 		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))

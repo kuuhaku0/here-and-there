@@ -19,7 +19,7 @@ struct PhotoResponse: Codable {
 struct Photos: Codable {
 	let count: Int
 	let items: [PhotosItem]
-	let dupesRemoved: Int
+//	let dupesRemoved: Int
 }
 
 struct PhotosItem: Codable {

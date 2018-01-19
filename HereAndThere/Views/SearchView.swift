@@ -11,10 +11,18 @@ class SearchView: UIView {
 
 	
 	// MARK: - Create elements in View
+	lazy var venueSearchBar: UISearchBar = {
+		let vsb = UISearchBar()
+		vsb.showsCancelButton = false
+		vsb.placeholder =  "Search for Venue"
+		vsb.tag = 0
+		return vsb
+	}()
 	lazy var citySearchBar: UISearchBar = {
 		let csb = UISearchBar()
 		csb.showsCancelButton = true
 		csb.placeholder = "New York, NY"
+		csb.barTintColor = .white
 		csb.tag = 1
 		return csb
 	}()
