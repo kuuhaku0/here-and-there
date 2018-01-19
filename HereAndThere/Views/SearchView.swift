@@ -12,11 +12,12 @@ class SearchView: UIView {
 	
 	// MARK: - Create elements in View
 	lazy var venueSearchBar: UISearchBar = {
-		let vsb = UISearchBar()
-		vsb.showsCancelButton = false
-		vsb.placeholder =  "Search for Venue"
-		vsb.tag = 0
-		return vsb
+		let sb = UISearchBar()
+		sb.showsCancelButton = false
+		sb.barTintColor = .white
+		sb.placeholder = "Search for Venue"
+		sb.tag = 0
+		return sb
 	}()
 	lazy var citySearchBar: UISearchBar = {
 		let csb = UISearchBar()
@@ -24,7 +25,7 @@ class SearchView: UIView {
 		csb.placeholder = "New York, NY"
 		csb.barTintColor = .white
 		csb.tag = 1
-        csb.barTintColor = .white
+		csb.barTintColor = .white
 		return csb
 	}()
     
@@ -48,14 +49,7 @@ class SearchView: UIView {
 		return cv
 	}()
     
-    lazy var venueSearchBar: UISearchBar = {
-        let sb = UISearchBar()
-        sb.showsCancelButton = false
-        sb.barTintColor = .white
-        sb.placeholder = "Search for Venue"
-        sb.tag = 0
-        return sb
-    }()
+
 
 	// MARK: - Setup elements in View
 	override init(frame: CGRect){

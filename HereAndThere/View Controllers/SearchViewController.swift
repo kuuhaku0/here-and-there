@@ -77,16 +77,9 @@ class SearchViewController: UIViewController {
 		latLong = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
 	}
 	func setupNavigationBar() {
-<<<<<<< HEAD
 		navigationItem.title = "Search"
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.titleView = searchView.venueSearchBar
-
-=======
-//        navigationItem.title = "Search"
-        navigationItem.titleView = searchView.venueSearchBar
-		//navigation Search bar
->>>>>>> 8dfe2448211dbfc4a8cccdc289d934f300db067a
 
 		//right bar button for toggling between map & list
 		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
