@@ -18,7 +18,7 @@ class SearchViewController: UIViewController {
 	var locationManager: CLLocationManager! //instance of Location Manager
 	var currentLocation: CLLocation!
 	var latLong: String = ""
-	var near: String = ""
+	var near: String = "" //New%20York,%20NY
 	var venueSearchTerm = "" {
 		didSet { loadVenues(search: venueSearchTerm, latLong: latLong, near: near) }
 	}
@@ -130,8 +130,6 @@ class SearchViewController: UIViewController {
 			let venueAnnotation = venueLocation(coordinate: CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng), title: venue.name, subtitle: venue.contact.formattedPhone)
 			venueAnnotations.append(venueAnnotation)
 		}
-		let point3 = venueLocation(coordinate: CLLocationCoordinate2D(latitude: 40.7438553, longitude: -73.9347052), title: "Laguardia College", subtitle: "Cuny College")
-		venueAnnotations.append(point3) //test location
 		self.searchView.searchMap.addAnnotations(venueAnnotations)
 	}
 }
@@ -142,7 +140,7 @@ extension SearchViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.resignFirstResponder()
 		if searchBar.tag == 0 { self.venueSearchTerm = searchBar.text ?? "" }
-		if searchBar.tag == 1 { self.near = searchBar.text ?? ""}
+		if searchBar.tag == 1 { self.near = searchBar.text?.replacingOccurrences(of: " ", with: "%20") ?? ""}
 	}
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.text = ""
@@ -197,11 +195,7 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 		print("User latitude = \(userLocation.coordinate.latitude)")
 		print("User longitude = \(userLocation.coordinate.longitude)")
 		let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.035, longitudeDelta: 0.035))
-		//        let userAnnotation = MKPointAnnotation()
-		//        userAnnotation.coordinate = userLocation.coordinate
-		//        userAnnotation.title = "This is us!"
-		//        mapView.addAnnotation(userAnnotation)
+		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
 		searchView.searchMap.setRegion(region, animated: true)
 		searchView.searchMap.showsUserLocation = true
 		//        locationManager.stopUpdatingLocation()
