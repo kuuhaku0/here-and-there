@@ -3,7 +3,6 @@
 //  Created by Winston Marag on 1/17/18.
 //  Copyright © 2018 Winston Maragh. All rights reserved.
 
-
 import UIKit
 
 class CreateCollectionViewController: UIViewController {
@@ -11,7 +10,6 @@ class CreateCollectionViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		createNavigationBar()
-
 	}
 
 	//Custom Methods

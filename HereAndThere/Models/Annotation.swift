@@ -6,13 +6,25 @@
 import UIKit
 import MapKit
 
+import MapKit
+
+class CityLocation: NSObject, MKAnnotation {
+	var title: String?
+	var coordinate: CLLocationCoordinate2D
+
+	init(title: String, coordinate: CLLocationCoordinate2D) {
+		self.title = title
+		self.coordinate = coordinate
+	}
+}
 
 class venueLocation: NSObject, MKAnnotation {
 	var coordinate: CLLocationCoordinate2D
 	var title: String?
 	var subtitle: String?
+	//var image: UIImage?
 
-	init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
+	init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String?) {
 		self.coordinate = coordinate
 		self.title = title
 		self.subtitle = subtitle

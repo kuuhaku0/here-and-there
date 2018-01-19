@@ -17,6 +17,7 @@ struct PhotoAPIClient {
 //				let token = "DNQEHPMM30W0XUS0Z5XO24HWSJ2TOR1VLD0QIJQ20KBRS3SU"
 //				let endpoint = "https://api.foursquare.com/v2/venues/\(venueID)/photos?&oauth_token=\(token)&v=\(date)"
 		let endpoint = "https://api.foursquare.com/v2/venues/43695300f964a5208c291fe3/photos?&oauth_token=DNQEHPMM30W0XUS0Z5XO24HWSJ2TOR1VLD0QIJQ20KBRS3SU&v=20180118"
+		
 
 		guard let url = URL(string: endpoint) else {return}
 

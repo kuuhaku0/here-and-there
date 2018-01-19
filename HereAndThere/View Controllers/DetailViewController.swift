@@ -16,8 +16,8 @@ class DetailViewController: UIViewController {
 	//Initializer
 	init(venue: Venue){
 		super.init(nibName: nil, bundle: nil)
-		//		self.venue = venue //set weather property
-		//		detailView.configureDetailview(venue: venue)
+				self.venue = venue //set weather property
+				detailView.configureDetailview(venue: venue, image: #imageLiteral(resourceName: "placeholder-image"))
 	}
 	//Setup Nib - 'required' initializer 'init(coder:)' must be provided by subclass of 'UIViewController'
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?){

@@ -6,9 +6,8 @@
 import UIKit
 import CoreLocation
 import MapKit
-import SnapKit
-import Alamofire
-
+//import SnapKit
+//import Alamofire
 
 class SearchViewController: UIViewController {
 
@@ -16,38 +15,25 @@ class SearchViewController: UIViewController {
 	var searchView = SearchView()
 
 	// MARK: Properties
-
-	//Location for Search
 	var locationManager: CLLocationManager! //instance of Location Manager
-	var venueLocations: [MKAnnotation] = []
 	var currentLocation: CLLocation!
-
-	//Search
-	var searchController: UISearchController!
-	var localSearchRequest: MKLocalSearchRequest!
-	var localSearch: MKLocalSearch!
-	var localSearchResponse: MKLocalSearchResponse!
-
 	var latLong: String = ""
 	var near: String = ""
 	var venueSearchTerm = "" {
-		didSet {
-			loadVenues(search: venueSearchTerm, latLong: latLong, near: near)
-		}
+		didSet { loadVenues(search: venueSearchTerm, latLong: latLong, near: near) }
 	}
 	var venues: [Venue] = [] {
 		didSet {
 			DispatchQueue.main.async {
 				self.searchView.collectionView.reloadData()
-//				self.addVenueLocationsOnMap()
+				self.addVenueLocationsOnMap()
 			}
 		}
 	}
-	var venuesPhotos: [PhotosItem] = []{
+	var venuesPhotos: [PhotosItem] = [] {
 		didSet {
 			DispatchQueue.main.async {
 				self.searchView.collectionView.reloadData()
-				//				self.addVenueLocationsOnMap()
 			}
 		}
 	}
@@ -75,10 +61,9 @@ class SearchViewController: UIViewController {
 //			if let onlinePhotos = onlinePhotos { self.venuesPhotos = onlinePhotos }
 //		}
 	}
-
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		determineMyLocation()
+		setupLocation()
 	}
 
 	//Custom Methods
@@ -87,9 +72,9 @@ class SearchViewController: UIViewController {
 		setupNavigationBar()
 	}
 	func setupLocation(){
+		determineMyLocation()
 		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832)
 		latLong = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
-		centerLocationOnMap(location: currentLocation) //center current Location on map
 	}
 	func setupNavigationBar() {
 		navigationItem.title = "Search"
@@ -107,102 +92,48 @@ class SearchViewController: UIViewController {
 		navigationItem.rightBarButtonItem = toggleBarItem
 	}
 	@objc func toggleListAndMap() {
-		//when bar button is pressed transition to a Results List VC with tableview layout
-		let resultsDVC = ResultsViewController()
-		self.navigationController?.pushViewController(resultsDVC, animated: true)
-	}
-	@objc func searchButtonAction(){
-		if searchController == nil {
-			searchController = UISearchController(searchResultsController: nil)
-		}
-		searchController.hidesNavigationBarDuringPresentation = false
-		self.searchController.searchBar.delegate = self
-		present(searchController, animated: true, completion: nil)
+		self.navigationController?.pushViewController(ResultsViewController(), animated: true)
 	}
 
-	func checkUserPermissions(){
-		//checking user authorization permissions
-			if CLLocationManager.locationServicesEnabled() { 		//if location is enabled
-					if locationManager == nil {
-						//set a new location Manager instance
-						locationManager = CLLocationManager()
-					}
-					locationManager?.requestWhenInUseAuthorization()
-					locationManager.delegate = self
-					locationManager.desiredAccuracy = kCLLocationAccuracyBest
-					locationManager.requestAlwaysAuthorization()
-					locationManager.startUpdatingLocation()
-			} else { //not enabled - asks for permission
-				//TO-DO:
-			}
-	}
 
 	func checkUserLocationPermission(){
-		//this is a class property. Not available on instance
 		switch CLLocationManager.authorizationStatus() {
 			case .authorizedAlways, .authorizedWhenInUse:
-				print("Authorized")
+				print(); print("Authorized"); print()
 			case .denied:
-				print("Denied")
+				print(); print("Denied"); print()
 				//opens phone Settings so user can authorize permission
 				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
 				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
 			case .notDetermined:
-				print("Not Determined")
+				print(); print("Not Determined"); print()
 				locationManager.requestWhenInUseAuthorization()
 			case .restricted:
-				print("Restricted")
+				print(); print("Restricted"); print()
 		}
 	}
 
 	//load the venues (API Call) in venues array
 	func loadVenues(search: String, latLong: String, near: String){
-		//check if user inputed a different location city. Use this as location
-		if near != "" {
-			SearchAPIClient.manager.getVenues(venueSearch: search, latLong: latLong) { (error, onlineVenues) in
-				if let error = error { print("Error loading Venues in View Controller: \(error)")}
-				if let onlineVenues = onlineVenues { self.venues = onlineVenues }
+		SearchAPIClient.manager.getVenues(venueSearch: search, latLong: latLong, near: near, completion: { (error, onlineVenues) in
+			if let error = error { print("Error loading Venues in View Controller: \(error)")}
+			if let onlineVenues = onlineVenues {
+				self.venues = onlineVenues
 			}
-		} //else ue their current location (assuming its turned on)
-		else if latLong != "" {
-			SearchAPIClient.manager.getVenues(venueSearch: search, near: near) { (error, onlineVenues) in
-				if let error = error { print("Error loading Venues in View Controller: \(error)")}
-				if let onlineVenues = onlineVenues { self.venues = onlineVenues }
-			}
-		}
+		})
 	}
 
-	//Add pins for each Venue Location (after getting venues)
 	func addVenueLocationsOnMap(){
-		var locationArray: [venueLocation] = []
+		var venueAnnotations: [MKAnnotation] = []
+		//add each venue annotation to an array
 		venues.forEach { (venue) in
-		 var coordinate	= CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng)
-			var newLocation = venueLocation(coordinate: coordinate, title: venue.name, subtitle: venue.contact.phone!)
-			locationArray.append(newLocation)
+			let venueAnnotation = venueLocation(coordinate: CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng), title: venue.name, subtitle: venue.contact.formattedPhone)
+			venueAnnotations.append(venueAnnotation)
 		}
-		searchView.searchMap.addAnnotations(locationArray)
+		let point3 = venueLocation(coordinate: CLLocationCoordinate2D(latitude: 40.7438553, longitude: -73.9347052), title: "Laguardia College", subtitle: "Cuny College")
+		venueAnnotations.append(point3) //test location
+		self.searchView.searchMap.addAnnotations(venueAnnotations)
 	}
-
-	//for directions
-//	func showRouteOnMap() {
-//		let request = MKDirectionsRequest()
-//		request.source = MKMapItem(placemark: MKPlacemark(coordinate: annotation1.coordinate, addressDictionary: nil))
-//		request.destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation2.coordinate, addressDictionary: nil))
-//		request.requestsAlternateRoutes = true
-//		request.transportType = .Automobile
-//
-//		let directions = MKDirections(request: request)
-//
-//		directions.calculateDirectionsWithCompletionHandler { [unowned self] response, error in
-//			guard let unwrappedResponse = response else { return }
-//
-//			if (unwrappedResponse.routes.count > 0) {
-//				self.mapView.addOverlay(unwrappedResponse.routes[0].polyline)
-//				self.mapView.setVisibleMapRect(unwrappedResponse.routes[0].polyline.boundingMapRect, animated: true)
-//			}
-//		}
-//	}
-
 }
 
 
@@ -211,7 +142,7 @@ extension SearchViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.resignFirstResponder()
 		if searchBar.tag == 0 { self.venueSearchTerm = searchBar.text ?? "" }
-		if searchBar.tag == 1 { self.near = searchBar.text ?? "" }
+		if searchBar.tag == 1 { self.near = searchBar.text ?? ""}
 	}
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.text = ""
@@ -248,17 +179,11 @@ extension SearchViewController : MKMapViewDelegate {
 
 //MARK: Core Location Manager - Delegate
 extension SearchViewController :  CLLocationManagerDelegate  {
-	func centerLocationOnMap(location: CLLocation){
-		//creates a new MKCoordinateRegion with specified coordinate and distance
-		let coordinateRegion = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, 1500, 1500) //meters
-		searchView.searchMap.setRegion(coordinateRegion, animated: true) //display the region
-	}
-
 	func determineMyLocation() {
 		locationManager = CLLocationManager()
 		locationManager.delegate = self
 		locationManager.desiredAccuracy = kCLLocationAccuracyBest
-		locationManager.distanceFilter = 200 //meters
+		locationManager.distanceFilter = 1000 //meters
 		locationManager.requestAlwaysAuthorization()
 
 		//if user opted in for location services, start updating
@@ -272,8 +197,7 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 		print("User latitude = \(userLocation.coordinate.latitude)")
 		print("User longitude = \(userLocation.coordinate.longitude)")
 		let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-//		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
-		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.035, longitudeDelta: 0.035))
 		//        let userAnnotation = MKPointAnnotation()
 		//        userAnnotation.coordinate = userLocation.coordinate
 		//        userAnnotation.title = "This is us!"
@@ -283,17 +207,8 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 		//        locationManager.stopUpdatingLocation()
 	}
 
-
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
-
-		//add Annotation
-//		let region = MKCoordinateRegion(center: center, span: <#T##MKCoordinateSpan#>)
-//		let userAnnotation = MKPointAnnotation()
-//		userAnnotation.coordinate = userLocation.coordinate
-//		userAnnotation.title = "This is us"
-//		userAnnotation.subtitle = "Yay subtitle"
-//		searchView.searchMap.addAnnotation(userAnnotation)
 		searchView.searchMap.setRegion(region, animated: true)
 		searchView.searchMap.showsUserLocation = true
 	}
@@ -313,7 +228,6 @@ extension SearchViewController : UICollectionViewDataSource {
 	}
 	//# of items in section
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		if venues.isEmpty {return 7}
 		return venues.count
 	}
 	//setup for cell
@@ -329,24 +243,23 @@ extension SearchViewController : UICollectionViewDataSource {
 		customCell.backgroundColor = UIColor.clear //cell color
 
 		// property
-//		let venue = venues[indexPath.row]
+		let venue = venues[indexPath.row]
 
 		//get image
 		customCell.imageView.image = nil
 
 		//Get Photo Data from venue ID
-
 //		PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (error, onlineItems) in
 //			if let error = error { print("Error loading Venues in View Controller: \(error)")}
 //			if let photoItem = onlineItems { self.venues = onlineVenues }
 //		}
 
+//		let imageStr = "\(prefix)\(size)\(suffix)"
+
 		//call ImageHelper
 			ImageHelper.manager.getImage(from: "https://igx.4sqi.net/img/general/300x500/5163668_xXFcZo7sU8aa1ZMhiQ2kIP7NllD48m7qsSwr1mJnFj4.jpg",
 																	 completionHandler: { customCell.imageView.image = $0; customCell.setNeedsLayout();},
 																	 errorHandler: {print($0)})
-
-
 
 		return customCell
 	}
@@ -392,3 +305,42 @@ extension SearchViewController : UICollectionViewDelegate {
 	}
 }
 
+
+
+//for directions
+//	func showRouteOnMap() {
+//		let request = MKDirectionsRequest()
+//		request.source = MKMapItem(placemark: MKPlacemark(coordinate: annotation1.coordinate, addressDictionary: nil))
+//		request.destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation2.coordinate, addressDictionary: nil))
+//		request.requestsAlternateRoutes = true
+//		request.transportType = .Automobile
+//
+//		let directions = MKDirections(request: request)
+//
+//		directions.calculateDirectionsWithCompletionHandler { [unowned self] response, error in
+//			guard let unwrappedResponse = response else { return }
+//
+//			if (unwrappedResponse.routes.count > 0) {
+//				self.mapView.addOverlay(unwrappedResponse.routes[0].polyline)
+//				self.mapView.setVisibleMapRect(unwrappedResponse.routes[0].polyline.boundingMapRect, animated: true)
+//			}
+//		}
+//	}
+
+
+//	func checkUserPermissions(){
+//		//checking user authorization permissions
+//			if CLLocationManager.locationServicesEnabled() { 		//if location is enabled
+//					if locationManager == nil {
+//						//set a new location Manager instance
+//						locationManager = CLLocationManager()
+//					}
+//					locationManager?.requestWhenInUseAuthorization()
+//					locationManager.delegate = self
+//					locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//					locationManager.requestAlwaysAuthorization()
+//					locationManager.startUpdatingLocation()
+//			} else { //not enabled - asks for permission
+//				//TO-DO:
+//			}
+//	}

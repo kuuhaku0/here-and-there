@@ -23,7 +23,6 @@ class ResultsViewController: UIViewController {
 	private func configureNavBar(){
 		navigationItem.title = "Results List"
 	}
-
 }
 
 
@@ -43,8 +42,8 @@ extension ResultsViewController : UITableViewDataSource {
 		//		let venue = venues[indexPath.row]
 //		var cell = tableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath)
 		let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "ResultsCell")
-		cell.textLabel?.text = "Venue Name"
-		cell.detailTextLabel?.text = "Category"
+		cell.textLabel?.text = "Venue Name" //placeholder
+		cell.detailTextLabel?.text = "Category" //placeholder
 		cell.imageView?.image = nil
 		cell.imageView?.image = #imageLiteral(resourceName: "placeholder-image")
 		return cell
