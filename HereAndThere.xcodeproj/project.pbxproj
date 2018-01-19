@@ -20,7 +20,7 @@
 		818C8CE3201150FE00E798C6 /* SearchCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CDD201150FE00E798C6 /* SearchCVCell.swift */; };
 		818C8CE5201150FE00E798C6 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CDF201150FE00E798C6 /* SearchView.swift */; };
 		818C8CEB2011523400E798C6 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CE82011523300E798C6 /* ImageCache.swift */; };
-		818C8CEC2011523400E798C6 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CE92011523300E798C6 /* NetworkHelper.swift */; };
+		818C8CEC2011523400E798C6 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CE92011523300E798C6 /* ImageHelper.swift */; };
 		818C8CED2011523400E798C6 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CEA2011523400E798C6 /* FileManagerHelper.swift */; };
 		819990132012527000AE9CFB /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819990122012527000AE9CFB /* LocationService.swift */; };
 		8199901B2012656900AE9CFB /* UserPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8199901A2012656900AE9CFB /* UserPreference.swift */; };
@@ -45,7 +45,7 @@
 		818C8CDD201150FE00E798C6 /* SearchCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCVCell.swift; sourceTree = "<group>"; };
 		818C8CDF201150FE00E798C6 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		818C8CE82011523300E798C6 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
-		818C8CE92011523300E798C6 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
+		818C8CE92011523300E798C6 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		818C8CEA2011523400E798C6 /* FileManagerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
 		819990122012527000AE9CFB /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		8199901A2012656900AE9CFB /* UserPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreference.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 			children = (
 				818C8CEA2011523400E798C6 /* FileManagerHelper.swift */,
 				818C8CE82011523300E798C6 /* ImageCache.swift */,
-				818C8CE92011523300E798C6 /* NetworkHelper.swift */,
+				818C8CE92011523300E798C6 /* ImageHelper.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -278,6 +278,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -285,6 +286,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -320,7 +322,7 @@
 				818C8CE5201150FE00E798C6 /* SearchView.swift in Sources */,
 				818C8CD7201150EC00E798C6 /* Search.swift in Sources */,
 				818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */,
-				818C8CEC2011523400E798C6 /* NetworkHelper.swift in Sources */,
+				818C8CEC2011523400E798C6 /* ImageHelper.swift in Sources */,
 				818C8CED2011523400E798C6 /* FileManagerHelper.swift in Sources */,
 				818C8CD02011507C00E798C6 /* SearchViewController.swift in Sources */,
 				81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */,

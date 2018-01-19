@@ -7,7 +7,6 @@ import UIKit
 import CoreLocation
 import MapKit
 //import SnapKit
-//import Alamofire
 
 class SearchViewController: UIViewController {
 
@@ -20,26 +19,27 @@ class SearchViewController: UIViewController {
 	var latLong: String = ""
 	var near: String = "" //New%20York,%20NY
 	var venueSearchTerm = "" {
-		didSet { loadVenues(search: venueSearchTerm, latLong: latLong, near: near) }
+		didSet {
+            loadVenues(search: venueSearchTerm, latLong: latLong, near: near)
+        }
 	}
+    
 	var venues: [Venue] = [] {
 		didSet {
 			DispatchQueue.main.async {
-				self.searchView.collectionView.reloadData()
+//                self.searchView.collectionView.reloadData()
 				self.addVenueLocationsOnMap()
 			}
 		}
 	}
-	var venuesPhotos: [PhotosItem] = [] {
+    
+	var venuesPhotos = [PhotosItem]() {
 		didSet {
-			DispatchQueue.main.async {
-				self.searchView.collectionView.reloadData()
-			}
+//            self.searchView.collectionView.reloadData()
 		}
 	}
+    
 	let cellSpacing: CGFloat = 1.0 //cellspacing Property for collectionView Flow Layout
-
-
 
 	//MARK: View Overrides
 	override func viewDidLoad() {
@@ -52,16 +52,15 @@ class SearchViewController: UIViewController {
 		searchView.venueSearchBar.delegate = self
 		searchView.citySearchBar.delegate = self
 		searchView.searchMap.delegate = self
-
+        searchView.venueSearchBar.delegate = self
+        
 		//Setup
 		setupUI()
 		setupLocation()
 		loadVenues(search: "chinese", latLong: latLong, near: near) //load default venues on startup
-//		PhotoAPIClient.manager.getVenuePhotos(venueID: "525eeb3811d2c49bf03e23ec") { (error, onlinePhotos) in
-//			if let error = error { print(error) }
-//			if let onlinePhotos = onlinePhotos { self.venuesPhotos = onlinePhotos }
-//		}
+//      PhotoAPIClient.manager.getVenuePhotos(venueID: "525eeb3811d2c49bf03e23ec")
 	}
+    
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupLocation()
@@ -78,10 +77,16 @@ class SearchViewController: UIViewController {
 		latLong = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
 	}
 	func setupNavigationBar() {
+<<<<<<< HEAD
 		navigationItem.title = "Search"
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.titleView = searchView.venueSearchBar
 
+=======
+//        navigationItem.title = "Search"
+        navigationItem.titleView = searchView.venueSearchBar
+		//navigation Search bar
+>>>>>>> 8dfe2448211dbfc4a8cccdc289d934f300db067a
 
 		//right bar button for toggling between map & list
 		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
@@ -98,6 +103,7 @@ class SearchViewController: UIViewController {
 				print(); print("Authorized"); print()
 			case .denied:
 				print(); print("Denied"); print()
+                
 				//opens phone Settings so user can authorize permission
 				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
 				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
@@ -110,15 +116,10 @@ class SearchViewController: UIViewController {
 	}
 
 	//load the venues (API Call) in venues array
-	func loadVenues(search: String, latLong: String, near: String){
-		SearchAPIClient.manager.getVenues(venueSearch: search, latLong: latLong, near: near, completion: { (error, onlineVenues) in
-			if let error = error { print("Error loading Venues in View Controller: \(error)")}
-			if let onlineVenues = onlineVenues {
-				self.venues = onlineVenues
-			}
-		})
-	}
-
+	func loadVenues(search: String, latLong: String, near: String) {
+        SearchAPIClient.manager.getVenues(from: search, latLong: latLong, near: near) { self.venues = $0 }
+    }
+    
 	func addVenueLocationsOnMap(){
 		var venueAnnotations: [MKAnnotation] = []
 		//add each venue annotation to an array
@@ -130,13 +131,13 @@ class SearchViewController: UIViewController {
 	}
 }
 
-
 // MARK: Search Bars (venueSearch (0) and near (1))
 extension SearchViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.resignFirstResponder()
 		if searchBar.tag == 0 { self.venueSearchTerm = searchBar.text ?? "" }
 		if searchBar.tag == 1 { self.near = searchBar.text?.replacingOccurrences(of: " ", with: "%20") ?? ""}
+        searchBar.text = ""
 	}
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.text = ""
@@ -231,7 +232,6 @@ extension SearchViewController : UICollectionViewDataSource {
 
 		//setup attributes
 		customCell.backgroundColor = UIColor.clear //cell color
-
 		// property
 		let venue = venues[indexPath.row]
 
@@ -239,17 +239,14 @@ extension SearchViewController : UICollectionViewDataSource {
 		customCell.imageView.image = nil
 
 		//Get Photo Data from venue ID
-//		PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (error, onlineItems) in
-//			if let error = error { print("Error loading Venues in View Controller: \(error)")}
-//			if let photoItem = onlineItems { self.venues = onlineVenues }
-//		}
+//        PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) {self.venuesPhotos = $0}
 
 //		let imageStr = "\(prefix)\(size)\(suffix)"
 
 		//call ImageHelper
-			ImageHelper.manager.getImage(from: "https://igx.4sqi.net/img/general/300x500/5163668_xXFcZo7sU8aa1ZMhiQ2kIP7NllD48m7qsSwr1mJnFj4.jpg",
-																	 completionHandler: { customCell.imageView.image = $0; customCell.setNeedsLayout();},
-																	 errorHandler: {print($0)})
+//            ImageHelper.manager.getImage(from: "https://igx.4sqi.net/img/general/300x500/5163668_xXFcZo7sU8aa1ZMhiQ2kIP7NllD48m7qsSwr1mJnFj4.jpg",
+//                                                                     completionHandler: { customCell.imageView.image = $0; customCell.setNeedsLayout();},
+//                                                                     errorHandler: {print($0)})
 
 		return customCell
 	}
@@ -278,7 +275,6 @@ extension SearchViewController : UICollectionViewDelegateFlowLayout {
 		return cellSpacing
 	}
 }
-
 
 //MARK: CollectionView Delegate
 extension SearchViewController : UICollectionViewDelegate {

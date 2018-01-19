@@ -24,8 +24,10 @@ class SearchView: UIView {
 		csb.placeholder = "New York, NY"
 		csb.barTintColor = .white
 		csb.tag = 1
+        csb.barTintColor = .white
 		return csb
 	}()
+    
 	lazy var searchMap: MKMapView = {
 		let smap = MKMapView()
 		smap.mapType = MKMapType.standard
@@ -36,6 +38,7 @@ class SearchView: UIView {
 		smap.showsUserLocation = true
 		return smap
 	}()
+    
 	lazy var collectionView: UICollectionView = {
 		let cvLayout = UICollectionViewFlowLayout()
 		cvLayout.scrollDirection = .horizontal
@@ -44,7 +47,15 @@ class SearchView: UIView {
 		cv.backgroundColor = UIColor.clear
 		return cv
 	}()
-
+    
+    lazy var venueSearchBar: UISearchBar = {
+        let sb = UISearchBar()
+        sb.showsCancelButton = false
+        sb.barTintColor = .white
+        sb.placeholder = "Search for Venue"
+        sb.tag = 0
+        return sb
+    }()
 
 	// MARK: - Setup elements in View
 	override init(frame: CGRect){
@@ -65,6 +76,7 @@ class SearchView: UIView {
 		addCitySearchBar()
 		addSearchMap()
 		addCollectionView()
+        addVenueSearchBar()
 	}
 
 
@@ -93,6 +105,8 @@ class SearchView: UIView {
 		collectionView.bottomAnchor.constraint(equalTo: searchMap.bottomAnchor, constant: -20).isActive = true
 		collectionView.heightAnchor.constraint(equalTo: searchMap.heightAnchor, multiplier: 0.2).isActive = true
 	}
-
+    private func addVenueSearchBar() {
+        addSubview(venueSearchBar)
+    }
 }
 
