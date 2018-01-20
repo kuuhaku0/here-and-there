@@ -7,7 +7,10 @@ import UIKit
 
 class ResultsViewController: UIViewController {
 
-
+    
+    override func viewDidLoad() {
+        view.backgroundColor = .white
+    }
 
 
 }

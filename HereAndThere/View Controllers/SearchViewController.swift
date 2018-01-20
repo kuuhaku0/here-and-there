@@ -7,6 +7,8 @@ import UIKit
 import CoreLocation
 import MapKit
 //import SnapKit
+import MaterialComponents.MaterialCollections
+import MaterialComponents.MaterialCollectionLayoutAttributes
 
 class SearchViewController: UIViewController {
 
@@ -68,18 +70,20 @@ class SearchViewController: UIViewController {
 	//Custom Methods
 	func setupUI(){
 		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
-		setupNavigationBar()
-	}
-	func setupLocation(){
-		determineMyLocation()
-		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832)
-		latLong = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
-	}
-	func setupNavigationBar() {
+        tabBarController?.tabBar.backgroundColor = .white
+        tabBarController?.tabBar.barTintColor = .white
+        setupNavigationBar()
+    }
+    func setupLocation(){
+        determineMyLocation()
+        currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832)
+        latLong = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
+    }
+    func setupNavigationBar() {
 //        navigationItem.title = "Search"
         navigationItem.titleView = searchView.venueSearchBar
-		//navigation Search bar
-
+        navigationItem.titleView?.backgroundColor = .white
+        
 		//right bar button for toggling between map & list
 		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
 		navigationItem.rightBarButtonItem = toggleBarItem
@@ -204,17 +208,18 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 
 
 //MARK: CollectionView Datasource
+
 extension SearchViewController : UICollectionViewDataSource {
 	//# of sections
-	func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
 		return 1
 	}
 	//# of items in section
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return venues.count
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return 10
 	}
 	//setup for cell
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCVCell", for: indexPath) as! SearchCVCell
 
 		//altering Cell shape & border
@@ -223,9 +228,9 @@ extension SearchViewController : UICollectionViewDataSource {
 		customCell.layer.borderWidth = 1.0
 
 		//setup attributes
-		customCell.backgroundColor = UIColor.clear //cell color
+		customCell.backgroundColor = .white //cell color
 		// property
-		let venue = venues[indexPath.row]
+//        let venue = venues[indexPath.row]
 
 		//get image
 		customCell.imageView.image = nil
@@ -272,12 +277,12 @@ extension SearchViewController : UICollectionViewDelegateFlowLayout {
 extension SearchViewController : UICollectionViewDelegate {
 	//action for selected item
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		//		let venue = venues[indexPath.row]
+//        let venue = venues[indexPath.row]
 		let detailVC = DetailViewController()
 		detailVC.modalPresentationStyle = .overCurrentContext
 		detailVC.modalTransitionStyle = .crossDissolve
 		navigationController?.present(detailVC, animated: true, completion: nil)
-
+        
 		//		let detailVC = DetailViewController()
 		//		self.navigationController?.pushViewController(detailVC, animated: true)
 	}

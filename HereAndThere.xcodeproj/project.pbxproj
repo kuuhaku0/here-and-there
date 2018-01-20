@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		30C914B532DCF0E5DE004F6F /* Pods_HereAndThere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */; };
+		814EFAA62013005B0002C758 /* CollectionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814EFAA52013005B0002C758 /* CollectionsViewCell.swift */; };
+		817F68B62012D5AF0083235D /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F68B52012D5AF0083235D /* CollectionsView.swift */; };
 		818C8CCD2011507C00E798C6 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CC82011507B00E798C6 /* ResultsViewController.swift */; };
 		818C8CCE2011507C00E798C6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CC92011507C00E798C6 /* DetailViewController.swift */; };
 		818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */; };
@@ -31,6 +33,8 @@
 /* Begin PBXFileReference section */
 		0A808A0BB7A51400B35104DB /* Pods-HereAndThere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndThere.release.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere.release.xcconfig"; sourceTree = "<group>"; };
 		59EC7478E320668F8C843A3D /* Pods-HereAndThere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndThere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere.debug.xcconfig"; sourceTree = "<group>"; };
+		814EFAA52013005B0002C758 /* CollectionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewCell.swift; sourceTree = "<group>"; };
+		817F68B52012D5AF0083235D /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
 		818C8CC82011507B00E798C6 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		818C8CC92011507C00E798C6 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
@@ -148,7 +152,9 @@
 			isa = PBXGroup;
 			children = (
 				818C8CDF201150FE00E798C6 /* SearchView.swift */,
+				817F68B52012D5AF0083235D /* CollectionsView.swift */,
 				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
+				814EFAA52013005B0002C758 /* CollectionsViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -273,6 +279,10 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
+				"${BUILT_PRODUCTS_DIR}/RAMAnimatedTabBarController/RAMAnimatedTabBarController.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -281,6 +291,10 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAMAnimatedTabBarController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -322,11 +336,13 @@
 				81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */,
 				818C8CE3201150FE00E798C6 /* SearchCVCell.swift in Sources */,
 				818C8CDA201150EC00E798C6 /* SearchAPIClient.swift in Sources */,
+				817F68B62012D5AF0083235D /* CollectionsView.swift in Sources */,
 				818C8CEB2011523400E798C6 /* ImageCache.swift in Sources */,
 				818C8CD6201150EC00E798C6 /* Annotation.swift in Sources */,
 				818C8CD9201150EC00E798C6 /* PhotoAPIClient.swift in Sources */,
 				818C8CCD2011507C00E798C6 /* ResultsViewController.swift in Sources */,
 				818C8CCE2011507C00E798C6 /* DetailViewController.swift in Sources */,
+				814EFAA62013005B0002C758 /* CollectionsViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
