@@ -24,6 +24,8 @@
 		818C8CEB2011523400E798C6 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CE82011523300E798C6 /* ImageCache.swift */; };
 		818C8CEC2011523400E798C6 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CE92011523300E798C6 /* ImageHelper.swift */; };
 		818C8CED2011523400E798C6 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CEA2011523400E798C6 /* FileManagerHelper.swift */; };
+		819990132012527000AE9CFB /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819990122012527000AE9CFB /* LocationService.swift */; };
+		8199901B2012656900AE9CFB /* UserPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8199901A2012656900AE9CFB /* UserPreference.swift */; };
 		81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC7A8A200EA72400010174 /* AppDelegate.swift */; };
 		81AC7A90200EA72400010174 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A8E200EA72400010174 /* Main.storyboard */; };
 		81AC7A92200EA72400010174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A91200EA72400010174 /* Assets.xcassets */; };
@@ -49,6 +51,8 @@
 		818C8CE82011523300E798C6 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		818C8CE92011523300E798C6 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		818C8CEA2011523400E798C6 /* FileManagerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
+		819990122012527000AE9CFB /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		8199901A2012656900AE9CFB /* UserPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreference.swift; sourceTree = "<group>"; };
 		81AC7A87200EA72400010174 /* HereAndThere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HereAndThere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AC7A8A200EA72400010174 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81AC7A8F200EA72400010174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				818C8CD3201150EC00E798C6 /* Photo.swift */,
 				818C8CD4201150EC00E798C6 /* PhotoAPIClient.swift */,
 				818C8CD1201150EC00E798C6 /* Annotation.swift */,
+				819990122012527000AE9CFB /* LocationService.swift */,
+				8199901A2012656900AE9CFB /* UserPreference.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -336,7 +342,8 @@
 				81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */,
 				818C8CE3201150FE00E798C6 /* SearchCVCell.swift in Sources */,
 				818C8CDA201150EC00E798C6 /* SearchAPIClient.swift in Sources */,
-				817F68B62012D5AF0083235D /* CollectionsView.swift in Sources */,
+				8199901B2012656900AE9CFB /* UserPreference.swift in Sources */,
+				819990132012527000AE9CFB /* LocationService.swift in Sources */,
 				818C8CEB2011523400E798C6 /* ImageCache.swift in Sources */,
 				818C8CD6201150EC00E798C6 /* Annotation.swift in Sources */,
 				818C8CD9201150EC00E798C6 /* PhotoAPIClient.swift in Sources */,

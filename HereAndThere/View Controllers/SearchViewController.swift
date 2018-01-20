@@ -51,6 +51,7 @@ class SearchViewController: UIViewController {
 		//Delegates and Datasource
 		searchView.collectionView.delegate = self
 		searchView.collectionView.dataSource = self
+		searchView.venueSearchBar.delegate = self
 		searchView.citySearchBar.delegate = self
 		searchView.searchMap.delegate = self
         searchView.venueSearchBar.delegate = self
@@ -82,12 +83,13 @@ class SearchViewController: UIViewController {
     func setupNavigationBar() {
 //        navigationItem.title = "Search"
         navigationItem.titleView = searchView.venueSearchBar
-        navigationItem.titleView?.backgroundColor = .white
-        
+    navigationItem.titleView?.backgroundColor = .white
+
 		//right bar button for toggling between map & list
 		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
 		navigationItem.rightBarButtonItem = toggleBarItem
 	}
+  
 	@objc func toggleListAndMap() {
 		self.navigationController?.pushViewController(ResultsViewController(), animated: true)
 	}

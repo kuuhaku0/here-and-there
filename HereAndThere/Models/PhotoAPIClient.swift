@@ -8,6 +8,7 @@ import Alamofire
 
 // MARK: - FourSquare Photo API Client
 struct PhotoAPIClient {
+
     private init(){}
     static let manager = PhotoAPIClient()
     
