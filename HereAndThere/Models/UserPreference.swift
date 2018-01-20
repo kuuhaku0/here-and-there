@@ -1,7 +1,7 @@
 //  UserPreference.swift
-//  HereAndThere
+//  FindASpot
 //  Created by C4Q on 1/19/18.
-//  Copyright © 2018 HereAndThere. All rights reserved.
+//  Copyright © 2018 Winston Maragh. All rights reserved.
 
 import Foundation
 
@@ -43,7 +43,7 @@ extension UserPreference {
 	}
 	//Get Longitude
 	public func getLongitude() -> Double {
-		guard let longitude = UserDefaults.standard.object(forKey: UserKeys.currentLatitudeKey) as? Double else { print("no stored longitude"); return 0.0 }
+		guard let longitude = UserDefaults.standard.object(forKey: UserKeys.currentLongitudeKey) as? Double else { print("no stored longitude"); return 0.0 }
 		return longitude
 	}
 	//Get Address
@@ -52,3 +52,4 @@ extension UserPreference {
 		return address
 	}
 }
+

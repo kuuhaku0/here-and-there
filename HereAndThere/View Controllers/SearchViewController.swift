@@ -6,7 +6,6 @@
 import UIKit
 import CoreLocation
 import MapKit
-//import SnapKit
 
 class SearchViewController: UIViewController {
 
@@ -18,28 +17,27 @@ class SearchViewController: UIViewController {
 	var currentLocation: CLLocation!
 	var latLong: String = ""
 	var near: String = "" //New%20York,%20NY
-	var venueSearchTerm = "" {
+
+	private var venues = [Venue]() {
 		didSet {
-            loadVenues(search: venueSearchTerm, latLong: latLong, near: near)
-        }
-	}
-    
-	var venues: [Venue] = [] {
-		didSet {
-			DispatchQueue.main.async {
-//                self.searchView.collectionView.reloadData()
-				self.addVenueLocationsOnMap()
-			}
+			addAnnotationsToMap()
 		}
 	}
-    
-	var venuesPhotos = [PhotosItem]() {
+	private var annotations = [MKAnnotation]()
+	private var currentSelectedVenue: Venue!
+	private var currentSelectedVenuePhoto: UIImage!
+	private var currentSelectedVenuePhotos = [PhotoObject]() {
 		didSet {
-//            self.searchView.collectionView.reloadData()
+			//            self.searchView.collectionView.reloadData()
 		}
 	}
-    
+
 	let cellSpacing: CGFloat = 1.0 //cellspacing Property for collectionView Flow Layout
+
+
+
+
+    
 
 	//MARK: View Overrides
 	override func viewDidLoad() {
@@ -47,18 +45,18 @@ class SearchViewController: UIViewController {
 		view.addSubview(searchView)  //add customView to access properties
 
 		//Delegates and Datasource
-		searchView.collectionView.delegate = self
-		searchView.collectionView.dataSource = self
 		searchView.venueSearchBar.delegate = self
 		searchView.citySearchBar.delegate = self
 		searchView.searchMap.delegate = self
-        searchView.venueSearchBar.delegate = self
-        
+		searchView.collectionView.delegate = self
+		searchView.collectionView.dataSource = self
+
 		//Setup
-		setupUI()
+		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
+		setupNavigationBar()
+		let _ = LocationService.manager.checkForLocationServices()
 		setupLocation()
-		loadVenues(search: "chinese", latLong: latLong, near: near) //load default venues on startup
-//      PhotoAPIClient.manager.getVenuePhotos(venueID: "525eeb3811d2c49bf03e23ec")
+		//PhotoAPIClient.manager.getVenuePhotos(venueID: "525eeb3811d2c49bf03e23ec")
 	}
     
 	override func viewWillAppear(_ animated: Bool) {
@@ -67,18 +65,15 @@ class SearchViewController: UIViewController {
 	}
 
 	//Custom Methods
-	func setupUI(){
-		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
-		setupNavigationBar()
-	}
 	func setupLocation(){
 		determineMyLocation()
 		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832)
 		latLong = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
 	}
 	func setupNavigationBar() {
-		navigationItem.title = "Search"
+		navigationItem.title = "Search for Venue"
 		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.titleView = searchView.venueSearchBar
 
 		//right bar button for toggling between map & list
@@ -110,27 +105,54 @@ class SearchViewController: UIViewController {
 
 	//load the venues (API Call) in venues array
 	func loadVenues(search: String, latLong: String, near: String) {
-        SearchAPIClient.manager.getVenues(from: search, latLong: latLong, near: near) { self.venues = $0 }
+        SearchAPIClient.manager.getVenues(from: search, coordinate: latLong, near: near) { self.venues = $0 }
     }
-    
-	func addVenueLocationsOnMap(){
-		var venueAnnotations: [MKAnnotation] = []
-		//add each venue annotation to an array
+
+	func addAnnotationsToMap(){
+		// creating annotations
 		venues.forEach { (venue) in
-			let venueAnnotation = venueLocation(coordinate: CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng), title: venue.name, subtitle: venue.contact.formattedPhone)
-			venueAnnotations.append(venueAnnotation)
+				//	let venueAnnotation = venueLocation(coordinate: CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng), title: venue.name, subtitle: venue.contact.formattedPhone)
+			let venueAnnotation = MKPointAnnotation()
+			venueAnnotation.coordinate = CLLocationCoordinate2DMake(venue.location.lat, venue.location.lng)
+			venueAnnotation.title = venue.name
+//			venueAnnotation.subtitle = venue.contact.formattedPhone
+			annotations.append(venueAnnotation)
 		}
-		self.searchView.searchMap.addAnnotations(venueAnnotations)
+		// add annotations to map
+		DispatchQueue.main.async {
+			self.searchView.searchMap.addAnnotations(self.annotations)
+			self.searchView.searchMap.showAnnotations(self.annotations, animated: true)
+			self.searchView.collectionView.reloadData()
+		}
 	}
+
 }
 
-// MARK: Search Bars (venueSearch (0) and near (1))
+
+// MARK: SearchBar Delegate
 extension SearchViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.resignFirstResponder()
-		if searchBar.tag == 0 { self.venueSearchTerm = searchBar.text ?? "" }
-		if searchBar.tag == 1 { self.near = searchBar.text?.replacingOccurrences(of: " ", with: "%20") ?? ""}
-        searchBar.text = ""
+
+		// validate venue search
+		guard let text = searchView.venueSearchBar.text else { print("venue search is nil"); return }
+		guard !text.isEmpty else { print("venue text is empty"); return }
+		guard let encodedVenueSearch = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { print("spaces not allowed"); return }
+
+		// check for empty address field. i.e placeholder text
+		var address: String!
+		if let value = searchView.citySearchBar.text {
+			if value.isEmpty { address = nil}
+			else { address = value.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)}
+		}
+
+		//API Call to get venues
+		SearchAPIClient.manager.getVenues(from: encodedVenueSearch, coordinate: "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)", near: near) { (OnlineVenues) in
+			self.venues.removeAll()
+			self.searchView.searchMap.removeAnnotations(self.annotations)
+			self.annotations.removeAll()
+			self.venues = OnlineVenues
+		}
 	}
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.text = ""
@@ -140,29 +162,64 @@ extension SearchViewController: UISearchBarDelegate {
 
 // MARK: MapView Delegate
 extension SearchViewController : MKMapViewDelegate {
-//	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//		<#code#>
-//	}
-//	func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-//		<#code#>
-//	}
-//	func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-//		<#code#>
-//	}
+	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+		//gets called on every location on the map
+
+		//this keeps the user location point as a default blue dot. Ignore the userlocation.
+		if annotation is MKUserLocation { return nil }
+
+		//setup annotation view for map - we can fully customize the marker
+		var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "PlaceAnnotationView") as? MKMarkerAnnotationView
+
+		//setup annotation view
+		if annotationView == nil {
+			annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "PlaceAnnotationView")
+			annotationView?.canShowCallout = true
+			annotationView?.animatesWhenAdded = true
+
+//			let index = annotations.index{$0 === annotation } //class comparison
+//			if let annotationIndex = index {
+//				let venue = venues[annotationIndex]
+////				annotationView?.glyphText = venue.contact.phone
+//			}
+			annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+//			annotationView?.leftCalloutAccessoryView = UIImageView(image: currentSelectedVenuePhoto)
+			annotationView?.markerTintColor = UIColor.green
+			annotationView?.image = currentSelectedVenuePhoto
+		} else {
+			annotationView?.annotation = annotation
+		}
+		return annotationView
+	}
+
+	//Setting currentSelected Venue
+	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+		//find venue selected
+		let index = annotations.index{$0 === view.annotation} //where they match, pass the index
+		guard let annotationIndex = index else {print ("index is nil"); return }
+		let venue = venues[annotationIndex]
+		currentSelectedVenue = venue
+	}
+
+	func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+		let detailVC = DetailViewController(venue: currentSelectedVenue)
+		navigationController?.pushViewController(detailVC, animated: true)
+	}
+
 //	func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {
 //		<#code#>
 //	}
 
 	//for directions from point to point
-//	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
-//		if overlay is MKPolyline {
-//			var polylineRenderer = MKPolylineRenderer(overlay: overlay)
-//			polylineRenderer.strokeColor = UIColor.blueColor()
-//			polylineRenderer.lineWidth = 5
-//			return polylineRenderer
-//		}
-//		return nil
-//	}
+	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+		if overlay is MKPolyline {
+			var polylineRenderer = MKPolylineRenderer(overlay: overlay)
+			polylineRenderer.strokeColor = UIColor.blue
+			polylineRenderer.lineWidth = 5
+			return polylineRenderer
+		}
+		return nil
+	}
 }
 
 //MARK: Core Location Manager - Delegate
@@ -227,20 +284,19 @@ extension SearchViewController : UICollectionViewDataSource {
 		customCell.backgroundColor = UIColor.clear //cell color
 		// property
 		let venue = venues[indexPath.row]
+		customCell.nameLabel.text = venue.name
 
-		//get image
-		customCell.imageView.image = nil
-
-		//Get Photo Data from venue ID
-//        PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) {self.venuesPhotos = $0}
-
-//		let imageStr = "\(prefix)\(size)\(suffix)"
-
-		//call ImageHelper
-//            ImageHelper.manager.getImage(from: "https://igx.4sqi.net/img/general/300x500/5163668_xXFcZo7sU8aa1ZMhiQ2kIP7NllD48m7qsSwr1mJnFj4.jpg",
-//                                                                     completionHandler: { customCell.imageView.image = $0; customCell.setNeedsLayout();},
-//                                                                     errorHandler: {print($0)})
-
+		PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
+			self.currentSelectedVenuePhotos = onlinePhotoObjects
+			//"https://igx.4sqi.net/img/general/300x500/5163668_xXFcZo7sU8aa1ZMhiQ2kIP7NllD48m7qsSwr1mJnFj4.jpg"
+			let imageStr = "\(self.currentSelectedVenuePhotos[0].prefix)100x100\(self.currentSelectedVenuePhotos[0].suffix)"
+			ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
+				customCell.imageView.image = nil
+				customCell.imageView.image = onlineImage
+				self.currentSelectedVenuePhoto = onlineImage
+				customCell.setNeedsLayout()
+			}, errorHandler: {print($0)})
+		}
 		return customCell
 	}
 }
@@ -273,20 +329,15 @@ extension SearchViewController : UICollectionViewDelegateFlowLayout {
 extension SearchViewController : UICollectionViewDelegate {
 	//action for selected item
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		//		let venue = venues[indexPath.row]
-		let detailVC = DetailViewController()
-		detailVC.modalPresentationStyle = .overCurrentContext
-		detailVC.modalTransitionStyle = .crossDissolve
-		navigationController?.present(detailVC, animated: true, completion: nil)
-
-		//		let detailVC = DetailViewController()
-		//		self.navigationController?.pushViewController(detailVC, animated: true)
+		let venue = venues[indexPath.row]
+		let detailVC = DetailViewController(venue: venue)
+		navigationController?.pushViewController(detailVC, animated: true)
 	}
 }
 
 
 
-//for directions
+//for directions using mapKit
 //	func showRouteOnMap() {
 //		let request = MKDirectionsRequest()
 //		request.source = MKMapItem(placemark: MKPlacemark(coordinate: annotation1.coordinate, addressDictionary: nil))

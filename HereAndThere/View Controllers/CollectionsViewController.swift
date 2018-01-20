@@ -7,6 +7,11 @@ import UIKit
 
 class CollectionsViewController: UIViewController {
 
+	//MARK: View Overrides
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
+	}
 
 }
 

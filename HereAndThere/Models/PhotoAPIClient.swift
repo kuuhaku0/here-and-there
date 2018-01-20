@@ -8,30 +8,26 @@ import Alamofire
 
 // MARK: - FourSquare Photo API Client
 struct PhotoAPIClient {
+	private init(){}
+	static let manager = PhotoAPIClient()
 
-    private init(){}
-    static let manager = PhotoAPIClient()
-    
-    private let CLIENT_ID = "PWWSABHMRSWVYZNHL1QG20A5050WJAI2MIU3AUFWVRQHCITA"
-    private let CLIENT_SECRET = "WFF2451MT2QIYKDCQEXN3ADT5ZKCYQOFIRXPODYUZSSYBSDT"
-    
-    func getVenuePhotos(venueID: String, completion: @escaping ([PhotosItem]) -> Void) {
-        let date = "20180118"
-        let FOURSQUARE_PHOTO_URL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?&client_id=\(CLIENT_ID)&client_secret=\(CLIENT_SECRET)&v=\(date)"
+	private let date = Date().description.prefix(10).replacingOccurrences(of: "-", with: "")
+
+	func getVenuePhotos(venueID: String, completion: @escaping ([PhotoObject]) -> Void) {
+		let FOURSQUARE_PHOTO_URL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?\(FourSquareAPIKeys.fourSquareAuthorization)"
         
-        Alamofire.request(FOURSQUARE_PHOTO_URL).responseJSON {(response) in
-            if response.result.isSuccess {
-                if let data = response.data {
-                    do {
-                        let JSON = try JSONDecoder().decode(PhotoJSONResponse.self, from: data)
-                        let response = JSON.response
-                        let allItems = response.photos
-                        let photoItems = allItems.items
-                        completion(photoItems)
-                    }
-                    catch {
-                        print("Error processing data \(error)")
-                    }
+		Alamofire.request(FOURSQUARE_PHOTO_URL).responseJSON {(response) in
+			if response.result.isSuccess {
+					if let data = response.data {
+						do {
+								let JSON = try JSONDecoder().decode(FourSquarePhotoObjectsJSON.self, from: data)
+								let numOfPhotoObjects = JSON.response.photos.count //Int
+								let photoObjects = JSON.response.photos.items //Object
+								completion(photoObjects)
+						}
+						catch {
+									print("Error processing data \(error)")
+						}
                 }
             } else {
                 print("Error\(String(describing: response.result.error))")

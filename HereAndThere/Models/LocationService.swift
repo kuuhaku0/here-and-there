@@ -7,11 +7,9 @@
 import Foundation
 import CoreLocation
 
-
 class LocationService: NSObject {
 
 	// MARK: view Lifecycle
-
 	private override init() {
 		super.init() //whenever you override you should call super
 		locationManager = CLLocationManager()
