@@ -4,9 +4,9 @@
 //  Copyright © 2018 Winston Maragh. All rights reserved.
 
 import UIKit
-
+import MaterialComponents.MDCCollectionViewCell
 //Custom CollectionView Cell for SearchViewController
-class SearchCVCell: UICollectionViewCell {
+class SearchCVCell: MDCCollectionViewCell {
 
 	// MARK: - Create elements in Cell
 	lazy var imageView: UIImageView = {

@@ -4,6 +4,7 @@
 //  Copyright © 2018 HereAndThere. All rights reserved.
 
 import UIKit
+import MaterialComponents.MaterialCollections
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,11 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let collectionsVC = CollectionsViewController()
         collectionsVC.tabBarItem = UITabBarItem(title: "Collections", image: #imageLiteral(resourceName: "listCollection1"), tag: 1)
         let collectionsNavController = UINavigationController(rootViewController: collectionsVC)
+
         
         //TabBar Controller
         let tabBC = UITabBarController()
         tabBC.setViewControllers([searchNavController, collectionsNavController], animated: true)
-        
         //setup Window
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBC
