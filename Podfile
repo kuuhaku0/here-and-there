@@ -16,5 +16,5 @@ pod 'SnapKit', '~> 4.0.0'
   pod 'MaterialComponents/AppBar'
   pod 'MaterialComponents/Buttons'
   pod 'MaterialComponents/Collections'
-
+  pod 'MaterialComponents/ShadowElevations
 end

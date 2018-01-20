@@ -5,18 +5,22 @@
 
 import UIKit
 import MaterialComponents.MDCCollectionViewController
+import MaterialComponents
 
 class CollectionsViewController: MDCCollectionViewController {
-    let cellSpacing: CGFloat = 10
+    
+    let appBar = MDCAppBar()
+    
+    let cellSpacing: CGFloat = 9
     
     let colors = ["red", "blue", "green", "black", "yellow", "purple"]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         collectionView?.register(MDCCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView?.showsVerticalScrollIndicator = false
     }
-
 }
 extension CollectionsViewController {
     
@@ -28,7 +32,7 @@ extension CollectionsViewController {
     }
     //Layout - Inset for section
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
     //Layout - line spacing
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

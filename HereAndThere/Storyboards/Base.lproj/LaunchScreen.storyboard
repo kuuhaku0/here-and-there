@@ -20,6 +20,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Untitled-1-2" translatesAutoresizingMaskIntoConstraints="NO" id="l71-n7-8sP">
                                 <rect key="frame" x="0.0" y="0.0" width="537" height="695"/>
+                                <color key="tintColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-33" translatesAutoresizingMaskIntoConstraints="NO" id="BeY-KY-MaD">
                                 <rect key="frame" x="99.5" y="233" width="176" height="201.5"/>
