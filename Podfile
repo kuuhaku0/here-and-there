@@ -14,5 +14,12 @@ pod 'SwiftyJSON'
 pod 'SVProgressHUD'
 pod 'SnapKit', '~> 4.0.0'
 pod 'AlamofireImage', '~> 3.3'
+pod 'RAMAnimatedTabBarController'
+
+
+# Pods for MDC-Tutorial
+  pod 'MaterialComponents/AppBar'
+  pod 'MaterialComponents/Buttons'
+  pod 'MaterialComponents/Collections'
 
 end

@@ -5,7 +5,7 @@
 
 import UIKit
 import MapKit
-
+import MaterialComponents.MaterialCollections
 //Custom View for overall Layout of SearchViewController
 class SearchView: UIView {
 
@@ -21,7 +21,9 @@ class SearchView: UIView {
 	}()
 	lazy var citySearchBar: UISearchBar = {
 		let csb = UISearchBar()
-		csb.showsCancelButton = true
+        csb.barStyle = .default
+		csb.showsCancelButton = false
+        csb.backgroundColor = .white
 		csb.placeholder = "New York, NY"
 		csb.barTintColor = .white
 		csb.tag = 1
@@ -45,12 +47,10 @@ class SearchView: UIView {
 		cvLayout.scrollDirection = .horizontal
 		let cv = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: cvLayout)
 		cv.register(SearchCVCell.self, forCellWithReuseIdentifier: "SearchCVCell")
-		cv.backgroundColor = UIColor.clear
+		cv.backgroundColor = UIColor.lightGray
 		return cv
 	}()
-    
-
-
+  
 	// MARK: - Setup elements in View
 	override init(frame: CGRect){
 		super.init(frame: UIScreen.main.bounds)
@@ -76,11 +76,12 @@ class SearchView: UIView {
 
 	// MARK: - Add elements & layout constraints to View
 	private func addCitySearchBar(){
-		addSubview(citySearchBar)
-		citySearchBar.translatesAutoresizingMaskIntoConstraints = false
-		citySearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-		citySearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-		citySearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        addSubview(citySearchBar)
+        citySearchBar.translatesAutoresizingMaskIntoConstraints = false
+        citySearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        citySearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        citySearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        citySearchBar.heightAnchor.constraint(equalToConstant: 40).isActive = true
 	}
 	private func addSearchMap(){
 		addSubview(searchMap)

@@ -7,6 +7,8 @@ import UIKit
 import CoreLocation
 import MapKit
 //import SnapKit
+import MaterialComponents.MaterialCollections
+import MaterialComponents.MaterialCollectionLayoutAttributes
 
 class SearchViewController: UIViewController {
 
@@ -69,22 +71,25 @@ class SearchViewController: UIViewController {
 	//Custom Methods
 	func setupUI(){
 		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
-		setupNavigationBar()
-	}
-	func setupLocation(){
-		determineMyLocation()
-		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832)
-		latLong = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
-	}
-	func setupNavigationBar() {
-		navigationItem.title = "Search"
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.titleView = searchView.venueSearchBar
+        tabBarController?.tabBar.backgroundColor = .white
+        tabBarController?.tabBar.barTintColor = .white
+        setupNavigationBar()
+    }
+    func setupLocation(){
+        determineMyLocation()
+        currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832)
+        latLong = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
+    }
+    func setupNavigationBar() {
+//        navigationItem.title = "Search"
+        navigationItem.titleView = searchView.venueSearchBar
+    navigationItem.titleView?.backgroundColor = .white
 
 		//right bar button for toggling between map & list
 		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
 		navigationItem.rightBarButtonItem = toggleBarItem
 	}
+  
 	@objc func toggleListAndMap() {
 		self.navigationController?.pushViewController(ResultsViewController(), animated: true)
 	}
@@ -205,121 +210,4 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 
 
 //MARK: CollectionView Datasource
-extension SearchViewController : UICollectionViewDataSource {
-	//# of sections
-	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		return 1
-	}
-	//# of items in section
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return venues.count
-	}
-	//setup for cell
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCVCell", for: indexPath) as! SearchCVCell
 
-		//altering Cell shape & border
-		customCell.layer.cornerRadius = 5.0
-		customCell.layer.borderColor = UIColor.blue.cgColor
-		customCell.layer.borderWidth = 1.0
-
-		//setup attributes
-		customCell.backgroundColor = UIColor.clear //cell color
-		// property
-		let venue = venues[indexPath.row]
-
-		//get image
-		customCell.imageView.image = nil
-
-		//Get Photo Data from venue ID
-//        PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) {self.venuesPhotos = $0}
-
-//		let imageStr = "\(prefix)\(size)\(suffix)"
-
-		//call ImageHelper
-//            ImageHelper.manager.getImage(from: "https://igx.4sqi.net/img/general/300x500/5163668_xXFcZo7sU8aa1ZMhiQ2kIP7NllD48m7qsSwr1mJnFj4.jpg",
-//                                                                     completionHandler: { customCell.imageView.image = $0; customCell.setNeedsLayout();},
-//                                                                     errorHandler: {print($0)})
-
-		return customCell
-	}
-}
-
-
-//MARK: CollectionView - Delegate Flow Layout
-extension SearchViewController : UICollectionViewDelegateFlowLayout {
-	//Layout - Size for item
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let numCells: CGFloat = 4
-		let numSpaces: CGFloat = numCells + 1
-		let screenWidth = UIScreen.main.bounds.width
-		return CGSize(width: (screenWidth - (cellSpacing * numSpaces)) / numCells, height: collectionView.bounds.height - (cellSpacing * 2))
-	}
-	//Layout - Inset for section
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-		return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-	}
-	//Layout - line spacing
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-		return cellSpacing + 5
-	}
-	//Layout - inter item spacing
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-		return cellSpacing
-	}
-}
-
-//MARK: CollectionView Delegate
-extension SearchViewController : UICollectionViewDelegate {
-	//action for selected item
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		//		let venue = venues[indexPath.row]
-		let detailVC = DetailViewController()
-		detailVC.modalPresentationStyle = .overCurrentContext
-		detailVC.modalTransitionStyle = .crossDissolve
-		navigationController?.present(detailVC, animated: true, completion: nil)
-
-		//		let detailVC = DetailViewController()
-		//		self.navigationController?.pushViewController(detailVC, animated: true)
-	}
-}
-
-
-
-//for directions
-//	func showRouteOnMap() {
-//		let request = MKDirectionsRequest()
-//		request.source = MKMapItem(placemark: MKPlacemark(coordinate: annotation1.coordinate, addressDictionary: nil))
-//		request.destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation2.coordinate, addressDictionary: nil))
-//		request.requestsAlternateRoutes = true
-//		request.transportType = .Automobile
-//
-//		let directions = MKDirections(request: request)
-//
-//		directions.calculateDirectionsWithCompletionHandler { [unowned self] response, error in
-//			guard let unwrappedResponse = response else { return }
-//
-//			if (unwrappedResponse.routes.count > 0) {
-//				self.mapView.addOverlay(unwrappedResponse.routes[0].polyline)
-//				self.mapView.setVisibleMapRect(unwrappedResponse.routes[0].polyline.boundingMapRect, animated: true)
-//			}
-//		}
-//	}
-
-
-//	func checkUserPermissions(){
-//		//checking user authorization permissions
-//			if CLLocationManager.locationServicesEnabled() { 		//if location is enabled
-//					if locationManager == nil {
-//						//set a new location Manager instance
-//						locationManager = CLLocationManager()
-//					}
-//					locationManager?.requestWhenInUseAuthorization()
-//					locationManager.delegate = self
-//					locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//					locationManager.requestAlwaysAuthorization()
-//					locationManager.startUpdatingLocation()
-//			} else { //not enabled - asks for permission
-//				//TO-DO:
-//			}
-//	}
