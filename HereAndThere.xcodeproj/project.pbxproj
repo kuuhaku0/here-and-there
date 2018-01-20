@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		30C914B532DCF0E5DE004F6F /* Pods_HereAndThere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */; };
 		814EFAA62013005B0002C758 /* CollectionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814EFAA52013005B0002C758 /* CollectionsViewCell.swift */; };
-		817F68B62012D5AF0083235D /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F68B52012D5AF0083235D /* CollectionsView.swift */; };
 		818C8CCD2011507C00E798C6 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CC82011507B00E798C6 /* ResultsViewController.swift */; };
 		818C8CCE2011507C00E798C6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CC92011507C00E798C6 /* DetailViewController.swift */; };
 		818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */; };
@@ -284,26 +283,18 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
 				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
-				"${BUILT_PRODUCTS_DIR}/RAMAnimatedTabBarController/RAMAnimatedTabBarController.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAMAnimatedTabBarController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

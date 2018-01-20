@@ -1,7 +1,5 @@
 PODS:
   - Alamofire (4.6.0)
-  - AlamofireImage (3.3.0):
-    - Alamofire (~> 4.5)
   - MaterialComponents/AppBar (44.3.0):
     - MaterialComponents/FlexibleHeader
     - MaterialComponents/HeaderStackView
@@ -86,33 +84,22 @@ PODS:
     - MaterialComponents/private/Application
   - MDFInternationalization (1.0.4)
   - MDFTextAccessibility (1.2.0)
-  - RAMAnimatedTabBarController (3.0.1)
   - SnapKit (4.0.0)
-  - SVProgressHUD (2.2.2)
-  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5)
-  - AlamofireImage (~> 3.3)
   - MaterialComponents/AppBar
   - MaterialComponents/Buttons
   - MaterialComponents/Collections
-  - RAMAnimatedTabBarController
   - SnapKit (~> 4.0.0)
-  - SVProgressHUD
-  - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
   MaterialComponents: db539717682b3c88b709b30070df7e188315aa25
   MDFInternationalization: e355b0cebecf53d60233bd267084e49366c82513
   MDFTextAccessibility: 94098925e0853551c5a311ce7c1ecefbe297cdb6
-  RAMAnimatedTabBarController: 78bafa7a1c1b162f0d4a86a936c0d1ee4a06ffcc
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
-  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: df781a55aeee3865d96c1e7ff023b4ecdba4b0ab
+PODFILE CHECKSUM: 8211cf1da73367aae4adc085150a5230133568db
 
 COCOAPODS: 1.4.0.beta.2
