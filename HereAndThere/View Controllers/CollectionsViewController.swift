@@ -4,8 +4,7 @@
 //  Copyright © 2018 HereAndThere. All rights reserved.
 
 import UIKit
-import MaterialComponents.MaterialCollectionLayoutAttributes
-import MaterialComponents.MaterialCollections
+import MaterialComponents.MDCCollectionViewController
 
 class CollectionsViewController: MDCCollectionViewController {
     let cellSpacing: CGFloat = 10

@@ -5,7 +5,6 @@
 
 import UIKit
 import MapKit
-import MaterialComponents.MaterialCollections
 //Custom View for overall Layout of SearchViewController
 class SearchView: UIView {
 
