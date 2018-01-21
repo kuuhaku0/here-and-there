@@ -9,14 +9,39 @@ import MapKit
 
 class SearchViewController: UIViewController {
 
-	//create instance of custom View
+	//MARK: View Overrides
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		view.addSubview(searchView)  //add customView to access properties
+
+		//Delegates and Datasource
+		searchView.venueSearchBar.delegate = self
+		searchView.citySearchBar.delegate = self
+		searchView.searchMap.delegate = self
+		searchView.collectionView.delegate = self
+		searchView.collectionView.dataSource = self
+
+		//Setup
+		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
+		setupNavigationBar()
+		setupLocation()
+		let _ = LocationService.manager.checkForLocationServices()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+//		setupLocation()
+	}
+
+
+	// MARK: create instance of SearchView
 	var searchView = SearchView()
 
 	// MARK: Properties
 	var locationManager: CLLocationManager! //instance of Location Manager
 	var currentLocation: CLLocation!
 	var latLong: String = ""
-	var near: String = "" //New%20York,%20NY
+	var near: String = ""
 
 	private var venues = [Venue]() {
 		didSet {
@@ -37,32 +62,6 @@ class SearchViewController: UIViewController {
 
 
 
-    
-
-	//MARK: View Overrides
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		view.addSubview(searchView)  //add customView to access properties
-
-		//Delegates and Datasource
-		searchView.venueSearchBar.delegate = self
-		searchView.citySearchBar.delegate = self
-		searchView.searchMap.delegate = self
-		searchView.collectionView.delegate = self
-		searchView.collectionView.dataSource = self
-
-		//Setup
-		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
-		setupNavigationBar()
-		let _ = LocationService.manager.checkForLocationServices()
-		setupLocation()
-		//PhotoAPIClient.manager.getVenuePhotos(venueID: "525eeb3811d2c49bf03e23ec")
-	}
-    
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		setupLocation()
-	}
 
 	//Custom Methods
 	func setupLocation(){
@@ -183,9 +182,21 @@ extension SearchViewController : MKMapViewDelegate {
 ////				annotationView?.glyphText = venue.contact.phone
 //			}
 			annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+
+			//Callout setup
+			//add an image to callout
+			let imageView = UIImageView.init(frame: CGRect(origin: CGPoint(x:0,y:0),size:CGSize(width:30,height:30)))
+//				imageView.image = UIImage(named: "coffee")
+//				imageView.image = UIImage(image: currentSelectedVenuePhoto)
+			imageView.image = currentSelectedVenuePhoto
+
+
+				annotationView!.leftCalloutAccessoryView = imageView
+
 //			annotationView?.leftCalloutAccessoryView = UIImageView(image: currentSelectedVenuePhoto)
-			annotationView?.markerTintColor = UIColor.green
-			annotationView?.image = currentSelectedVenuePhoto
+//			annotationView?.markerTintColor = UIColor.green
+//			annotationView?.image = currentSelectedVenuePhoto
+
 		} else {
 			annotationView?.annotation = annotation
 		}
