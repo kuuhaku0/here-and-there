@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30C914B532DCF0E5DE004F6F /* Pods_HereAndThere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */; };
+		8120359B20165CB400A054E0 /* FourSquareAPIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120359A20165CB400A054E0 /* FourSquareAPIKeys.swift */; };
 		814EFAA62013005B0002C758 /* CollectionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814EFAA52013005B0002C758 /* CollectionsViewCell.swift */; };
 		816684212013AC8F00E9A803 /* SearchViewCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816684202013AC8F00E9A803 /* SearchViewCollectionViewController.swift */; };
 		816684232013B5A800E9A803 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 816684222013B5A800E9A803 /* Main.storyboard */; };
@@ -35,6 +36,8 @@
 /* Begin PBXFileReference section */
 		0A808A0BB7A51400B35104DB /* Pods-HereAndThere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndThere.release.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere.release.xcconfig"; sourceTree = "<group>"; };
 		59EC7478E320668F8C843A3D /* Pods-HereAndThere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndThere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere.debug.xcconfig"; sourceTree = "<group>"; };
+		8120359A20165CB400A054E0 /* FourSquareAPIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareAPIKeys.swift; sourceTree = "<group>"; };
+		8120359D2016698D00A054E0 /* C4Q.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = C4Q.gpx; sourceTree = "<group>"; };
 		814EFAA52013005B0002C758 /* CollectionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewCell.swift; sourceTree = "<group>"; };
 		816684202013AC8F00E9A803 /* SearchViewCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCollectionViewController.swift; sourceTree = "<group>"; };
 		816684222013B5A800E9A803 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -92,9 +95,20 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8120359C2016674000A054E0 /* Bonus */ = {
+			isa = PBXGroup;
+			children = (
+				817F68B52012D5AF0083235D /* CollectionsView.swift */,
+				814EFAA52013005B0002C758 /* CollectionsViewCell.swift */,
+				816684202013AC8F00E9A803 /* SearchViewCollectionViewController.swift */,
+			);
+			path = Bonus;
+			sourceTree = "<group>";
+		};
 		818C8CE7201151F900E798C6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				8120359A20165CB400A054E0 /* FourSquareAPIKeys.swift */,
 				818C8CEA2011523400E798C6 /* FileManagerHelper.swift */,
 				818C8CE82011523300E798C6 /* ImageCache.swift */,
 				818C8CE92011523300E798C6 /* ImageHelper.swift */,
@@ -129,6 +143,7 @@
 				81AC7AA3200EA86D00010174 /* Models */,
 				81AC7AA0200EA85700010174 /* Views */,
 				81AC7A9C200EA83100010174 /* View Controllers */,
+				8120359C2016674000A054E0 /* Bonus */,
 			);
 			path = HereAndThere;
 			sourceTree = "<group>";
@@ -137,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				818C8CCB2011507C00E798C6 /* SearchViewController.swift */,
-				816684202013AC8F00E9A803 /* SearchViewCollectionViewController.swift */,
 				818C8CC82011507B00E798C6 /* ResultsViewController.swift */,
 				818C8CC92011507C00E798C6 /* DetailViewController.swift */,
 				818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */,
@@ -158,9 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				818C8CDF201150FE00E798C6 /* SearchView.swift */,
-				817F68B52012D5AF0083235D /* CollectionsView.swift */,
 				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
-				814EFAA52013005B0002C758 /* CollectionsViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -185,6 +197,7 @@
 				81AC7A96200EA72400010174 /* Info.plist */,
 				81AC7A91200EA72400010174 /* Assets.xcassets */,
 				81AC7A8A200EA72400010174 /* AppDelegate.swift */,
+				8120359D2016698D00A054E0 /* C4Q.gpx */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -328,6 +341,7 @@
 			files = (
 				818C8CD8201150EC00E798C6 /* Photo.swift in Sources */,
 				818C8CE5201150FE00E798C6 /* SearchView.swift in Sources */,
+				8120359B20165CB400A054E0 /* FourSquareAPIKeys.swift in Sources */,
 				818C8CD7201150EC00E798C6 /* Search.swift in Sources */,
 				818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */,
 				818C8CEC2011523400E798C6 /* ImageHelper.swift in Sources */,
