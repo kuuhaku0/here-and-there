@@ -15,6 +15,7 @@ class SearchViewController: UIViewController {
     //create instance of custom View
     var searchView = SearchView()
     let appBar = MDCAppBar()
+	
     // MARK: Properties
     var locationManager: CLLocationManager! //instance of Location Manager
     var currentLocation: CLLocation!
@@ -79,7 +80,6 @@ class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupLocation()
     }
     
     //Gesture Method
