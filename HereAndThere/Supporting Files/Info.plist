@@ -4,7 +4,11 @@
 <dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>xxx</string>
+		<string>tel</string>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>telprompt</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

@@ -116,7 +116,8 @@ class SearchViewController: UIViewController {
 	}
 
 	private func callNumber(phoneNumber: String) {
-		if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+//		if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+		if let phoneCallURL = URL(string: "telprompt://\(phoneNumber)") {
 			if (UIApplication.shared.canOpenURL(phoneCallURL)) {
 				UIApplication.shared.open(phoneCallURL, options: [:], completionHandler: nil)
 			}
