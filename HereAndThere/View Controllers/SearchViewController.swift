@@ -35,6 +35,7 @@ class SearchViewController: UIViewController {
 	// MARK: Properties
 	var locationManager: CLLocationManager! //instance of Location Manager
 	var currentLocation: CLLocation!
+
 	var near: String = ""
 
 	private var venues = [Venue]() {
@@ -54,7 +55,7 @@ class SearchViewController: UIViewController {
 	//Custom Methods
 	fileprivate func setupLocation(){
 		determineMyLocation()
-		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832)
+		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832) //change
 	}
 	fileprivate func setupNavigationBar() {
 		navigationItem.title = "Search for Venue"
