@@ -26,7 +26,7 @@ class SearchViewController: UIViewController {
 		setupNavigationBar()
 		setupLocation()
 		let check = LocationService.manager.checkForLocationServices()
-		print("check: \(check)")
+		print("check location services authorization: \(check)")
 	}
 
 	// MARK: create instance of SearchView
@@ -52,23 +52,21 @@ class SearchViewController: UIViewController {
 
 
 	//Custom Methods
-	func setupLocation(){
+	fileprivate func setupLocation(){
 		determineMyLocation()
 		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832)
 	}
-	func setupNavigationBar() {
+	fileprivate func setupNavigationBar() {
 		navigationItem.title = "Search for Venue"
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.titleView = searchView.venueSearchBar
-//		searchView.venueSearchBar.s
+//		navigationItem.titleView = searchView.stackSearchBars
 
-		let searchController = UISearchController(searchResultsController: nil)
-		navigationItem.searchController = searchController
-//		navigationItem.searchController?.dimsBackgroundDuringPresentation = true
-//		navigationItem.searchController?.obscuresBackgroundDuringPresentation = true
-		navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
-
+		//Search Controller
+//		let searchController = UISearchController(searchResultsController: nil)
+//		navigationItem.searchController = searchController
+//		navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
 
 		//right bar button for toggling between map & list
 		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
@@ -79,7 +77,7 @@ class SearchViewController: UIViewController {
 	}
 
 
-	func checkUserLocationPermission(){
+	fileprivate func checkUserLocationPermission(){
 		switch CLLocationManager.authorizationStatus() {
 			case .authorizedAlways, .authorizedWhenInUse:
 				print(); print("Authorized"); print()
@@ -97,12 +95,7 @@ class SearchViewController: UIViewController {
 		}
 	}
 
-	//load the venues (API Call) in venues array
-	func loadVenues(search: String, latLong: String, near: String) {
-        SearchAPIClient.manager.getVenues(from: search, coordinate: latLong, near: near) { self.venues = $0 }
-    }
-
-	func addAnnotationsToMap(){
+	private func addAnnotationsToMap(){
 		// creating annotations
 		venues.forEach { (venue) in
 			let venueAnnotation = venueLocation(coordinate: CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng), title: venue.name, subtitle: venue.contact.formattedPhone ?? "")
@@ -117,6 +110,8 @@ class SearchViewController: UIViewController {
 	}
 
 }
+
+
 
 
 
@@ -158,6 +153,8 @@ extension SearchViewController: UISearchBarDelegate {
 		searchBar.text = ""
 	}
 }
+
+
 
 
 
@@ -219,8 +216,8 @@ extension SearchViewController : MKMapViewDelegate {
 //MARK: Core Location Manager - Delegate
 extension SearchViewController :  CLLocationManagerDelegate  {
 	func determineMyLocation() {
-		locationManager = CLLocationManager()
-		locationManager.delegate = self
+		locationManager = CLLocationManager() //create instance of locationManager
+		locationManager.delegate = self //set delegate to SearchViewController
 		locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		locationManager.distanceFilter = 1000 //meters
 		locationManager.requestAlwaysAuthorization()
@@ -229,8 +226,12 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 		if CLLocationManager.locationServicesEnabled() {
 			locationManager.startUpdatingLocation()
 		}
+		//TODO: Prompt user to
+
+
 	}
 
+	//did Update Location
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		let userLocation: CLLocation = locations[0]
 		print("User latitude = \(userLocation.coordinate.latitude)")
@@ -242,6 +243,7 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 		//        locationManager.stopUpdatingLocation()
 	}
 
+	//did update Location
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
 		searchView.searchMap.setRegion(region, animated: true)
@@ -252,6 +254,8 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 		print("Error: \(error)")
 	}
 }
+
+
 
 
 
@@ -282,8 +286,6 @@ extension SearchViewController : UICollectionViewDataSource {
 
 		PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
 			self.currentSelectedVenuePhotosObject = onlinePhotoObjects
-			//"https://igx.4sqi.net/img/general/300x500/5163668_xXFcZo7sU8aa1ZMhiQ2kIP7NllD48m7qsSwr1mJnFj4.jpg"
-
 			if !self.currentSelectedVenuePhotosObject.isEmpty {
 				let imageStr = "\(self.currentSelectedVenuePhotosObject[0].prefix)100x100\(self.currentSelectedVenuePhotosObject[0].suffix)"
 				ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
@@ -299,7 +301,6 @@ extension SearchViewController : UICollectionViewDataSource {
 		return customCell
 	}
 }
-
 
 //MARK: CollectionView - Delegate Flow Layout
 extension SearchViewController : UICollectionViewDelegateFlowLayout {

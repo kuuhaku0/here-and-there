@@ -11,8 +11,6 @@ struct PhotoAPIClient {
 	private init(){}
 	static let manager = PhotoAPIClient()
 
-	private let date = Date().description.prefix(10).replacingOccurrences(of: "-", with: "")
-
 	func getVenuePhotos(venueID: String, completion: @escaping ([PhotoObject]) -> Void) {
 		let FOURSQUARE_PHOTO_URL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?\(FourSquareAPIKeys.fourSquareAuthorization)"
         

@@ -165,9 +165,9 @@
 			children = (
 				818C8CD2201150EC00E798C6 /* Search.swift */,
 				818C8CD5201150EC00E798C6 /* SearchAPIClient.swift */,
+				818C8CD1201150EC00E798C6 /* Annotation.swift */,
 				818C8CD3201150EC00E798C6 /* Photo.swift */,
 				818C8CD4201150EC00E798C6 /* PhotoAPIClient.swift */,
-				818C8CD1201150EC00E798C6 /* Annotation.swift */,
 				819990122012527000AE9CFB /* LocationService.swift */,
 				8199901A2012656900AE9CFB /* UserPreference.swift */,
 			);

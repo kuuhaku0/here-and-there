@@ -10,22 +10,16 @@ import Alamofire
 struct SearchAPIClient {
 	private init(){}
 	static let manager = SearchAPIClient()
-    
-	private let date = Date().description.prefix(10).replacingOccurrences(of: "-", with: "")
-
+	
 	func getVenues(from search: String, coordinate: String, near: String, completion: @escaping ([Venue]) -> Void) {
 
-//			var FOURSQUARE_URL = ""
-//			if near == "" {
-//				FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
-//			} else {
-//				FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
-//			}
+			var FOURSQUARE_URL = ""
+			if near != "" {
+				FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
+			} else {
+				FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
+			}
 
-		var criteria = ""
-		if near != "" { criteria = "near=\(near)"}
-		else {criteria = "ll=\(coordinate)"}
-		var FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?\(criteria)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
 
 			//Network call to get data from foursquare
 			Alamofire.request(FOURSQUARE_URL).responseJSON { (response) in
@@ -39,7 +33,7 @@ struct SearchAPIClient {
 						catch {print("Error processing data \(error)")}
 					}
 				}
-					//response failed
+				//response failed
 				else {
 							print("Error\(String(describing: response.result.error))")
                 //TODO: NOTIFY USER OF CONNECTION ISSUE
