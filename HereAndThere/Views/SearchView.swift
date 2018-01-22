@@ -35,8 +35,9 @@ class SearchView: UIView {
 		smap.isZoomEnabled = true
 		smap.isScrollEnabled = true
 		smap.isPitchEnabled = true
-		smap.isRotateEnabled = true
+//		smap.isRotateEnabled = true
 		smap.showsUserLocation = true
+		smap.showsScale = true
 		return smap
 	}()
 	lazy var userTrackingButton: MKUserTrackingButton = {
