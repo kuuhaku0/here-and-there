@@ -21,7 +21,57 @@ class CollectionsViewController: MDCCollectionViewController {
         collectionView?.register(MDCCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView?.showsVerticalScrollIndicator = false
     }
+    
+    func configureNavBar() {
+        navigationItem.title = "My Collections"
+        configureAddButton()
+        configureBackButton()
+    }
+    
+    func configureAddButton() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.setRightBarButton(addButton, animated: false)
+    }
+    
+    @objc func addButtonTapped() {
+        
+    }
+    
+    func configureBackButton() {
+        let backButton = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(backButtonTapped))
+        navigationItem.backBarButtonItem = backButton
+        navigationItem.hidesBackButton = false
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func configureCreateButton() {
+        let createButton = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(createButtonTapped))
+        navigationItem.rightBarButtonItem = createButton
+    }
+    
+    @objc func createButtonTapped() {
+        
+    }
+    
+    func configureCancelButton() {
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
+        navigationItem.leftBarButtonItem = cancelButton
+
+    }
+    
+    @objc func cancelButtonTapped() {
+        
+    }
+    
 }
+
+
+
+
+
 extension CollectionsViewController {
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -30,6 +30,7 @@
 		81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC7A8A200EA72400010174 /* AppDelegate.swift */; };
 		81AC7A92200EA72400010174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A91200EA72400010174 /* Assets.xcassets */; };
 		81AC7A95200EA72400010174 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A93200EA72400010174 /* LaunchScreen.storyboard */; };
+		81E4420120163FB000887641 /* CollectionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E4420020163FB000887641 /* CollectionDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		81AC7A91200EA72400010174 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81AC7A94200EA72400010174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81AC7A96200EA72400010174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81E4420020163FB000887641 /* CollectionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailViewController.swift; sourceTree = "<group>"; };
 		8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HereAndThere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -141,6 +143,7 @@
 				818C8CC82011507B00E798C6 /* ResultsViewController.swift */,
 				818C8CC92011507C00E798C6 /* DetailViewController.swift */,
 				818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */,
+				81E4420020163FB000887641 /* CollectionDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				818C8CD8201150EC00E798C6 /* Photo.swift in Sources */,
+				81E4420120163FB000887641 /* CollectionDetailViewController.swift in Sources */,
 				818C8CE5201150FE00E798C6 /* SearchView.swift in Sources */,
 				818C8CD7201150EC00E798C6 /* Search.swift in Sources */,
 				818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */,
