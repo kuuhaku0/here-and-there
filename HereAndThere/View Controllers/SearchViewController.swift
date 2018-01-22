@@ -67,6 +67,7 @@ class SearchViewController: UIViewController {
 	//Custom Methods
 	fileprivate func setupLocation(){
 		determineMyLocation()
+		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832) //change
 	}
 	fileprivate func setupNavigationBar() {
 		navigationItem.title = "Search for Venue"
@@ -113,6 +114,14 @@ class SearchViewController: UIViewController {
 			self.searchView.collectionView.reloadData()
 		}
 	}
+
+	private func callNumber(phoneNumber: String) {
+		if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+			if (UIApplication.shared.canOpenURL(phoneCallURL)) {
+				UIApplication.shared.open(phoneCallURL, options: [:], completionHandler: nil)
+			}
+		}
+	}
 }
 
 
@@ -142,6 +151,7 @@ extension SearchViewController: UISearchBarDelegate {
 		}
 
 		//API Call to get venues
+		
 		SearchAPIClient.manager.getVenues(from: encodedVenueSearch, coordinate: "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)", near: near) { (OnlineVenues) in
 			self.venues.removeAll()
 			self.searchView.searchMap.removeAnnotations(self.annotationsForVenues)
@@ -198,29 +208,9 @@ extension SearchViewController : MKMapViewDelegate {
 		let detailVC = DetailViewController(venue: currentSelectedVenue)
 		navigationController?.pushViewController(detailVC, animated: true)
 
-//		if let phoneCallURL:URL = URL(string: "tel:\(currentSelectedVenue.contact.phone!)") {
-//			let application:UIApplication = UIApplication.shared
-//			if (application.canOpenURL(phoneCallURL)) {
-//				let alertController = UIAlertController(title: "MyApp", message: "Are you sure you want to call \n\(self.strPhoneNumber)?", preferredStyle: .alert)
-//				let yesPressed = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-//					application.openURL(phoneCallURL)
-//				})
-//				let noPressed = UIAlertAction(title: "No", style: .default, handler: { (action) in
-//
-//				})
-//				alertController.addAction(yesPressed)
-//				alertController.addAction(noPressed)
-//				present(alertController, animated: true, completion: nil)
-//			}
-//		}
-
-//		UIApplication.shared.open(number, options: [:], completionHandler: nil)
-
 		//Phone call
 		if let phoneNumber = currentSelectedVenue.contact.phone {
-			if let url = URL(string: "TEL://\(phoneNumber)"), UIApplication.shared.canOpenURL(url) {
-				UIApplication.shared.open(url, options: [:], completionHandler: nil)
-			}
+			callNumber(phoneNumber: phoneNumber)
 		}
 	}
 
@@ -282,12 +272,6 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 		print("Error: \(error)")
 	}
 }
-
-//	func makeAPhoneCall(phoneNumber: String)  {
-//		if let url = URL(string: "tel://\(phoneNumber)") {
-//			UIApplication.shared.openURL(url)
-//		}
-//	}
 
 
 
@@ -423,3 +407,25 @@ extension SearchViewController : UICollectionViewDelegate {
 //            }
 //        }
 //    }
+
+
+//Make Phone Call
+//		guard let number = URL(string: "tel://61234567890") else { return }
+//		UIApplication.shared.open(number)
+
+//		if let phoneCallURL:URL = URL(string: "tel:\(currentSelectedVenue.contact.phone!)") {
+//			let application:UIApplication = UIApplication.shared
+//			if (application.canOpenURL(phoneCallURL)) {
+//				let alertController = UIAlertController(title: "MyApp", message: "Are you sure you want to call \n\(self.strPhoneNumber)?", preferredStyle: .alert)
+//				let yesPressed = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+//					application.openURL(phoneCallURL)
+//				})
+//				let noPressed = UIAlertAction(title: "No", style: .default, handler: { (action) in
+//
+//				})
+//				alertController.addAction(yesPressed)
+//				alertController.addAction(noPressed)
+//				present(alertController, animated: true, completion: nil)
+//			}
+//		}
+//		UIApplication.shared.open(number, options: [:], completionHandler: nil)
