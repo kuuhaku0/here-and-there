@@ -10,12 +10,6 @@ import UIKit
 
 class CreateTipViewController: UIViewController {
 
-    let 
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
 
 
 

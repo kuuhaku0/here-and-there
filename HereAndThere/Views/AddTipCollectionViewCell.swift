@@ -29,7 +29,7 @@ class AddTipCollectionViewCell: UICollectionViewCell {
     
     lazy var addButton: UIButton = {
         let button = UIButton()
-        button.image(for: .normal) = #imageLiteral(resourceName: "plus")
+        button.setImage(#imageLiteral(resourceName: "plus"), for: .normal)
         return button
     }()
     

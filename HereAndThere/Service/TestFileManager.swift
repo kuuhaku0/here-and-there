@@ -7,15 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
-
-fileprivate struct SavedVenue: Codable {
+struct SavedVenue: Codable {
     let venue: Venue
     let imgURL: String
     let tip: String?
 }
 
-fileprivate struct UserCollection: Codable {
+struct UserCollection: Codable {
     let collections: [String : [SavedVenue]]
 }
 
@@ -56,7 +56,7 @@ class DataPersistenceHelper {
         }
         
         do {
-            favoritedImages = try PropertyListDecoder().decode([String : [SavedVenue]].self, from: data)
+            userCollections = try PropertyListDecoder().decode([String : [SavedVenue]].self, from: data)
         } catch {
             print("Plist decoding error. \(error.localizedDescription)")
         }
@@ -119,10 +119,10 @@ class DataPersistenceHelper {
     // Also saves the image in the doc dir
     func addVenueToCollection(collectionName: String, venue: Venue, tip: String?, imgUrl: String, image: UIImage) -> Bool {
         
-        let venueToSave = SavedVenue(venue: venue, imgURL: imgUrl, tip: tip)
+        let venueToSave = [SavedVenue(venue: venue, imgURL: imgUrl, tip: tip)]
         
         if saveImage(with: imgUrl, image: image) {
-            collections[collectionName] = venueToSave
+            userCollections[collectionName] = venueToSave
             return true
         }
         return false

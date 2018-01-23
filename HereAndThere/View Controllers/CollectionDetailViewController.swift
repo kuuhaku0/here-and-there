@@ -25,18 +25,20 @@ class CollectionDetailViewController: UIViewController {
 
 }
 
-extension CollectionDetailView: UITableViewDataSource {
+extension CollectionDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return 10
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionVenuesTableViewCell
+        //TODO Configure Cell
+        return cell
     }
     
 }
 
-extension CollectionDetailView: UITableViewDelegate {
+extension CollectionDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
