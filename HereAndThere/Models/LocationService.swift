@@ -3,10 +3,8 @@
 //  Created by C4Q on 1/19/18.
 //  Copyright © 2018 HereAndThere. All rights reserved.
 
-
 import Foundation
 import CoreLocation
-
 
 class LocationService: NSObject {
 
