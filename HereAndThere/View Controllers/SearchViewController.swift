@@ -86,18 +86,18 @@ class SearchViewController: UIViewController {
 	fileprivate func checkUserLocationPermission(){
 		switch CLLocationManager.authorizationStatus() {
 		case .authorizedAlways, .authorizedWhenInUse:
+			//TODO -
 			print(); print("Authorized"); print()
 		case .denied:
-			print(); print("Denied"); print()
-
 			//opens phone Settings so user can authorize permission
 			guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
 			UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
 		case .notDetermined:
-			print(); print("Not Determined"); print()
 			locationManager.requestWhenInUseAuthorization()
 		case .restricted:
-			print(); print("Restricted"); print()
+			//opens phone Settings so user can authorize permission
+			guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
+			UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
 		}
 	}
 
@@ -152,7 +152,6 @@ extension SearchViewController: UISearchBarDelegate {
 		}
 
 		//API Call to get venues
-		
 		SearchAPIClient.manager.getVenues(from: encodedVenueSearch, coordinate: "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)", near: near) { (OnlineVenues) in
 			self.venues.removeAll()
 			self.searchView.searchMap.removeAnnotations(self.annotationsForVenues)
@@ -239,7 +238,7 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 		locationManager = CLLocationManager() //create instance of locationManager
 		locationManager.delegate = self //set delegate to SearchViewController
 		locationManager.desiredAccuracy = kCLLocationAccuracyBest
-		locationManager.distanceFilter = 1000 //meters
+//		locationManager.distanceFilter = 1000 //meters
 		locationManager.requestAlwaysAuthorization()
 
 		//if user opted in for location services, start updating

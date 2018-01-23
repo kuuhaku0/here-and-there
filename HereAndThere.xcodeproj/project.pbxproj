@@ -109,8 +109,10 @@
 			isa = PBXGroup;
 			children = (
 				8120359A20165CB400A054E0 /* FourSquareAPIKeys.swift */,
-				818C8CEA2011523400E798C6 /* FileManagerHelper.swift */,
+				819990122012527000AE9CFB /* LocationService.swift */,
+				8199901A2012656900AE9CFB /* UserPreference.swift */,
 				818C8CE82011523300E798C6 /* ImageCache.swift */,
+				818C8CEA2011523400E798C6 /* FileManagerHelper.swift */,
 				818C8CE92011523300E798C6 /* ImageHelper.swift */,
 			);
 			path = Service;
@@ -185,8 +187,6 @@
 				818C8CD3201150EC00E798C6 /* Photo.swift */,
 				818C8CD4201150EC00E798C6 /* PhotoAPIClient.swift */,
 				818C8CD1201150EC00E798C6 /* Annotation.swift */,
-				819990122012527000AE9CFB /* LocationService.swift */,
-				8199901A2012656900AE9CFB /* UserPreference.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

@@ -5,6 +5,7 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 class LocationService: NSObject {
 
@@ -31,23 +32,21 @@ extension LocationService {
 			print("location services available")
 			switch CLLocationManager.authorizationStatus() {
 			case .notDetermined:
-				print("notDetermined")
 				locationManager.requestWhenInUseAuthorization()
 				status = CLAuthorizationStatus.notDetermined
 			case .denied:
-				print("denied")
 				status = CLAuthorizationStatus.denied
 				//opens phone Settings so user can authorize permission
-				//				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
-			//				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
+				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return status}
+				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
 			case .authorizedWhenInUse:
-				print("authorizedWhenInUse")
 				status = CLAuthorizationStatus.authorizedWhenInUse
 			case .authorizedAlways:
-				print("authorizedAlways")
 				status = CLAuthorizationStatus.authorizedAlways
-			default:
-				break
+			case .restricted:
+				status = CLAuthorizationStatus.restricted
+				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return status}
+				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
 			}
 		}
 			//Update UI to inform user

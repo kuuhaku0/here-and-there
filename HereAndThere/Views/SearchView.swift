@@ -29,16 +29,6 @@ class SearchView: UIView {
 		sb.tag = 1
 		return sb
 	}()
-
-	lazy var stackSearchBars: UIStackView = {
-		let stackView = UIStackView()
-		stackView.axis  = UILayoutConstraintAxis.vertical
-		stackView.distribution  = UIStackViewDistribution.equalSpacing
-		stackView.alignment = UIStackViewAlignment.center
-		stackView.spacing   = 5.0
-		return stackView
-	}()
-
 	lazy var searchMap: MKMapView = {
 		let smap = MKMapView()
 		smap.mapType = MKMapType.standard
@@ -104,8 +94,8 @@ class SearchView: UIView {
 	private func addUserTrackingButton(){
 		addSubview(userTrackingButton)
 		userTrackingButton.translatesAutoresizingMaskIntoConstraints = false
-		userTrackingButton.topAnchor.constraint(equalTo: searchMap.topAnchor, constant: 45).isActive = true
-		userTrackingButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
+		userTrackingButton.topAnchor.constraint(equalTo: searchMap.topAnchor, constant: 35).isActive = true
+		userTrackingButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
 	}
 	private func addCollectionView(){
 		addSubview(collectionView)
