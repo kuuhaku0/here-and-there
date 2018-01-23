@@ -17,20 +17,22 @@ class DetailViewController: UIViewController {
 	//MARK: Property
 	private var venue: Venue!
 
-	//Custom Initializer
-	init(venue: Venue) {
-		super.init(nibName: nil, bundle: nil)
-		self.venue = venue
-	}
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
-	// MARK :
-	private func configureNavBar() {
-		navigationItem.title = venue.name
-		navigationItem.largeTitleDisplayMode = .always
-	}
-
+    
+    //Custom Initializer
+    init(venue: Venue) {
+        super.init(nibName: nil, bundle: nil)
+        self.venue = venue
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK :
+    private func configureNavBar() {
+        navigationItem.title = venue.name
+        navigationItem.largeTitleDisplayMode = .always
+    }
+    
 }
+
 

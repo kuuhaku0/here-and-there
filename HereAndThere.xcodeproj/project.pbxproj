@@ -31,6 +31,13 @@
 		81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC7A8A200EA72400010174 /* AppDelegate.swift */; };
 		81AC7A92200EA72400010174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A91200EA72400010174 /* Assets.xcassets */; };
 		81AC7A95200EA72400010174 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A93200EA72400010174 /* LaunchScreen.storyboard */; };
+		81E4420120163FB000887641 /* CollectionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E4420020163FB000887641 /* CollectionDetailViewController.swift */; };
+		81E44203201645F000887641 /* CreateTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E44202201645F000887641 /* CreateTipViewController.swift */; };
+		81E442052016460A00887641 /* CollectionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E442042016460A00887641 /* CollectionDetailView.swift */; };
+		81E442072016461E00887641 /* CreateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E442062016461E00887641 /* CreateCollectionView.swift */; };
+		81E442092016503F00887641 /* AddTipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E442082016503E00887641 /* AddTipCollectionViewCell.swift */; };
+		81E4420B2016678600887641 /* CollectionVenuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E4420A2016678600887641 /* CollectionVenuesTableViewCell.swift */; };
+		81E4420D2016E1E100887641 /* TestFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E4420C2016E1E100887641 /* TestFileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +70,13 @@
 		81AC7A91200EA72400010174 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81AC7A94200EA72400010174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81AC7A96200EA72400010174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81E4420020163FB000887641 /* CollectionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailViewController.swift; sourceTree = "<group>"; };
+		81E44202201645F000887641 /* CreateTipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTipViewController.swift; sourceTree = "<group>"; };
+		81E442042016460A00887641 /* CollectionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailView.swift; sourceTree = "<group>"; };
+		81E442062016461E00887641 /* CreateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionView.swift; sourceTree = "<group>"; };
+		81E442082016503E00887641 /* AddTipCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTipCollectionViewCell.swift; sourceTree = "<group>"; };
+		81E4420A2016678600887641 /* CollectionVenuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionVenuesTableViewCell.swift; sourceTree = "<group>"; };
+		81E4420C2016E1E100887641 /* TestFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileManager.swift; sourceTree = "<group>"; };
 		8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HereAndThere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -111,6 +125,8 @@
 				8120359A20165CB400A054E0 /* FourSquareAPIKeys.swift */,
 				819990122012527000AE9CFB /* LocationService.swift */,
 				8199901A2012656900AE9CFB /* UserPreference.swift */,
+				818C8CEA2011523400E798C6 /* FileManagerHelper.swift */,
+				81E4420C2016E1E100887641 /* TestFileManager.swift */,
 				818C8CE82011523300E798C6 /* ImageCache.swift */,
 				818C8CEA2011523400E798C6 /* FileManagerHelper.swift */,
 				818C8CE92011523300E798C6 /* ImageHelper.swift */,
@@ -157,6 +173,8 @@
 				818C8CC82011507B00E798C6 /* ResultsViewController.swift */,
 				818C8CC92011507C00E798C6 /* DetailViewController.swift */,
 				818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */,
+				81E44202201645F000887641 /* CreateTipViewController.swift */,
+				81E4420020163FB000887641 /* CollectionDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -175,6 +193,11 @@
 			children = (
 				818C8CDF201150FE00E798C6 /* SearchView.swift */,
 				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
+				814EFAA52013005B0002C758 /* CollectionsViewCell.swift */,
+				81E442082016503E00887641 /* AddTipCollectionViewCell.swift */,
+				81E4420A2016678600887641 /* CollectionVenuesTableViewCell.swift */,
+				81E442062016461E00887641 /* CreateCollectionView.swift */,
+				81E442042016460A00887641 /* CollectionDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -340,16 +363,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				818C8CD8201150EC00E798C6 /* Photo.swift in Sources */,
+				81E4420120163FB000887641 /* CollectionDetailViewController.swift in Sources */,
 				818C8CE5201150FE00E798C6 /* SearchView.swift in Sources */,
+				81E4420D2016E1E100887641 /* TestFileManager.swift in Sources */,
+				81E4420B2016678600887641 /* CollectionVenuesTableViewCell.swift in Sources */,
 				8120359B20165CB400A054E0 /* FourSquareAPIKeys.swift in Sources */,
 				818C8CD7201150EC00E798C6 /* Search.swift in Sources */,
 				818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */,
+				81E442072016461E00887641 /* CreateCollectionView.swift in Sources */,
+				81E442052016460A00887641 /* CollectionDetailView.swift in Sources */,
 				818C8CEC2011523400E798C6 /* ImageHelper.swift in Sources */,
 				818C8CED2011523400E798C6 /* FileManagerHelper.swift in Sources */,
 				818C8CD02011507C00E798C6 /* SearchViewController.swift in Sources */,
+				81E44203201645F000887641 /* CreateTipViewController.swift in Sources */,
 				81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */,
 				816684212013AC8F00E9A803 /* SearchViewCollectionViewController.swift in Sources */,
 				818C8CE3201150FE00E798C6 /* SearchCVCell.swift in Sources */,
+				81E442092016503F00887641 /* AddTipCollectionViewCell.swift in Sources */,
 				818C8CDA201150EC00E798C6 /* SearchAPIClient.swift in Sources */,
 				8199901B2012656900AE9CFB /* UserPreference.swift in Sources */,
 				819990132012527000AE9CFB /* LocationService.swift in Sources */,
