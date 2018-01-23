@@ -22,21 +22,24 @@ class CollectionsViewController: MDCCollectionViewController {
         collectionView?.showsVerticalScrollIndicator = false
     }
     
+    // Configure nav bar
     func configureNavBar() {
         navigationItem.title = "My Collections"
         configureAddButton()
         configureBackButton()
     }
     
+    // Add button
     func configureAddButton() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.setRightBarButton(addButton, animated: false)
     }
     
     @objc func addButtonTapped() {
-        
+        configureCreateNavBar()
     }
     
+    // Back button
     func configureBackButton() {
         let backButton = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(backButtonTapped))
         navigationItem.backBarButtonItem = backButton
@@ -47,15 +50,25 @@ class CollectionsViewController: MDCCollectionViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    // Configure nav bar when add button is tapped
+    func configureCreateNavBar() {
+        navigationItem.title = "Add to or create collection."
+        configureCreateButton()
+        configureCancelButton()
+    }
+    
+    // Create button
     func configureCreateButton() {
         let createButton = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(createButtonTapped))
         navigationItem.rightBarButtonItem = createButton
     }
     
     @objc func createButtonTapped() {
-        
+        // TODO: - Save collection
+        configureNavBar()
     }
     
+    // Cancel button
     func configureCancelButton() {
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
         navigationItem.leftBarButtonItem = cancelButton
@@ -63,7 +76,7 @@ class CollectionsViewController: MDCCollectionViewController {
     }
     
     @objc func cancelButtonTapped() {
-        
+        configureNavBar()
     }
     
 }
