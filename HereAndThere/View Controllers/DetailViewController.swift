@@ -10,6 +10,12 @@ class DetailViewController: UIViewController {
     var detailedView = DetailedView()
     private var venue: Venue!
     
+    lazy var addButton: UIBarButtonItem = {
+        let addButton = UIBarButtonItem()
+        addButton.image = #imageLiteral(resourceName: "plus")
+        return addButton
+    }()
+    
 	// MARK: View Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -31,8 +37,8 @@ class DetailViewController: UIViewController {
     private func configureNavBar() {
         navigationItem.title = venue.name
         navigationItem.largeTitleDisplayMode = .always
-    }
-    
+        navigationItem.rightBarButtonItem = addButton
 }
 
 
+}
