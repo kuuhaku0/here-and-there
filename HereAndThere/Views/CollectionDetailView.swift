@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class CollectionDetailView: UIView {
     
@@ -18,6 +19,10 @@ class CollectionDetailView: UIView {
     
     private func setupTableView() {
         addSubview(tableView)
+        tableView.snp.makeConstraints { (maker) in
+            
+        }
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
