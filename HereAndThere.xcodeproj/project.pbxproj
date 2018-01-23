@@ -190,14 +190,11 @@
 			children = (
 				818C8CDF201150FE00E798C6 /* SearchView.swift */,
 				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
-<<<<<<< HEAD
 				814EFAA52013005B0002C758 /* CollectionsViewCell.swift */,
 				81E442082016503E00887641 /* AddTipCollectionViewCell.swift */,
 				81E4420A2016678600887641 /* CollectionVenuesTableViewCell.swift */,
 				81E442062016461E00887641 /* CreateCollectionView.swift */,
 				81E442042016460A00887641 /* CollectionDetailView.swift */,
-=======
->>>>>>> 7460a3c9fdac85a2b0646768b2c6023b13d0a21c
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -367,12 +364,9 @@
 				818C8CD8201150EC00E798C6 /* Photo.swift in Sources */,
 				81E4420120163FB000887641 /* CollectionDetailViewController.swift in Sources */,
 				818C8CE5201150FE00E798C6 /* SearchView.swift in Sources */,
-<<<<<<< HEAD
 				81E4420D2016E1E100887641 /* TestFileManager.swift in Sources */,
 				81E4420B2016678600887641 /* CollectionVenuesTableViewCell.swift in Sources */,
-=======
 				8120359B20165CB400A054E0 /* FourSquareAPIKeys.swift in Sources */,
->>>>>>> 7460a3c9fdac85a2b0646768b2c6023b13d0a21c
 				818C8CD7201150EC00E798C6 /* Search.swift in Sources */,
 				818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */,
 				81E442072016461E00887641 /* CreateCollectionView.swift in Sources */,
