@@ -11,6 +11,7 @@ import Foundation
 
 fileprivate struct SavedVenue: Codable {
     let venue: Venue
+    let imgURL: String
     let tip: String?
 }
 
@@ -70,7 +71,7 @@ class DataPersistenceHelper {
     func saveImage(with imgUrl: String, image: UIImage) -> Bool {
         
         let imgPng = UIImagePNGRepresentation(image)!
-        let imagePath = dataFilePath(withPathName: UUID().description)
+        let imagePath = dataFilePath(withPathName: "\(imgUrl.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!)")
         
         do {
             try imgPng.write(to: imagePath, options: .atomic)
@@ -88,7 +89,6 @@ class DataPersistenceHelper {
             return UIImage(data: data)
         }
         catch {
-            //print(error.localizedDescription)
             return nil
         }
     }
@@ -117,11 +117,12 @@ class DataPersistenceHelper {
     }
     
     // Also saves the image in the doc dir
-    func addFavoritedImage(city: String, imgUrl: String, image: UIImage) -> Bool {
+    func addVenueToCollection(collectionName: String, venue: Venue, tip: String?, imgUrl: String, image: UIImage) -> Bool {
+        
+        let venueToSave = SavedVenue(venue: venue, imgURL: imgUrl, tip: tip ?? "")
         
         if saveImage(with: imgUrl, image: image) {
-            let favImage = FavoritedImage(city: city, imgUrl: imgUrl)
-            favoritedImages.append(favImage)
+            collections[collectionName] = venueToSave
             return true
         }
         return false
