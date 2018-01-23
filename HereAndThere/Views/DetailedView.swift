@@ -35,6 +35,12 @@ class DetailedView: UIView {
         return label
     }()
     
+//    lazy var navButton: UINavigationItem = {
+//       let navButton = UINavigationItem()
+//        navButton.rightBarButtonItem?.image = #imageLiteral(resourceName: "plus")
+//        return navButton
+//    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         setUpView()
@@ -49,8 +55,13 @@ class DetailedView: UIView {
         setUpImage()
         setUpPlaceLabel()
         setUpNotesLabel()
+//        setUpNavButton()
     }
     
+    
+//    func setUpNavButton() {
+//
+//    }
     
     func setUpImage() {
         addSubview(imageView)
