@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class DetailedView: UIView {
 
@@ -16,7 +17,7 @@ class DetailedView: UIView {
     lazy var imageView: UIImageView = {
         let imageV = UIImageView() //default image
         imageV.image = #imageLiteral(resourceName: "placeholder-image")
-        imageV.contentMode = .scaleAspectFit
+        imageV.contentMode = .scaleAspectFill
         imageV.backgroundColor = UIColor.clear
         return imageV
     }()
@@ -53,15 +54,12 @@ class DetailedView: UIView {
     
     func setUpView() {
         setUpImage()
-        setUpPlaceLabel()
         setUpNotesLabel()
-//        setUpNavButton()
+        setUpPlaceLabel()
     }
     
     
-//    func setUpNavButton() {
-//
-//    }
+
     
     func setUpImage() {
         addSubview(imageView)
@@ -70,23 +68,25 @@ class DetailedView: UIView {
         imageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.65).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
     }
     
     func setUpPlaceLabel() {
         addSubview(placeLabel)
         placeLabel.translatesAutoresizingMaskIntoConstraints = false
-        placeLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
         placeLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         placeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        placeLabel.bottomAnchor.constraint(equalTo: notesLabel.topAnchor).isActive = true
+        placeLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
     }
     
     func setUpNotesLabel() {
         addSubview(notesLabel)
         notesLabel.translatesAutoresizingMaskIntoConstraints = false
-        notesLabel.topAnchor.constraint(equalTo: placeLabel.bottomAnchor).isActive = true
         notesLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         notesLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true 
-        
+        notesLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        notesLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
     }
 
 }

@@ -7,8 +7,10 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    
     var detailedView = DetailedView()
     private var venue: Venue!
+    private var image: UIImage!
     
     lazy var addButton: UIBarButtonItem = {
         let addButton = UIBarButtonItem()
@@ -20,14 +22,17 @@ class DetailViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
         view.addSubview(detailedView)
-		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
+        view.backgroundColor = .white
 		configureNavBar()
+        configureDetailedVC()
+        detailedView.imageView.image = image
 	}
     
     //Custom Initializer
-    init(venue: Venue) {
+    init(venue: Venue, image: UIImage) {
         super.init(nibName: nil, bundle: nil)
         self.venue = venue
+        self.image = image
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -39,6 +44,10 @@ class DetailViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.rightBarButtonItem = addButton
 }
+    private func configureDetailedVC() {
+        detailedView.placeLabel.text = venue.categories[0].name
+        detailedView.notesLabel.text = ""
+    }
 
 
 }

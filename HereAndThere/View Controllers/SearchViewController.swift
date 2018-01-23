@@ -206,7 +206,7 @@ extension SearchViewController : MKMapViewDelegate {
 	//callout tapped/selected
 	func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 		//go to detailViewController
-		let detailVC = DetailViewController(venue: currentSelectedVenue)
+        let detailVC = DetailViewController(venue: currentSelectedVenue, image: currentSelectedVenuePhoto)
 		navigationController?.pushViewController(detailVC, animated: true)
 
 		//Phone call
@@ -348,7 +348,7 @@ extension SearchViewController : UICollectionViewDelegate {
 	//action for selected item
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let venue = venues[indexPath.row]
-		let detailVC = DetailViewController(venue: venue)
+        let detailVC = DetailViewController(venue: venue, image: currentSelectedVenuePhoto)
 		navigationController?.pushViewController(detailVC, animated: true)
 	}
 }
