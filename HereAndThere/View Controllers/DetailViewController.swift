@@ -7,8 +7,19 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    var detailedView = DetailedView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(detailedView)
 
+    }
 
+    private func configureNavBar() {
+        navigationItem.title = "YAY Large Titles"
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
 }
 
 

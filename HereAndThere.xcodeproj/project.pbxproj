@@ -26,6 +26,7 @@
 		81AC7A90200EA72400010174 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A8E200EA72400010174 /* Main.storyboard */; };
 		81AC7A92200EA72400010174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A91200EA72400010174 /* Assets.xcassets */; };
 		81AC7A95200EA72400010174 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A93200EA72400010174 /* LaunchScreen.storyboard */; };
+		9324A4AE20169118007A2B64 /* DetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9324A4AD20169118007A2B64 /* DetailedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		81AC7A94200EA72400010174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81AC7A96200EA72400010174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HereAndThere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9324A4AD20169118007A2B64 /* DetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			children = (
 				818C8CDF201150FE00E798C6 /* SearchView.swift */,
 				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
+				9324A4AD20169118007A2B64 /* DetailedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				818C8CE5201150FE00E798C6 /* SearchView.swift in Sources */,
 				818C8CD7201150EC00E798C6 /* Search.swift in Sources */,
 				818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */,
+				9324A4AE20169118007A2B64 /* DetailedView.swift in Sources */,
 				818C8CEC2011523400E798C6 /* NetworkHelper.swift in Sources */,
 				818C8CED2011523400E798C6 /* FileManagerHelper.swift in Sources */,
 				818C8CD02011507C00E798C6 /* SearchViewController.swift in Sources */,
