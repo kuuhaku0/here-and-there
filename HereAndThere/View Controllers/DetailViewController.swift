@@ -8,16 +8,29 @@ import UIKit
 class DetailViewController: UIViewController {
 
     var detailedView = DetailedView()
+    private var venue: Venue!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	// MARK: View Overrides
+	override func viewDidLoad() {
+		super.viewDidLoad()
         view.addSubview(detailedView)
-
+		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
+		configureNavBar()
+	}
+    
+    //Custom Initializer
+    init(venue: Venue) {
+        super.init(nibName: nil, bundle: nil)
+        self.venue = venue
     }
-
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK :
     private func configureNavBar() {
-        navigationItem.title = "YAY Large Titles"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = venue.name
+        navigationItem.largeTitleDisplayMode = .always
     }
     
 }

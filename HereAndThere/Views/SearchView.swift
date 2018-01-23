@@ -9,24 +9,51 @@ import MapKit
 //Custom View for overall Layout of SearchViewController
 class SearchView: UIView {
 
-	
 	// MARK: - Create elements in View
-	lazy var citySearchBar: UISearchBar = {
-		let csb = UISearchBar()
-		csb.showsCancelButton = true
-		csb.placeholder = "New York, NY"
-		csb.tag = 1
-		return csb
+	lazy var venueSearchBar: UISearchBar = {
+		let sb = UISearchBar()
+		sb.showsCancelButton = false
+		sb.placeholder = "Search for Venue"
+		sb.barTintColor = .white
+		sb.tag = 0
+		return sb
 	}()
+	lazy var citySearchBar: UISearchBar = {
+		let sb = UISearchBar()
+		sb.showsCancelButton = true
+		sb.placeholder = "New York, NY"
+		sb.barTintColor = .white
+		//		sb.isSearchResultsButtonSelected = true
+		//		sb.isTranslucent = true
+		//		sb.searchBarStyle = UISearchBarStyle.minimal
+		sb.tag = 1
+		return sb
+	}()
+
+	lazy var stackSearchBars: UIStackView = {
+		let stackView = UIStackView()
+		stackView.axis  = UILayoutConstraintAxis.vertical
+		stackView.distribution  = UIStackViewDistribution.equalSpacing
+		stackView.alignment = UIStackViewAlignment.center
+		stackView.spacing   = 5.0
+		return stackView
+	}()
+
 	lazy var searchMap: MKMapView = {
 		let smap = MKMapView()
 		smap.mapType = MKMapType.standard
 		smap.isZoomEnabled = true
 		smap.isScrollEnabled = true
 		smap.isPitchEnabled = true
-		smap.isRotateEnabled = true
+		//		smap.isRotateEnabled = true
 		smap.showsUserLocation = true
+		smap.showsScale = true
 		return smap
+	}()
+	lazy var userTrackingButton: MKUserTrackingButton = {
+		let trackingButton = MKUserTrackingButton()
+		trackingButton.backgroundColor = UIColor.clear
+		return trackingButton
 	}()
 	lazy var collectionView: UICollectionView = {
 		let cvLayout = UICollectionViewFlowLayout()
@@ -41,21 +68,19 @@ class SearchView: UIView {
 	// MARK: - Setup elements in View
 	override init(frame: CGRect){
 		super.init(frame: UIScreen.main.bounds)
-		commonInit()
+		setupViews()
 	}
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		commonInit()
-	}
-	private func commonInit() {
-		setupViews()
 	}
 	override func layoutSubviews() {
 		super.layoutSubviews()
 	}
-	func setupViews() {
+	private func setupViews() {
 		addCitySearchBar()
 		addSearchMap()
+		addUserTrackingButton()
+		userTrackingButton.mapView = searchMap //Configure the MKUserTrackingButton in your setupViews code
 		addCollectionView()
 	}
 
@@ -76,15 +101,19 @@ class SearchView: UIView {
 		searchMap.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
 		searchMap.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
 	}
+	private func addUserTrackingButton(){
+		addSubview(userTrackingButton)
+		userTrackingButton.translatesAutoresizingMaskIntoConstraints = false
+		userTrackingButton.topAnchor.constraint(equalTo: searchMap.topAnchor, constant: 45).isActive = true
+		userTrackingButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
+	}
 	private func addCollectionView(){
 		addSubview(collectionView)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.centerXAnchor.constraint(equalTo:  searchMap.centerXAnchor).isActive = true
 		collectionView.leadingAnchor.constraint(equalTo: searchMap.leadingAnchor).isActive = true
 		collectionView.trailingAnchor.constraint(equalTo: searchMap.trailingAnchor).isActive = true
-		collectionView.bottomAnchor.constraint(equalTo: searchMap.bottomAnchor, constant: -20).isActive = true
+		collectionView.bottomAnchor.constraint(equalTo: searchMap.bottomAnchor).isActive = true
 		collectionView.heightAnchor.constraint(equalTo: searchMap.heightAnchor, multiplier: 0.2).isActive = true
 	}
-
 }
-

@@ -4,46 +4,40 @@
 //  Copyright © 2018 Winston Maragh. All rights reserved.
 
 import Foundation
-import UIKit
-
-//FourSquare Authentication
-let fourSquareClientId = "PWWSABHMRSWVYZNHL1QG20A5050WJAI2MIU3AUFWVRQHCITA"
-let fourSquareClientSecret = "WFF2451MT2QIYKDCQEXN3ADT5ZKCYQOFIRXPODYUZSSYBSDT"
-
+import Alamofire
 
 // MARK: - FourSquare Search API Client
 struct SearchAPIClient {
 	private init(){}
 	static let manager = SearchAPIClient()
 
-	func getVenues(venueSearch: String, latLong: String, near: String, completion: @escaping (Error?, [Venue]?) -> Void) {
-		
-		let date = Date().description.prefix(10).replacingOccurrences(of: "-", with: "")
+	func getVenues(from search: String, coordinate: String, near: String, completion: @escaping ([Venue]) -> Void) {
 
-		let endpoint: String
-		if near == "" {
-			endpoint = "https://api.foursquare.com/v2/venues/search?ll=\(latLong)&query=\(venueSearch)&client_id=\(fourSquareClientId)&client_secret=\(fourSquareClientSecret)&v=\(date)"
+		var FOURSQUARE_URL = ""
+		if near != "" {
+			FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
 		} else {
-			endpoint = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(venueSearch)&client_id=\(fourSquareClientId)&client_secret=\(fourSquareClientSecret)&v=\(date)"
+			FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
 		}
-		guard let url = URL(string: endpoint) else {return}
 
-		let task =  URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-			if let error = error {completion(error, nil)}
-			else if let data = data {
-				do {
-					let searchResponse = try JSONDecoder().decode(SearchJSONResponse.self, from: data)
-					let venues = searchResponse.response.venues
-//					print(); print("Venues:"); print(venues); print()
 
-					if venues.isEmpty { completion(nil, nil) }
-					completion(nil, venues)
+		//Network call to get data from foursquare
+		Alamofire.request(FOURSQUARE_URL).responseJSON { (response) in
+			if response.result.isSuccess {
+				if let data = response.data {
+					do {
+						let JSON = try JSONDecoder().decode(FourSquareSearchJSON.self, from: data)
+						let venues = JSON.response.venues
+						completion(venues)
+					}
+					catch {print("Error processing data \(error)")}
 				}
-				catch {print("FourSquare Search API call failed - Decoding Error: \(error)")}
 			}
-		})
-		task.resume()
+				//response failed
+			else {
+				print("Error\(String(describing: response.result.error))")
+				//TODO: NOTIFY USER OF CONNECTION ISSUE
+			}
+		}
 	}
 }
-
-
