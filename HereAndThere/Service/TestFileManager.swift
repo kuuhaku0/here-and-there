@@ -119,7 +119,7 @@ class DataPersistenceHelper {
     // Also saves the image in the doc dir
     func addVenueToCollection(collectionName: String, venue: Venue, tip: String?, imgUrl: String, image: UIImage) -> Bool {
         
-        let venueToSave = SavedVenue(venue: venue, imgURL: imgUrl, tip: tip ?? "")
+        let venueToSave = SavedVenue(venue: venue, imgURL: imgUrl, tip: tip)
         
         if saveImage(with: imgUrl, image: image) {
             collections[collectionName] = venueToSave
