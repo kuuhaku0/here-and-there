@@ -16,6 +16,7 @@ class DetailedView: UIView {
     lazy var imageView: UIImageView = {
         let imageV = UIImageView() //default image
         imageV.image = #imageLiteral(resourceName: "placeholder-image")
+        imageV.contentMode = .scaleAspectFit
         imageV.backgroundColor = UIColor.clear
         return imageV
     }()
@@ -57,7 +58,7 @@ class DetailedView: UIView {
         imageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         imageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
+        imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.65).isActive = true
     }
     
     func setUpPlaceLabel() {
