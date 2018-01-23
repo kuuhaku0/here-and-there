@@ -11,18 +11,31 @@ struct SearchAPIClient {
 	private init(){}
 	static let manager = SearchAPIClient()
 	
-	func getVenues(from search: String, coordinate: String, near: String, completion: @escaping ([Venue]) -> Void) {
+	func getVenues(from search: String, coordinate: String?, near: String?, completion: @escaping ([Venue]) -> Void) {
 
-			var FOURSQUARE_URL = ""
-			if near != "" {
-				FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
-			} else {
-				FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
-			}
+//			var FOURSQUARE_URL = ""
+//			if near != "" {
+//				FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
+//			} else {
+//				FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
+//			}
 
+		var url: URL!
+
+
+		// using an address
+		if let near = near { // e.g "Queens, NY"
+			url = URL(string:"https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)")
+			print("near URL: \(url)")
+		}
+		// use coordinate
+		else {
+			url = URL(string:"https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)")
+			print("coordinate URL: \(url)")
+		}
 
 			//Network call to get data from foursquare
-			Alamofire.request(FOURSQUARE_URL).responseJSON { (response) in
+			Alamofire.request(url).responseJSON { (response) in
 				if response.result.isSuccess {
 					if let data = response.data {
 						do {

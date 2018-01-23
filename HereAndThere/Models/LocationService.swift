@@ -3,7 +3,6 @@
 //  Created by C4Q on 1/19/18.
 //  Copyright © 2018 HereAndThere. All rights reserved.
 
-
 import Foundation
 import CoreLocation
 
@@ -58,6 +57,8 @@ extension LocationService {
 		return status
 	}
 }
+
+
 
 //MARK: CLLocationManager Delegate
 extension LocationService: CLLocationManagerDelegate {

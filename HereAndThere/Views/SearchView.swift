@@ -23,29 +23,15 @@ class SearchView: UIView {
 		sb.showsCancelButton = true
 		sb.placeholder = "New York, NY"
 		sb.barTintColor = .white
-//		sb.isSearchResultsButtonSelected = true
-//		sb.isTranslucent = true
-//		sb.searchBarStyle = UISearchBarStyle.minimal
 		sb.tag = 1
 		return sb
 	}()
-
-	lazy var stackSearchBars: UIStackView = {
-		let stackView = UIStackView()
-		stackView.axis  = UILayoutConstraintAxis.vertical
-		stackView.distribution  = UIStackViewDistribution.equalSpacing
-		stackView.alignment = UIStackViewAlignment.center
-		stackView.spacing   = 5.0
-		return stackView
-	}()
-
 	lazy var searchMap: MKMapView = {
 		let smap = MKMapView()
 		smap.mapType = MKMapType.standard
 		smap.isZoomEnabled = true
 		smap.isScrollEnabled = true
 		smap.isPitchEnabled = true
-//		smap.isRotateEnabled = true
 		smap.showsUserLocation = true
 		smap.showsScale = true
 		return smap
@@ -80,7 +66,8 @@ class SearchView: UIView {
 		addCitySearchBar()
 		addSearchMap()
 		addUserTrackingButton()
-		userTrackingButton.mapView = searchMap //Configure the MKUserTrackingButton in your setupViews code
+		//Configure the MKUserTrackingButton in your setupViews code
+		userTrackingButton.mapView = searchMap
 		addCollectionView()
 	}
 

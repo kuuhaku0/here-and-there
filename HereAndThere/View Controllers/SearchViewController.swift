@@ -62,12 +62,6 @@ class SearchViewController: UIViewController {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.titleView = searchView.venueSearchBar
-//		navigationItem.titleView = searchView.stackSearchBars
-
-		//Search Controller
-//		let searchController = UISearchController(searchResultsController: nil)
-//		navigationItem.searchController = searchController
-//		navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
 
 		//right bar button for toggling between map & list
 		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
@@ -111,8 +105,6 @@ class SearchViewController: UIViewController {
 	}
 
 }
-
-
 
 
 
@@ -214,6 +206,7 @@ extension SearchViewController : MKMapViewDelegate {
 
 }
 
+
 //MARK: Core Location Manager - Delegate
 extension SearchViewController :  CLLocationManagerDelegate  {
 	func determineMyLocation() {
@@ -228,8 +221,6 @@ extension SearchViewController :  CLLocationManagerDelegate  {
 			locationManager.startUpdatingLocation()
 		}
 		//TODO: Prompt user to
-
-
 	}
 
 	//did Update Location
