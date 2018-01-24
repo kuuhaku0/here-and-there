@@ -107,3 +107,4 @@ class SearchView: UIView {
 		collectionView.heightAnchor.constraint(equalTo: searchMap.heightAnchor, multiplier: 0.2).isActive = true
 	}
 }
+

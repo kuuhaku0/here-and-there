@@ -2,41 +2,20 @@
 //  CreateCollectionView.swift
 //  HereAndThere
 //
-//  Created by Reiaz Gafar on 1/22/18.
+//  Created by Reiaz Gafar on 1/24/18.
 //  Copyright © 2018 HereAndThere. All rights reserved.
 //
 
 import UIKit
+import SnapKit
 
 class CreateCollectionView: UIView {
-    
-    lazy var newCollectionTextField: UITextField = {
+
+    lazy var collectionNameTextField: UITextField = {
         let textField = UITextField()
         return textField
     }()
-    
-    lazy var tipLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    lazy var tipTextField: UITextField = {
-        let textField = UITextField()
-        return textField
-    }()
-    
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: safeAreaLayoutGuide.layoutFrame, collectionViewLayout: layout)
-        collectionView.register(AddTipCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionCell")
-        collectionView.backgroundColor = .white
-        return collectionView
-    }()
-    
-    
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -55,5 +34,6 @@ class CreateCollectionView: UIView {
     private func setupViews() {
     }
     
-}
 
+
+}

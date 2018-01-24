@@ -78,21 +78,21 @@ extension LocationService: CLLocationManagerDelegate {
 	//Did update Location
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		guard let location = locations.last else { print("no locations"); return }
-//		guard let location = locations.first else { print("no locations"); return }
+		//		guard let location = locations.first else { print("no locations"); return }
 		UserPreference.manager.setLatitude(latitude: location.coordinate.latitude)
 		UserPreference.manager.setLongitude(longitude: location.coordinate.longitude)
-//		let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//		let region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
-//		searchView.searchMap.setRegion(region, animated: true)
-//		searchView.searchMap.showsUserLocation = true
-//        locationManager.stopUpdatingLocation()
+		//		let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+		//		let region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
+		//		searchView.searchMap.setRegion(region, animated: true)
+		//		searchView.searchMap.showsUserLocation = true
+		//        locationManager.stopUpdatingLocation()
 	}
 
 	//did update Location
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		//		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
 		//		searchView.searchMap.setRegion(region, animated: true)
-//		searchView.searchMap.showsUserLocation = true
+		//		searchView.searchMap.showsUserLocation = true
 	}
 
 	//Fail with error

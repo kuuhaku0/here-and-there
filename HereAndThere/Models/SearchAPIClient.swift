@@ -19,7 +19,7 @@ struct SearchAPIClient {
 		if let near = near, near != "" {
 			url = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
 		}
-		// use coordinate
+			// use coordinate
 		else if let coordinate = coordinate {
 			url = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
 		}
@@ -47,3 +47,4 @@ struct SearchAPIClient {
 		}
 	}
 }
+

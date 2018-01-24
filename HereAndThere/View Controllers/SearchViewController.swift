@@ -69,7 +69,7 @@ class SearchViewController: UIViewController {
 		LocationService.manager.determineMyLocation()
 	}
 	fileprivate func setupNavigationBar() {
-		navigationItem.title = "Search for Venue"
+		navigationItem.title = "Search"
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.titleView = searchView.venueSearchBar
@@ -166,22 +166,10 @@ extension SearchViewController : MKMapViewDelegate {
 			//right callout
 			annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
 
-//			let callButton = UIButton()
-//			let callButtonImage = UIImage(named: "phone")
-//			callButton.setBackgroundImage(callButtonImage, for: .normal)
-//			annotationView?.leftCalloutAccessoryView = callButton
-
-
-			//left callout - add an image to callout
-			let button: UIButton = {
-				let bt = UIButton()
-				bt.setImage(#imageLiteral(resourceName: "phone3"), for: .normal)
-				return bt
-			}()
-
-//			let imageView = UIImageView.init(frame: CGRect(origin: CGPoint(x:0,y:0),size:CGSize(width:30,height:30)))
-//			imageView.image = UIImage(named: "phone")
-			annotationView!.leftCalloutAccessoryView = button
+			//left callout
+			let imageView = UIImageView.init(frame: CGRect(origin: CGPoint(x:0,y:0),size:CGSize(width:30,height:30)))
+			imageView.image = UIImage(named: "phone")
+			annotationView!.leftCalloutAccessoryView = imageView
 		} else { //display as is
 			annotationView?.annotation = annotation
 		}

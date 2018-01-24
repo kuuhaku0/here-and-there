@@ -25,7 +25,7 @@ class venueLocationView: MKAnnotationView {
 
 	override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
 		super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-		guard let locationPin = self.annotation else { return }
+//		guard let locationPin = self.annotation else { return }
 		//TO-DO
 	}
 }

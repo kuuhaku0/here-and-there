@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		30C914B532DCF0E5DE004F6F /* Pods_HereAndThere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */; };
 		8120359B20165CB400A054E0 /* FourSquareAPIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120359A20165CB400A054E0 /* FourSquareAPIKeys.swift */; };
+		814361922017E72F00A2B761 /* CollectionMDCCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814361912017E72F00A2B761 /* CollectionMDCCollectionViewCell.swift */; };
+		814361942018D48400A2B761 /* CreateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814361932018D48400A2B761 /* CreateCollectionViewController.swift */; };
+		814361982018D59300A2B761 /* CreateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814361972018D59300A2B761 /* CreateCollectionView.swift */; };
 		814EFAA62013005B0002C758 /* CollectionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814EFAA52013005B0002C758 /* CollectionsViewCell.swift */; };
 		816684212013AC8F00E9A803 /* SearchViewCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816684202013AC8F00E9A803 /* SearchViewCollectionViewController.swift */; };
 		816684232013B5A800E9A803 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 816684222013B5A800E9A803 /* Main.storyboard */; };
@@ -33,12 +36,14 @@
 		81E4420120163FB000887641 /* CollectionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E4420020163FB000887641 /* CollectionDetailViewController.swift */; };
 		81E44203201645F000887641 /* CreateTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E44202201645F000887641 /* CreateTipViewController.swift */; };
 		81E442052016460A00887641 /* CollectionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E442042016460A00887641 /* CollectionDetailView.swift */; };
-		81E442072016461E00887641 /* CreateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E442062016461E00887641 /* CreateCollectionView.swift */; };
+		81E442072016461E00887641 /* CreateTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E442062016461E00887641 /* CreateTipView.swift */; };
 		81E442092016503F00887641 /* AddTipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E442082016503E00887641 /* AddTipCollectionViewCell.swift */; };
 		81E4420B2016678600887641 /* CollectionVenuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E4420A2016678600887641 /* CollectionVenuesTableViewCell.swift */; };
 		81E4420D2016E1E100887641 /* TestFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E4420C2016E1E100887641 /* TestFileManager.swift */; };
+		9300D26720191EB000E0FB55 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300D26620191EB000E0FB55 /* ImageCell.swift */; };
 		9324A4AE20169118007A2B64 /* DetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9324A4AD20169118007A2B64 /* DetailedView.swift */; };
 		938D90EB2017CF1000573C5C /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CE92011523300E798C6 /* ImageHelper.swift */; };
+		93C58AC620192DA300E50EA9 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C58AC520192DA300E50EA9 /* MapCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +51,9 @@
 		59EC7478E320668F8C843A3D /* Pods-HereAndThere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndThere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndThere/Pods-HereAndThere.debug.xcconfig"; sourceTree = "<group>"; };
 		8120359A20165CB400A054E0 /* FourSquareAPIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareAPIKeys.swift; sourceTree = "<group>"; };
 		8120359D2016698D00A054E0 /* C4Q.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = C4Q.gpx; sourceTree = "<group>"; };
+		814361912017E72F00A2B761 /* CollectionMDCCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionMDCCollectionViewCell.swift; sourceTree = "<group>"; };
+		814361932018D48400A2B761 /* CreateCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionViewController.swift; sourceTree = "<group>"; };
+		814361972018D59300A2B761 /* CreateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionView.swift; sourceTree = "<group>"; };
 		814EFAA52013005B0002C758 /* CollectionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewCell.swift; sourceTree = "<group>"; };
 		816684202013AC8F00E9A803 /* SearchViewCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCollectionViewController.swift; sourceTree = "<group>"; };
 		816684222013B5A800E9A803 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -74,12 +82,14 @@
 		81E4420020163FB000887641 /* CollectionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailViewController.swift; sourceTree = "<group>"; };
 		81E44202201645F000887641 /* CreateTipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTipViewController.swift; sourceTree = "<group>"; };
 		81E442042016460A00887641 /* CollectionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailView.swift; sourceTree = "<group>"; };
-		81E442062016461E00887641 /* CreateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionView.swift; sourceTree = "<group>"; };
+		81E442062016461E00887641 /* CreateTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTipView.swift; sourceTree = "<group>"; };
 		81E442082016503E00887641 /* AddTipCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTipCollectionViewCell.swift; sourceTree = "<group>"; };
 		81E4420A2016678600887641 /* CollectionVenuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionVenuesTableViewCell.swift; sourceTree = "<group>"; };
 		81E4420C2016E1E100887641 /* TestFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileManager.swift; sourceTree = "<group>"; };
 		8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HereAndThere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9300D26620191EB000E0FB55 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		9324A4AD20169118007A2B64 /* DetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedView.swift; sourceTree = "<group>"; };
+		93C58AC520192DA300E50EA9 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +137,6 @@
 				8120359A20165CB400A054E0 /* FourSquareAPIKeys.swift */,
 				819990122012527000AE9CFB /* LocationService.swift */,
 				8199901A2012656900AE9CFB /* UserPreference.swift */,
-				818C8CEA2011523400E798C6 /* FileManagerHelper.swift */,
 				81E4420C2016E1E100887641 /* TestFileManager.swift */,
 				818C8CE82011523300E798C6 /* ImageCache.swift */,
 				818C8CEA2011523400E798C6 /* FileManagerHelper.swift */,
@@ -163,6 +172,7 @@
 				81AC7AA3200EA86D00010174 /* Models */,
 				81AC7AA0200EA85700010174 /* Views */,
 				81AC7A9C200EA83100010174 /* View Controllers */,
+				9300D26820191EB400E0FB55 /* Cells */,
 				8120359C2016674000A054E0 /* Bonus */,
 			);
 			path = HereAndThere;
@@ -175,6 +185,7 @@
 				818C8CC82011507B00E798C6 /* ResultsViewController.swift */,
 				818C8CC92011507C00E798C6 /* DetailViewController.swift */,
 				818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */,
+				814361932018D48400A2B761 /* CreateCollectionViewController.swift */,
 				81E44202201645F000887641 /* CreateTipViewController.swift */,
 				81E4420020163FB000887641 /* CollectionDetailViewController.swift */,
 			);
@@ -195,10 +206,12 @@
 			children = (
 				818C8CDF201150FE00E798C6 /* SearchView.swift */,
 				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
+				814361972018D59300A2B761 /* CreateCollectionView.swift */,
 				9324A4AD20169118007A2B64 /* DetailedView.swift */,
 				81E442082016503E00887641 /* AddTipCollectionViewCell.swift */,
+				814361912017E72F00A2B761 /* CollectionMDCCollectionViewCell.swift */,
 				81E4420A2016678600887641 /* CollectionVenuesTableViewCell.swift */,
-				81E442062016461E00887641 /* CreateCollectionView.swift */,
+				81E442062016461E00887641 /* CreateTipView.swift */,
 				81E442042016460A00887641 /* CollectionDetailView.swift */,
 			);
 			path = Views;
@@ -225,6 +238,15 @@
 				8120359D2016698D00A054E0 /* C4Q.gpx */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9300D26820191EB400E0FB55 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9300D26620191EB000E0FB55 /* ImageCell.swift */,
+				93C58AC520192DA300E50EA9 /* MapCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,21 +390,26 @@
 				818C8CD8201150EC00E798C6 /* Photo.swift in Sources */,
 				81E4420120163FB000887641 /* CollectionDetailViewController.swift in Sources */,
 				818C8CE5201150FE00E798C6 /* SearchView.swift in Sources */,
+				814361922017E72F00A2B761 /* CollectionMDCCollectionViewCell.swift in Sources */,
 				81E4420D2016E1E100887641 /* TestFileManager.swift in Sources */,
 				81E4420B2016678600887641 /* CollectionVenuesTableViewCell.swift in Sources */,
 				8120359B20165CB400A054E0 /* FourSquareAPIKeys.swift in Sources */,
 				818C8CD7201150EC00E798C6 /* Search.swift in Sources */,
 				818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */,
 				9324A4AE20169118007A2B64 /* DetailedView.swift in Sources */,
-				81E442072016461E00887641 /* CreateCollectionView.swift in Sources */,
+				81E442072016461E00887641 /* CreateTipView.swift in Sources */,
 				81E442052016460A00887641 /* CollectionDetailView.swift in Sources */,
 				818C8CED2011523400E798C6 /* FileManagerHelper.swift in Sources */,
 				818C8CD02011507C00E798C6 /* SearchViewController.swift in Sources */,
+				93C58AC620192DA300E50EA9 /* MapCell.swift in Sources */,
 				81E44203201645F000887641 /* CreateTipViewController.swift in Sources */,
+				814361982018D59300A2B761 /* CreateCollectionView.swift in Sources */,
+				9300D26720191EB000E0FB55 /* ImageCell.swift in Sources */,
 				81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */,
 				816684212013AC8F00E9A803 /* SearchViewCollectionViewController.swift in Sources */,
 				818C8CE3201150FE00E798C6 /* SearchCVCell.swift in Sources */,
 				81E442092016503F00887641 /* AddTipCollectionViewCell.swift in Sources */,
+				814361942018D48400A2B761 /* CreateCollectionViewController.swift in Sources */,
 				818C8CDA201150EC00E798C6 /* SearchAPIClient.swift in Sources */,
 				8199901B2012656900AE9CFB /* UserPreference.swift in Sources */,
 				819990132012527000AE9CFB /* LocationService.swift in Sources */,
