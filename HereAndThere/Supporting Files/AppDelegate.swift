@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //TabBar Controller
         let tabBC = UITabBarController()
         tabBC.setViewControllers([searchNavController, collectionsNavController], animated: true)
+        
         //setup Window
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBC

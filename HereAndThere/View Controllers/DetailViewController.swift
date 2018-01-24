@@ -32,7 +32,7 @@ class DetailViewController: UIViewController {
         configureDetailedVC()
 //        detailedView.imageView.image = image
 	}
-    
+
     //Custom Initializer
     init(venue: Venue, image: UIImage) {
         super.init(nibName: nil, bundle: nil)

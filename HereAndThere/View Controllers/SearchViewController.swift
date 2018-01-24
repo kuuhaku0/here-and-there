@@ -79,7 +79,8 @@ class SearchViewController: UIViewController {
 		navigationItem.rightBarButtonItem = toggleBarItem
 	}
 	@objc func toggleListAndMap() {
-		self.navigationController?.pushViewController(ResultsViewController(), animated: true)
+        let resultsVC = ResultsListViewController(venues: venues)
+        self.navigationController?.pushViewController(resultsVC, animated: true)
 	}
 
 	private func addAnnotationsToMap(){
@@ -178,13 +179,6 @@ extension SearchViewController : MKMapViewDelegate {
 
 	//callout tapped/selected
 	func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-
-		//TODO - Testing - 
-		if (view.leftCalloutAccessoryView != nil) {
-			let resultsVC = ResultsViewController()
-			navigationController?.pushViewController(resultsVC, animated: true)
-		}
-
 
 		//go to detailViewController
         let detailVC = DetailViewController(venue: currentSelectedVenue, image: currentSelectedVenuePhoto)
