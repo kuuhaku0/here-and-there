@@ -173,9 +173,15 @@ extension SearchViewController : MKMapViewDelegate {
 
 
 			//left callout - add an image to callout
-			let imageView = UIImageView.init(frame: CGRect(origin: CGPoint(x:0,y:0),size:CGSize(width:30,height:30)))
-			imageView.image = UIImage(named: "phone")
-			annotationView!.leftCalloutAccessoryView = imageView
+			let button: UIButton = {
+				let bt = UIButton()
+				bt.setImage(#imageLiteral(resourceName: "phone3"), for: .normal)
+				return bt
+			}()
+
+//			let imageView = UIImageView.init(frame: CGRect(origin: CGPoint(x:0,y:0),size:CGSize(width:30,height:30)))
+//			imageView.image = UIImage(named: "phone")
+			annotationView!.leftCalloutAccessoryView = button
 		} else { //display as is
 			annotationView?.annotation = annotation
 		}

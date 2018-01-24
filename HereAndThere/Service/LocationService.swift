@@ -6,6 +6,7 @@
 import Foundation
 import CoreLocation
 import UIKit
+import MapKit
 
 class LocationService: NSObject {
 
@@ -16,12 +17,11 @@ class LocationService: NSObject {
 		locationManager.delegate = self
 	}
 	static let manager = LocationService()
-
 	private var locationManager: CLLocationManager!
-
 }
 
-//MARK: Helper functions
+
+//MARK: Custom functions
 extension LocationService {
 	public func checkForLocationServices() -> CLAuthorizationStatus {
 		var status: CLAuthorizationStatus!
@@ -57,6 +57,8 @@ extension LocationService {
 	}
 }
 
+
+
 //MARK: CLLocationManager Delegate
 extension LocationService: CLLocationManagerDelegate {
 
@@ -69,8 +71,6 @@ extension LocationService: CLLocationManagerDelegate {
 		//if user opted in for location services, start updating
 		if CLLocationManager.locationServicesEnabled() {
 			locationManager.startUpdatingLocation()
-		} else {
-			
 		}
 	}
 
@@ -78,29 +78,22 @@ extension LocationService: CLLocationManagerDelegate {
 	//Did update Location
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		guard let location = locations.last else { print("no locations"); return }
+//		guard let location = locations.first else { print("no locations"); return }
 		UserPreference.manager.setLatitude(latitude: location.coordinate.latitude)
 		UserPreference.manager.setLongitude(longitude: location.coordinate.longitude)
-
 //		let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
+//		let region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
 //		searchView.searchMap.setRegion(region, animated: true)
 //		searchView.searchMap.showsUserLocation = true
-
-		// broadcast location change via custom delegate
-		//		delegate?.locatonService(self, didUpdateLocation: location)
+//        locationManager.stopUpdatingLocation()
 	}
-//
-//	//did Update Location
-//	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//		let userLocation: CLLocation = locations[0]
-//		print("User latitude = \(userLocation.coordinate.latitude)")
-//		print("User longitude = \(userLocation.coordinate.longitude)")
-//		let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-//		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
-//		searchView.searchMap.setRegion(region, animated: true)
+
+	//did update Location
+	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+		//		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
+		//		searchView.searchMap.setRegion(region, animated: true)
 //		searchView.searchMap.showsUserLocation = true
-//		//        locationManager.stopUpdatingLocation()
-//	}
+	}
 
 	//Fail with error
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -114,20 +107,6 @@ extension LocationService: CLLocationManagerDelegate {
 
 }
 
-//MARK: Core Location Manager - Delegate
-extension SearchViewController :  CLLocationManagerDelegate  {
-
-	//did update Location
-	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-//		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
-//		searchView.searchMap.setRegion(region, animated: true)
-		searchView.searchMap.showsUserLocation = true
-	}
-
-	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-		print("Error: \(error)")
-	}
-}
 
 
 
