@@ -1,6 +1,6 @@
 //  SearchView.swift
 //  HereAndThere
-//  Created by C4Q on 1/16/18.
+//  Created by Winston Maragh on 1/16/18.
 //  Copyright © 2018 Winston Maragh. All rights reserved.
 
 import UIKit

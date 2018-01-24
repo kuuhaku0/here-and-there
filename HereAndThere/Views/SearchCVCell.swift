@@ -4,6 +4,8 @@
 //  Copyright © 2018 Winston Maragh. All rights reserved.
 
 import UIKit
+//import MaterialComponents.MDCCollectionViewCell
+import UIKit
 
 //Custom CollectionView Cell for SearchViewController
 class SearchCVCell: UICollectionViewCell {
@@ -35,7 +37,7 @@ class SearchCVCell: UICollectionViewCell {
 		super.init(coder: aDecoder)
 	}
 
-	
+
 	// MARK: - Add elements & layout constraints to Cell
 	private func addImageView(){
 		addSubview(imageView)
@@ -55,5 +57,3 @@ class SearchCVCell: UICollectionViewCell {
 	}
 
 }
-
-

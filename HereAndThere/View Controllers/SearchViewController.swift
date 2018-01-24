@@ -43,7 +43,7 @@ class SearchViewController: UIViewController {
 
 	// MARK: create instance of SearchView
 	var searchView = SearchView()
-	//	let appBar = MDCAppBar()
+//	let appBar = MDCAppBar()
 
 	// MARK: Properties
 	var near: String = ""
@@ -69,7 +69,7 @@ class SearchViewController: UIViewController {
 		LocationService.manager.determineMyLocation()
 	}
 	fileprivate func setupNavigationBar() {
-		navigationItem.title = "Search for Venue"
+		navigationItem.title = "Search"
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.titleView = searchView.venueSearchBar
@@ -79,7 +79,8 @@ class SearchViewController: UIViewController {
 		navigationItem.rightBarButtonItem = toggleBarItem
 	}
 	@objc func toggleListAndMap() {
-		self.navigationController?.pushViewController(ResultsViewController(), animated: true)
+        let resultsVC = ResultsListViewController(venues: venues)
+        self.navigationController?.pushViewController(resultsVC, animated: true)
 	}
 
 	private func addAnnotationsToMap(){
@@ -97,7 +98,7 @@ class SearchViewController: UIViewController {
 	}
 
 	private func callNumber(phoneNumber: String) {
-		//		if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+//		if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
 		if let phoneCallURL = URL(string: "telprompt://\(phoneNumber)") {
 			if (UIApplication.shared.canOpenURL(phoneCallURL)) {
 				UIApplication.shared.open(phoneCallURL, options: [:], completionHandler: nil)
@@ -166,13 +167,7 @@ extension SearchViewController : MKMapViewDelegate {
 			//right callout
 			annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
 
-			//			let callButton = UIButton()
-			//			let callButtonImage = UIImage(named: "phone")
-			//			callButton.setBackgroundImage(callButtonImage, for: .normal)
-			//			annotationView?.leftCalloutAccessoryView = callButton
-
-
-			//left callout - add an image to callout
+			//left callout
 			let imageView = UIImageView.init(frame: CGRect(origin: CGPoint(x:0,y:0),size:CGSize(width:30,height:30)))
 			imageView.image = UIImage(named: "phone")
 			annotationView!.leftCalloutAccessoryView = imageView
@@ -184,14 +179,6 @@ extension SearchViewController : MKMapViewDelegate {
 
 	//callout tapped/selected
 	func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-
-		//TODO - Testing -
-		if (view.leftCalloutAccessoryView != nil) {
-			let resultsVC = ResultsViewController()
-			navigationController?.pushViewController(resultsVC, animated: true)
-		}
-
-
 		//go to detailViewController
 		let detailVC = DetailViewController(venue: currentSelectedVenue, image: currentSelectedVenuePhoto)
 		navigationController?.pushViewController(detailVC, animated: true)
@@ -251,7 +238,7 @@ extension SearchViewController : UICollectionViewDataSource {
 					customCell.setNeedsLayout()
 				}, errorHandler: {print($0)})
 			} else {
-				customCell.imageView.image =  imageLiteral(resourceName: "placeholder-image")
+				customCell.imageView.image = #imageLiteral(resourceName: "placeholder-image")
 			}
 		}
 		return customCell
@@ -334,6 +321,21 @@ extension SearchViewController : UICollectionViewDelegate {
 //        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation2.coordinate, addressDictionary: nil))
 //        request.requestsAlternateRoutes = true
 //        request.transportType = .Automobile
+
+
+//Make Phone Call
+//		guard let number = URL(string: "tel://61234567890") else { return }
+//		UIApplication.shared.open(number)
+
+//		if let phoneCallURL:URL = URL(string: "tel:\(currentSelectedVenue.contact.phone!)") {
+//			let application:UIApplication = UIApplication.shared
+//			if (application.canOpenURL(phoneCallURL)) {
+//				let alertController = UIAlertController(title: "MyApp", message: "Are you sure you want to call \n\(self.strPhoneNumber)?", preferredStyle: .alert)
+//				let yesPressed = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+//					application.openURL(phoneCallURL)
+//				})
+//				let noPressed = UIAlertAction(title: "No", style: .default, handler: { (action) in
+//
 //
 //        let directions = MKDirections(request: request)
 //
@@ -368,4 +370,3 @@ extension SearchViewController : UICollectionViewDelegate {
 //			}
 //		}
 //		UIApplication.shared.open(number, options: [:], completionHandler: nil)
-

@@ -5,9 +5,12 @@
 
 import Foundation
 
+<<<<<<< HEAD
 // MARK: FourSquare Photos Json
 import Foundation
 
+=======
+>>>>>>> abdc9832faae546aae1008b6a4e02d57f54a6e4d
 struct FourSquarePhotoObjectsJSON: Codable {
 	let response: PhotoResponse
 }
@@ -35,4 +38,7 @@ struct Source: Codable {
 	let name: String? // "Instagram"
 	let url: String? //"http://instagram.com"
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> abdc9832faae546aae1008b6a4e02d57f54a6e4d

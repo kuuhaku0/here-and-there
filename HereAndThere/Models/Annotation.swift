@@ -12,7 +12,6 @@ class venueLocation: NSObject, MKAnnotation {
 	var title: String?
 	var subtitle: String?
 	//var image: UIImage?
-
 	init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String?) {
 		self.coordinate = coordinate
 		self.title = title
@@ -26,7 +25,7 @@ class venueLocationView: MKAnnotationView {
 
 	override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
 		super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-		guard let locationPin = self.annotation else { return }
+//		guard let locationPin = self.annotation else { return }
 		//TO-DO
 	}
 }

@@ -10,9 +10,11 @@ target 'HereAndThere' do
   # Pods for HereAndThere
 
 pod 'Alamofire', '~> 4.5'
-pod 'SwiftyJSON'
-pod 'SVProgressHUD'
 pod 'SnapKit', '~> 4.0.0'
-pod 'AlamofireImage', '~> 3.3'
 
+# Pods for MDC-Tutorial
+  pod 'MaterialComponents/AppBar'
+  pod 'MaterialComponents/Buttons'
+  pod 'MaterialComponents/Collections'
+  pod 'MaterialComponents/ShadowElevations
 end

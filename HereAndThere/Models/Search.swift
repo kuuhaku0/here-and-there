@@ -56,10 +56,17 @@ struct Category: Codable {
 	let pluralName: String //"Pizza Places"
 	let shortName: String //"Pizza"
 	let icon: Icon
+<<<<<<< HEAD
 		struct Icon: Codable {
 			let prefix: String? //"https://ss3.4sqi.net/img/categories_v2/food/pizza_"
 			let suffix: String? //".png"
 		}
+=======
+	struct Icon: Codable {
+		let prefix: String? //"https://ss3.4sqi.net/img/categories_v2/food/pizza_"
+		let suffix: String? //".png"
+	}
+>>>>>>> abdc9832faae546aae1008b6a4e02d57f54a6e4d
 	let primary: Bool //true    (primary category)
 }
 
@@ -67,7 +74,13 @@ struct Delivery: Codable {
 	let id: String?
 	let url: String?
 	let provider: Provider?
+<<<<<<< HEAD
 		struct Provider: Codable {
 			let name: String?
 		}
+=======
+	struct Provider: Codable {
+		let name: String?
+	}
+>>>>>>> abdc9832faae546aae1008b6a4e02d57f54a6e4d
 }
