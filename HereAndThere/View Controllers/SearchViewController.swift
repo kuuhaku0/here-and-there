@@ -80,7 +80,8 @@ class SearchViewController: UIViewController {
 		navigationItem.rightBarButtonItem = toggleBarItem
 	}
 	@objc func toggleListAndMap() {
-		self.navigationController?.pushViewController(ResultsViewController(), animated: true)
+        let resultsVC = ResultsListViewController(venues: venues)
+        self.navigationController?.pushViewController(resultsVC, animated: true)
 	}
 
 	fileprivate func checkUserLocationPermission(){

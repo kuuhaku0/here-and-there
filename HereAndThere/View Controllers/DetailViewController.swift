@@ -17,7 +17,6 @@ class DetailViewController: UIViewController {
 	//MARK: Property
 	private var venue: Venue!
 
-    
     //Custom Initializer
     init(venue: Venue) {
         super.init(nibName: nil, bundle: nil)
