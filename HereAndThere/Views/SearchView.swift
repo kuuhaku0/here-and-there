@@ -23,6 +23,9 @@ class SearchView: UIView {
 		sb.showsCancelButton = true
 		sb.placeholder = "New York, NY"
 		sb.barTintColor = .white
+		//		sb.isSearchResultsButtonSelected = true
+		//		sb.isTranslucent = true
+		//		sb.searchBarStyle = UISearchBarStyle.minimal
 		sb.tag = 1
 		return sb
 	}()
@@ -32,6 +35,7 @@ class SearchView: UIView {
 		smap.isZoomEnabled = true
 		smap.isScrollEnabled = true
 		smap.isPitchEnabled = true
+		//		smap.isRotateEnabled = true
 		smap.showsUserLocation = true
 		smap.showsScale = true
 		return smap
@@ -66,8 +70,7 @@ class SearchView: UIView {
 		addCitySearchBar()
 		addSearchMap()
 		addUserTrackingButton()
-		//Configure the MKUserTrackingButton in your setupViews code
-		userTrackingButton.mapView = searchMap
+		userTrackingButton.mapView = searchMap //Configure the MKUserTrackingButton in your setupViews code
 		addCollectionView()
 	}
 
@@ -91,8 +94,8 @@ class SearchView: UIView {
 	private func addUserTrackingButton(){
 		addSubview(userTrackingButton)
 		userTrackingButton.translatesAutoresizingMaskIntoConstraints = false
-		userTrackingButton.topAnchor.constraint(equalTo: searchMap.topAnchor, constant: 45).isActive = true
-		userTrackingButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
+		userTrackingButton.topAnchor.constraint(equalTo: searchMap.topAnchor, constant: 5).isActive = true
+		userTrackingButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
 	}
 	private func addCollectionView(){
 		addSubview(collectionView)
@@ -104,4 +107,3 @@ class SearchView: UIView {
 		collectionView.heightAnchor.constraint(equalTo: searchMap.heightAnchor, multiplier: 0.2).isActive = true
 	}
 }
-

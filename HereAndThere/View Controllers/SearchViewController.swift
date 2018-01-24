@@ -6,13 +6,16 @@
 import UIKit
 import CoreLocation
 import MapKit
+//import MaterialComponents.MaterialCollections
+//import MaterialComponents.MaterialCollectionLayoutAttributes
+//import MaterialComponents.MDCShadowLayer
 
 class SearchViewController: UIViewController {
 
-	//MARK: View Overrides
+	//MARK: View Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.addSubview(searchView)  //add customView to access properties
+		view.addSubview(searchView)
 
 		//Delegates and Datasource
 		searchView.venueSearchBar.delegate = self
@@ -25,27 +28,36 @@ class SearchViewController: UIViewController {
 		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
 		setupNavigationBar()
 		setupLocation()
-		let check = LocationService.manager.checkForLocationServices()
-		print("check location services authorization: \(check)")
+		let locationCheck = LocationService.manager.checkForLocationServices()
+
+		//        //Gestures
+		//        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+		//        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+		//        searchView.collectionView.addGestureRecognizer(swipeDown)
+		//
+		//        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+		//        swipeUp.direction = UISwipeGestureRecognizerDirection.up
+		//        searchView.collectionView.addGestureRecognizer(swipeUp)
 	}
+
 
 	// MARK: create instance of SearchView
 	var searchView = SearchView()
+	//	let appBar = MDCAppBar()
 
 	// MARK: Properties
-	var locationManager: CLLocationManager! //instance of Location Manager
-	var currentLocation: CLLocation!
-
 	var near: String = ""
-
 	private var venues = [Venue]() {
 		didSet {
 			addAnnotationsToMap()
 		}
 	}
-	private var photosForVenues: [UIImage] = []
 	private var annotationsForVenues = [MKAnnotation]()
 	private var currentSelectedVenue: Venue!
+
+	private var selectedVenue: (Venue, [UIImage])!
+	private var selectedVenuePhotos: [UIImage]!
+
 	private var currentSelectedVenuePhoto: UIImage!
 	private var currentSelectedVenuePhotosObject = [PhotoObject]()
 
@@ -54,8 +66,7 @@ class SearchViewController: UIViewController {
 
 	//Custom Methods
 	fileprivate func setupLocation(){
-		determineMyLocation()
-		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832) //change
+		LocationService.manager.determineMyLocation()
 	}
 	fileprivate func setupNavigationBar() {
 		navigationItem.title = "Search for Venue"
@@ -64,30 +75,11 @@ class SearchViewController: UIViewController {
 		navigationItem.titleView = searchView.venueSearchBar
 
 		//right bar button for toggling between map & list
-		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
+		let toggleBarItem = UIBarButtonItem(image:  imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
 		navigationItem.rightBarButtonItem = toggleBarItem
 	}
 	@objc func toggleListAndMap() {
 		self.navigationController?.pushViewController(ResultsViewController(), animated: true)
-	}
-
-
-	fileprivate func checkUserLocationPermission(){
-		switch CLLocationManager.authorizationStatus() {
-			case .authorizedAlways, .authorizedWhenInUse:
-				print(); print("Authorized"); print()
-			case .denied:
-				print(); print("Denied"); print()
-                
-				//opens phone Settings so user can authorize permission
-				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
-				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
-			case .notDetermined:
-				print(); print("Not Determined"); print()
-				locationManager.requestWhenInUseAuthorization()
-			case .restricted:
-				print(); print("Restricted"); print()
-		}
 	}
 
 	private func addAnnotationsToMap(){
@@ -104,8 +96,15 @@ class SearchViewController: UIViewController {
 		}
 	}
 
+	private func callNumber(phoneNumber: String) {
+		//		if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+		if let phoneCallURL = URL(string: "telprompt://\(phoneNumber)") {
+			if (UIApplication.shared.canOpenURL(phoneCallURL)) {
+				UIApplication.shared.open(phoneCallURL, options: [:], completionHandler: nil)
+			}
+		}
+	}
 }
-
 
 
 // MARK: SearchBar Delegate
@@ -115,7 +114,7 @@ extension SearchViewController: UISearchBarDelegate {
 		searchBar.resignFirstResponder() //resign keyboard
 
 		// validate venue search
-		guard let text = searchView.venueSearchBar.text else {
+		guard let venueSearch = searchView.venueSearchBar.text else {
 			//Venue text is empty - prompt user to enter a venue
 			let alertController = UIAlertController(title: "What Venue are you looking for?", message: "Please enter a Venue", preferredStyle: .alert)
 			let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
@@ -123,19 +122,17 @@ extension SearchViewController: UISearchBarDelegate {
 			present(alertController, animated: true, completion: nil)
 			return
 		}
+		guard !venueSearch.isEmpty else { print("venue text is empty"); return }
+		guard let encodedVenueSearch = venueSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { print("spaces not allowed"); return }
 
-		guard !text.isEmpty else { print("venue text is empty"); return }
-		guard let encodedVenueSearch = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { print("spaces not allowed"); return }
-
-		// check for empty address field. i.e placeholder text
-		var address: String!
-		if let value = searchView.citySearchBar.text {
-			if value.isEmpty { address = nil}
-			else { address = value.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)}
-		}
+		//validate
+		guard let nearSearch = searchView.citySearchBar.text else {return}
+		guard let encodedNearSearch = nearSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { print("spaces not allowed"); return }
 
 		//API Call to get venues
-		SearchAPIClient.manager.getVenues(from: encodedVenueSearch, coordinate: "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)", near: near) { (OnlineVenues) in
+		SearchAPIClient.manager.getVenues(from: encodedVenueSearch, coordinate: "\(searchView.searchMap.userLocation.coordinate.latitude),\(searchView.searchMap.userLocation.coordinate.longitude)", near: encodedNearSearch) { (OnlineVenues) in
+			print(self.searchView.searchMap.userLocation.coordinate.latitude)
+			print(self.searchView.searchMap.userLocation.coordinate.longitude)
 			self.venues.removeAll()
 			self.searchView.searchMap.removeAnnotations(self.annotationsForVenues)
 			self.annotationsForVenues.removeAll()
@@ -146,7 +143,6 @@ extension SearchViewController: UISearchBarDelegate {
 		searchBar.text = ""
 	}
 }
-
 
 
 
@@ -170,10 +166,15 @@ extension SearchViewController : MKMapViewDelegate {
 			//right callout
 			annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
 
+			//			let callButton = UIButton()
+			//			let callButtonImage = UIImage(named: "phone")
+			//			callButton.setBackgroundImage(callButtonImage, for: .normal)
+			//			annotationView?.leftCalloutAccessoryView = callButton
+
+
 			//left callout - add an image to callout
 			let imageView = UIImageView.init(frame: CGRect(origin: CGPoint(x:0,y:0),size:CGSize(width:30,height:30)))
-			imageView.image = currentSelectedVenuePhoto
-//		imageView.image = UIImage(named: "coffee")
+			imageView.image = UIImage(named: "phone")
 			annotationView!.leftCalloutAccessoryView = imageView
 		} else { //display as is
 			annotationView?.annotation = annotation
@@ -183,8 +184,22 @@ extension SearchViewController : MKMapViewDelegate {
 
 	//callout tapped/selected
 	func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-		let detailVC = DetailViewController(venue: currentSelectedVenue)
+
+		//TODO - Testing -
+		if (view.leftCalloutAccessoryView != nil) {
+			let resultsVC = ResultsViewController()
+			navigationController?.pushViewController(resultsVC, animated: true)
+		}
+
+
+		//go to detailViewController
+		let detailVC = DetailViewController(venue: currentSelectedVenue, image: currentSelectedVenuePhoto)
 		navigationController?.pushViewController(detailVC, animated: true)
+
+		//Phone call
+		if let phoneNumber = currentSelectedVenue.contact.phone {
+			callNumber(phoneNumber: phoneNumber)
+		}
 	}
 
 	//didSelect - setting currentSelected Venue
@@ -195,58 +210,7 @@ extension SearchViewController : MKMapViewDelegate {
 		let venue = venues[annotationIndex]
 		currentSelectedVenue = venue
 	}
-
-	//drawing directions (point to point) on map using MapKit
-	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-		let renderer = MKPolylineRenderer(overlay: overlay)
-		renderer.strokeColor = UIColor.blue
-		renderer.lineWidth = 5.0
-		return renderer
-	}
-
 }
-
-
-//MARK: Core Location Manager - Delegate
-extension SearchViewController :  CLLocationManagerDelegate  {
-	func determineMyLocation() {
-		locationManager = CLLocationManager() //create instance of locationManager
-		locationManager.delegate = self //set delegate to SearchViewController
-		locationManager.desiredAccuracy = kCLLocationAccuracyBest
-		locationManager.distanceFilter = 1000 //meters
-		locationManager.requestAlwaysAuthorization()
-
-		//if user opted in for location services, start updating
-		if CLLocationManager.locationServicesEnabled() {
-			locationManager.startUpdatingLocation()
-		}
-		//TODO: Prompt user to
-	}
-
-	//did Update Location
-	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		let userLocation: CLLocation = locations[0]
-		print("User latitude = \(userLocation.coordinate.latitude)")
-		print("User longitude = \(userLocation.coordinate.longitude)")
-		let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
-		searchView.searchMap.setRegion(region, animated: true)
-		searchView.searchMap.showsUserLocation = true
-		//        locationManager.stopUpdatingLocation()
-	}
-
-	//did update Location
-	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
-		searchView.searchMap.setRegion(region, animated: true)
-		searchView.searchMap.showsUserLocation = true
-	}
-
-	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-		print("Error: \(error)")
-	}
-}
-
 
 
 
@@ -287,7 +251,7 @@ extension SearchViewController : UICollectionViewDataSource {
 					customCell.setNeedsLayout()
 				}, errorHandler: {print($0)})
 			} else {
-				customCell.imageView.image = #imageLiteral(resourceName: "placeholder-image")
+				customCell.imageView.image =  imageLiteral(resourceName: "placeholder-image")
 			}
 		}
 		return customCell
@@ -322,88 +286,86 @@ extension SearchViewController : UICollectionViewDelegate {
 	//action for selected item
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let venue = venues[indexPath.row]
-		let detailVC = DetailViewController(venue: venue)
+		let detailVC = DetailViewController(venue: venue, image: currentSelectedVenuePhoto)
 		navigationController?.pushViewController(detailVC, animated: true)
 	}
 }
 
 
-
-
-
-//	func checkUserPermissions(){
-//		//checking user authorization permissions
-//			if CLLocationManager.locationServicesEnabled() { 		//if location is enabled
-//					if locationManager == nil {
-//						//set a new location Manager instance
-//						locationManager = CLLocationManager()
-//					}
-//					locationManager?.requestWhenInUseAuthorization()
-//					locationManager.delegate = self
-//					locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//					locationManager.requestAlwaysAuthorization()
-//					locationManager.startUpdatingLocation()
-//			} else { //not enabled - asks for permission
-//				//TO-DO:
-//			}
-//	}
-
-
-// MARK: Drawing directions using mapKit
-//extension SearchViewController {
-//	//for directions using mapKit
-//		private func showRouteOnMap() {
-//			let request = MKDirectionsRequest()
-//			request.source = MKMapItem(placemark: MKPlacemark(coordinate: annotation1.coordinate, addressDictionary: nil))
-//			request.destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation2.coordinate, addressDictionary: nil))
-//			request.requestsAlternateRoutes = true
-//			request.transportType = .Automobile
-//
-//			let directions = MKDirections(request: request)
-//
-//			directions.calculateDirectionsWithCompletionHandler { [unowned self] response, error in
-//				guard let unwrappedResponse = response else { return }
-//
-//				if (unwrappedResponse.routes.count > 0) {
-//					self.mapView.addOverlay(unwrappedResponse.routes[0].polyline)
-//					self.mapView.setVisibleMapRect(unwrappedResponse.routes[0].polyline.boundingMapRect, animated: true)
-//				}
+//BONUS Methods
+//Gesture Method
+//	@objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+//		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+//			switch swipeGesture.direction {
+//				case UISwipeGestureRecognizerDirection.down:
+//					print("swipped down")
+//					hideCollectionView()
+//				case UISwipeGestureRecognizerDirection.up:
+//					print("swipped up")
+//					showCollectionView()
+//				default:
+//					break
 //			}
 //		}
-//
-//
-//	private func drawDirections(){
-//		let startingCoordinates = locationManager.location?.coordinate
-//		let destinationCoordinates = CLLocationCoordinate2SMake(36.1070, -112.1130)
-//
-//		let startingPlacemark =  MKPlacemark(coordinate: startingCoordinates)
-//		let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinates)
-//
-//		let startingItem = MKMapItem(placemark: startingPlacemark)
-//		let destinationItem = MKMapItem(placemark: destinationPlacemark)
-//
-//		let directionRequest = MKDirectionsRequest()
-//		directionRequest.starting = startingItem
-//		directionRequest.destination = destinationItem
-//		directionRequest.transportType = .walking
-//
-//		let directions = MKDirections(request: directionRequest)
-//		directions.calculate(completionHandler: {
-//			response, error in
-//
-//			guard let response = response else {
-//				if let error = error { print("Something went wrong") }
-//				return
-//			}
-//
-//			let route = response.routes[0]
-//			self.mapView.add(route.polyline, level: .aboveRoads)
-//
-//			let rekt = route.polyline.boundingMapRect
-//			self.mapView.setRegion(MKCoordinateRegionForMapRect(rekt), animated: true)
-//
-//		})
 //	}
-//}
+
+//	func hideCollectionView() {
+//		UIView.animate(withDuration: 0.5) {
+//			self.searchView.collectionViewBottomConstraint.constant = 120
+//			self.view.layoutIfNeeded()
+//		}
+//	}
+
+//	func showCollectionView() {
+//		UIView.animate(withDuration: 0.5) {
+//				self.searchView.collectionViewBottomConstraint.isActive = false
+//            self.searchView.collectionViewBottomConstraint = self.searchView.containerView.bottomAnchor.constraint(equalTo: self.searchView.safeAreaLayoutGuide.bottomAnchor)
+//            self.searchView.collectionViewBottomConstraint.isActive = true
+//            self.view.layoutIfNeeded()
+//        }
+//    }
+
+
+
+//for directions
+//    func showRouteOnMap() {
+//        let request = MKDirectionsRequest()
+//        request.source = MKMapItem(placemark: MKPlacemark(coordinate: annotation1.coordinate, addressDictionary: nil))
+//        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation2.coordinate, addressDictionary: nil))
+//        request.requestsAlternateRoutes = true
+//        request.transportType = .Automobile
 //
+//        let directions = MKDirections(request: request)
 //
+//        directions.calculateDirectionsWithCompletionHandler { [unowned self] response, error in
+//            guard let unwrappedResponse = response else { return }
+//
+//            if (unwrappedResponse.routes.count > 0) {
+//                self.mapView.addOverlay(unwrappedResponse.routes[0].polyline)
+//                self.mapView.setVisibleMapRect(unwrappedResponse.routes[0].polyline.boundingMapRect, animated: true)
+//            }
+//        }
+//    }
+
+
+//Make Phone Call
+//		guard let number = URL(string: "tel://61234567890") else { return }
+//		UIApplication.shared.open(number)
+
+//		if let phoneCallURL:URL = URL(string: "tel:\(currentSelectedVenue.contact.phone!)") {
+//			let application:UIApplication = UIApplication.shared
+//			if (application.canOpenURL(phoneCallURL)) {
+//				let alertController = UIAlertController(title: "MyApp", message: "Are you sure you want to call \n\(self.strPhoneNumber)?", preferredStyle: .alert)
+//				let yesPressed = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+//					application.openURL(phoneCallURL)
+//				})
+//				let noPressed = UIAlertAction(title: "No", style: .default, handler: { (action) in
+//
+//				})
+//				alertController.addAction(yesPressed)
+//				alertController.addAction(noPressed)
+//				present(alertController, animated: true, completion: nil)
+//			}
+//		}
+//		UIApplication.shared.open(number, options: [:], completionHandler: nil)
+
