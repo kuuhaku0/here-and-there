@@ -31,8 +31,6 @@ class DetailViewController: UIViewController {
         detailedView.tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")
         detailedView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
 		configureNavBar()
-        configureDetailedVC()
-//        detailedView.imageView.image = image
 	}
     
     //Custom Initializer
@@ -53,10 +51,7 @@ class DetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = addButton
         
     }
-    private func configureDetailedVC() {
-//        detailedView.placeLabel.text = venue.categories[0].name
-//        detailedView.notesLabel.text = ""
-    }
+
 
     @objc func addButtonTapped() {
         //let vc = CreateTipViewController(venue: venue, image: image)

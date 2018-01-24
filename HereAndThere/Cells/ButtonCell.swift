@@ -38,11 +38,7 @@ class ButtonCell: UITableViewCell {
     func setUpButton() {
         addSubview(button)
         button.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(safeAreaLayoutGuide)
-            make.left.equalTo(safeAreaLayoutGuide)
-            make.right.equalTo(safeAreaLayoutGuide)
-            make.bottom.equalTo(safeAreaLayoutGuide)
-            make.centerX.equalTo(self.snp.centerX)
+            make.edges.equalTo(safeAreaLayoutGuide)
         }
         
     }
