@@ -101,6 +101,7 @@ extension DetailViewController: UITableViewDataSource {
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
             cell.textLabel?.text = "Tips Are Great"
+            cell.textLabel?.textColor = .lightGray
             cell.selectionStyle = .none
             return cell
         case 3:
