@@ -38,7 +38,13 @@ class DetailViewController: UIViewController {
         navigationItem.title = venue.name
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.rightBarButtonItem = addButton
+        addButton.action = #selector(addButtonTapped)
+        
 }
-
+    @objc func addButtonTapped() {
+        let vc = CreateTipViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
 }

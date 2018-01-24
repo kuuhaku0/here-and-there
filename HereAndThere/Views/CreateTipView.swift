@@ -1,5 +1,5 @@
 //
-//  CreateCollectionView.swift
+//  CreateTipView.swift
 //  HereAndThere
 //
 //  Created by Reiaz Gafar on 1/22/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateCollectionView: UIView {
+class CreateTipView: UIView {
     
     lazy var newCollectionTextField: UITextField = {
         let textField = UITextField()

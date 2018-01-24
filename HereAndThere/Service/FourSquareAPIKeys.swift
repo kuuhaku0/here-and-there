@@ -12,3 +12,10 @@ struct FourSquareAPIKeys {
 	static let todaysDate = Date().description.prefix(10).replacingOccurrences(of: "-", with: "")
 	static let fourSquareAuthorization = "&client_id=\(FourSquareAPIKeys.CLIENT_ID)&client_secret=\(FourSquareAPIKeys.CLIENT_SECRET)&v=\(FourSquareAPIKeys.todaysDate)"
 }
+
+
+fileprivate struct ReiazKeys {
+    static let clientID = "ASLASQKJYNMWXLNPILANMLIQVOS2H5PEJIW005LWOZZ51BRH"
+    static let clientSecret = "VSAUR1RVSKGYIT3SK43I3EEJP31XLD2ESQ22QZKB5OGCTRJB"
+}
+
