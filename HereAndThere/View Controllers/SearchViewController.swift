@@ -70,8 +70,6 @@ class SearchViewController: UIViewController {
 		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832) //change
 	}
 	fileprivate func setupNavigationBar() {
-		navigationItem.title = "Search for Venue"
-		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.titleView = searchView.venueSearchBar
 

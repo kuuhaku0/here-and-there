@@ -15,11 +15,32 @@ class CollectionsViewController: MDCCollectionViewController {
     
     let colors = ["red", "blue", "green", "black", "yellow", "purple"]
     
+    var collections = [String : [SavedVenue]]() {
+        didSet {
+            sortedKeys = collections.keys.sorted()
+        }
+    }
+    
+    var sortedKeys = [String]() {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         collectionView?.register(MDCCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView?.showsVerticalScrollIndicator = false
+        
+        configureNavBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        collections = DataPersistenceHelper.manager.getCollections()
     }
     
     // Configure nav bar
@@ -76,6 +97,7 @@ class CollectionsViewController: MDCCollectionViewController {
     }
     
     @objc func cancelButtonTapped() {
+        navigationItem.leftBarButtonItem = nil
         configureNavBar()
     }
     
@@ -86,6 +108,35 @@ class CollectionsViewController: MDCCollectionViewController {
 
 
 extension CollectionsViewController {
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return sortedKeys.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionMDCCollectionViewCell
+        
+        let collection = collections[sortedKeys[indexPath.row]]
+        if (collection?.isEmpty)! {
+            cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder-image")
+        } else {
+            
+            let venue = collection![0]
+            
+            if let image = DataPersistenceHelper.manager.getImage(with: venue.venueID) {
+                cell.collectionImageView.image = image
+            } else {
+                cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder-image")
+            }
+        }
+        cell.collectionNameLabel.text = sortedKeys[indexPath.row]
+
+        return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numCells: CGFloat = 2
