@@ -29,7 +29,6 @@ class SearchViewController: UIViewController {
 		setupNavigationBar()
 		setupLocation()
 		let check = LocationService.manager.checkForLocationServices()
-		print("check location services authorization: \(check)")
 
 		//        //Gestures
 		//        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
@@ -83,24 +82,6 @@ class SearchViewController: UIViewController {
 		self.navigationController?.pushViewController(ResultsViewController(), animated: true)
 	}
 
-	fileprivate func checkUserLocationPermission(){
-		switch CLLocationManager.authorizationStatus() {
-		case .authorizedAlways, .authorizedWhenInUse:
-			//TODO -
-			print(); print("Authorized"); print()
-		case .denied:
-			//opens phone Settings so user can authorize permission
-			guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
-			UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
-		case .notDetermined:
-			locationManager.requestWhenInUseAuthorization()
-		case .restricted:
-			//opens phone Settings so user can authorize permission
-			guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
-			UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
-		}
-	}
-
 	private func addAnnotationsToMap(){
 		// creating annotations
 		venues.forEach { (venue) in
@@ -152,6 +133,7 @@ extension SearchViewController: UISearchBarDelegate {
 		}
 
 		//API Call to get venues
+		//TODO - pass in userLocation from userPreference
 		SearchAPIClient.manager.getVenues(from: encodedVenueSearch, coordinate: "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)", near: near) { (OnlineVenues) in
 			self.venues.removeAll()
 			self.searchView.searchMap.removeAnnotations(self.annotationsForVenues)
@@ -204,6 +186,13 @@ extension SearchViewController : MKMapViewDelegate {
 
 	//callout tapped/selected
 	func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+
+		if (view.leftCalloutAccessoryView != nil) {
+			let resultsVC = ResultsViewController(
+			navigationController?.pushViewController(detailVC, animated: true)
+		}
+
+
 		//go to detailViewController
 		let detailVC = DetailViewController(venue: currentSelectedVenue)
 		navigationController?.pushViewController(detailVC, animated: true)
@@ -216,6 +205,7 @@ extension SearchViewController : MKMapViewDelegate {
 
 	//didSelect - setting currentSelected Venue
 	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+
 		//find venue selected
 		let index = annotationsForVenues.index{$0 === view.annotation} //where they match, pass the index
 		guard let annotationIndex = index else {print ("index is nil"); return }
@@ -229,47 +219,6 @@ extension SearchViewController : MKMapViewDelegate {
 		renderer.strokeColor = UIColor.blue
 		renderer.lineWidth = 5.0
 		return renderer
-	}
-}
-
-//MARK: Core Location Manager - Delegate
-extension SearchViewController :  CLLocationManagerDelegate  {
-	func determineMyLocation() {
-		locationManager = CLLocationManager() //create instance of locationManager
-		locationManager.delegate = self //set delegate to SearchViewController
-		locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//		locationManager.distanceFilter = 1000 //meters
-		locationManager.requestAlwaysAuthorization()
-
-		//if user opted in for location services, start updating
-		if CLLocationManager.locationServicesEnabled() {
-			locationManager.startUpdatingLocation()
-		}
-		//TODO: Prompt user to
-
-	}
-
-	//did Update Location
-	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		let userLocation: CLLocation = locations[0]
-		print("User latitude = \(userLocation.coordinate.latitude)")
-		print("User longitude = \(userLocation.coordinate.longitude)")
-		let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
-		searchView.searchMap.setRegion(region, animated: true)
-		searchView.searchMap.showsUserLocation = true
-		//        locationManager.stopUpdatingLocation()
-	}
-
-	//did update Location
-	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
-		searchView.searchMap.setRegion(region, animated: true)
-		searchView.searchMap.showsUserLocation = true
-	}
-
-	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-		print("Error: \(error)")
 	}
 }
 
