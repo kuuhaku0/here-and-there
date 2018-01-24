@@ -1,20 +1,23 @@
 //
-//  CollectionVenuesTableViewCell.swift
+//  CreateCollectionView.swift
 //  HereAndThere
 //
-//  Created by Reiaz Gafar on 1/22/18.
+//  Created by Reiaz Gafar on 1/24/18.
 //  Copyright © 2018 HereAndThere. All rights reserved.
 //
 
 import UIKit
+import SnapKit
 
-class CollectionVenuesTableViewCell: UITableViewCell {
+class CreateCollectionView: UIView {
 
-    
+    lazy var collectionNameTextField: UITextField = {
+        let textField = UITextField()
+        return textField
+    }()
 
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: UIScreen.main.bounds)
         commonInit()
     }
     

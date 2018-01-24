@@ -11,7 +11,7 @@ class DetailViewController: UIViewController {
     private var venue: Venue!
     
     lazy var addButton: UIBarButtonItem = {
-        let addButton = UIBarButtonItem()
+        let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
         addButton.image = #imageLiteral(resourceName: "plus")
         return addButton
     }()
@@ -35,15 +35,15 @@ class DetailViewController: UIViewController {
     
     // MARK :
     private func configureNavBar() {
+        
         navigationItem.title = venue.name
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.rightBarButtonItem = addButton
-        addButton.action = #selector(addButtonTapped)
         
 }
     @objc func addButtonTapped() {
-        let vc = CreateTipViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        //let vc = CreateTipViewController(venue: venue, image: image)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
 

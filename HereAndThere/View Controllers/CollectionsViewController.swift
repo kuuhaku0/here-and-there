@@ -33,6 +33,8 @@ class CollectionsViewController: MDCCollectionViewController {
         view.backgroundColor = .white
         collectionView?.register(MDCCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView?.showsVerticalScrollIndicator = false
+        
+        configureNavBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -95,6 +97,7 @@ class CollectionsViewController: MDCCollectionViewController {
     }
     
     @objc func cancelButtonTapped() {
+        navigationItem.leftBarButtonItem = nil
         configureNavBar()
     }
     
@@ -113,14 +116,21 @@ extension CollectionsViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionMDCCollectionViewCell
         
-        let collection = collections[sortedKeys[indexPath.section]]
-        let venue = collection![indexPath.row]
-        
-        if let image = DataPersistenceHelper.manager.getImage(with: venue.imgURL) {
-            cell.collectionImageView.image = image
+        let collection = collections[sortedKeys[indexPath.row]]
+        if (collection?.isEmpty)! {
+            cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder-image")
         } else {
-            ImageHelper.manager.getImage(from: venue.imgURL, completionHandler: { cell.collectionImageView.image = $0 }, errorHandler: { print($0) })
+            
+            let venue = collection![0]
+            
+            if let image = DataPersistenceHelper.manager.getImage(with: venue.venueID) {
+                cell.collectionImageView.image = image
+            } else {
+                cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder-image")
+            }
         }
+        cell.collectionNameLabel.text = sortedKeys[indexPath.row]
+
         return cell
     }
     

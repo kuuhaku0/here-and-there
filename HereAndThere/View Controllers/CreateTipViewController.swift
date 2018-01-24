@@ -12,10 +12,12 @@ class CreateTipViewController: UIViewController {
 
     let createTipView = CreateTipView()
     var venue: Venue!
+    var image: UIImage!
     
-    convenience init(venue: Venue) {
+    convenience init(venue: Venue, image: UIImage) {
         self.init(nibName: nil, bundle: nil)
         self.venue = venue
+        self.image = image
     }
     
     override func viewDidLoad() {
@@ -39,7 +41,10 @@ class CreateTipViewController: UIViewController {
     
     // Function that's called when the list button is tapped
     @objc func createButtonTapped() {
-
+        // TODO:
+        if DataPersistenceHelper.manager.addVenueToCollection(collectionName: "", venue: venue, tip: createTipView.tipTextField.text, venueID: venue.id, image: image) {
+            print("successfully saved")
+        }
     }
     
     // Function to setup a search button on the nav bar
@@ -50,7 +55,7 @@ class CreateTipViewController: UIViewController {
     
     // Function that's called when the search button is tapped
     @objc func cancelButtonTapped() {
-
+        navigationController?.popViewController(animated: true)
     }
     
     

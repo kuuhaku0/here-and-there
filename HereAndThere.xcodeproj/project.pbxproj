@@ -10,6 +10,8 @@
 		30C914B532DCF0E5DE004F6F /* Pods_HereAndThere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */; };
 		8120359B20165CB400A054E0 /* FourSquareAPIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120359A20165CB400A054E0 /* FourSquareAPIKeys.swift */; };
 		814361922017E72F00A2B761 /* CollectionMDCCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814361912017E72F00A2B761 /* CollectionMDCCollectionViewCell.swift */; };
+		814361942018D48400A2B761 /* CreateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814361932018D48400A2B761 /* CreateCollectionViewController.swift */; };
+		814361982018D59300A2B761 /* CreateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814361972018D59300A2B761 /* CreateCollectionView.swift */; };
 		814EFAA62013005B0002C758 /* CollectionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814EFAA52013005B0002C758 /* CollectionsViewCell.swift */; };
 		816684212013AC8F00E9A803 /* SearchViewCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816684202013AC8F00E9A803 /* SearchViewCollectionViewController.swift */; };
 		816684232013B5A800E9A803 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 816684222013B5A800E9A803 /* Main.storyboard */; };
@@ -48,6 +50,8 @@
 		8120359A20165CB400A054E0 /* FourSquareAPIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareAPIKeys.swift; sourceTree = "<group>"; };
 		8120359D2016698D00A054E0 /* C4Q.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = C4Q.gpx; sourceTree = "<group>"; };
 		814361912017E72F00A2B761 /* CollectionMDCCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionMDCCollectionViewCell.swift; sourceTree = "<group>"; };
+		814361932018D48400A2B761 /* CreateCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionViewController.swift; sourceTree = "<group>"; };
+		814361972018D59300A2B761 /* CreateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionView.swift; sourceTree = "<group>"; };
 		814EFAA52013005B0002C758 /* CollectionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewCell.swift; sourceTree = "<group>"; };
 		816684202013AC8F00E9A803 /* SearchViewCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCollectionViewController.swift; sourceTree = "<group>"; };
 		816684222013B5A800E9A803 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -174,6 +178,7 @@
 				818C8CC82011507B00E798C6 /* ResultsViewController.swift */,
 				818C8CC92011507C00E798C6 /* DetailViewController.swift */,
 				818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */,
+				814361932018D48400A2B761 /* CreateCollectionViewController.swift */,
 				81E44202201645F000887641 /* CreateTipViewController.swift */,
 				81E4420020163FB000887641 /* CollectionDetailViewController.swift */,
 			);
@@ -193,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				818C8CDF201150FE00E798C6 /* SearchView.swift */,
+				814361972018D59300A2B761 /* CreateCollectionView.swift */,
 				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
 				9324A4AD20169118007A2B64 /* DetailedView.swift */,
 				81E442082016503E00887641 /* AddTipCollectionViewCell.swift */,
@@ -382,10 +388,12 @@
 				818C8CED2011523400E798C6 /* FileManagerHelper.swift in Sources */,
 				818C8CD02011507C00E798C6 /* SearchViewController.swift in Sources */,
 				81E44203201645F000887641 /* CreateTipViewController.swift in Sources */,
+				814361982018D59300A2B761 /* CreateCollectionView.swift in Sources */,
 				81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */,
 				816684212013AC8F00E9A803 /* SearchViewCollectionViewController.swift in Sources */,
 				818C8CE3201150FE00E798C6 /* SearchCVCell.swift in Sources */,
 				81E442092016503F00887641 /* AddTipCollectionViewCell.swift in Sources */,
+				814361942018D48400A2B761 /* CreateCollectionViewController.swift in Sources */,
 				818C8CDA201150EC00E798C6 /* SearchAPIClient.swift in Sources */,
 				8199901B2012656900AE9CFB /* UserPreference.swift in Sources */,
 				819990132012527000AE9CFB /* LocationService.swift in Sources */,
