@@ -11,18 +11,26 @@ struct SearchAPIClient {
 	private init(){}
 	static let manager = SearchAPIClient()
 
-	func getVenues(from search: String, coordinate: String, near: String, completion: @escaping ([Venue]) -> Void) {
+	func getVenues(from search: String, coordinate: String?, near: String?, completion: @escaping ([Venue]) -> Void) {
 
-		var FOURSQUARE_URL = ""
-		if near != "" {
-			FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
-		} else {
-			FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
+		var url = ""
+
+		// using near
+		if let near = near, near != "" {
+			url = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
+			print("near URL:")
+			print(url)
+		}
+		// use coordinate
+		else if let coordinate = coordinate {
+			url = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
+			print("coordinate URL:")
+			print(url)
 		}
 
 
 		//Network call to get data from foursquare
-		Alamofire.request(FOURSQUARE_URL).responseJSON { (response) in
+		Alamofire.request(url).responseJSON { (response) in
 			if response.result.isSuccess {
 				if let data = response.data {
 					do {
@@ -36,6 +44,8 @@ struct SearchAPIClient {
 				//response failed
 			else {
 				print("Error\(String(describing: response.result.error))")
+				let alertController = UIAlertController(title: "No Network Connection", message: "Network connection is not currently available. Please check your connection", preferredStyle: .alert)
+
 				//TODO: NOTIFY USER OF CONNECTION ISSUE
 			}
 		}

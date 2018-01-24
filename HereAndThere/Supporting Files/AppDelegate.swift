@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let searchVC = SearchViewController()
         searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         let searchNavController = UINavigationController(rootViewController: searchVC)
+			
         
         //Collections VC
         let collectionsVC = CollectionsViewController()

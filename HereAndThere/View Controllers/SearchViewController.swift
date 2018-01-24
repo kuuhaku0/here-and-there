@@ -12,10 +12,10 @@ import MapKit
 
 class SearchViewController: UIViewController {
 
-	//MARK: View Overrides
+	//MARK: View Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.addSubview(searchView)  //add customView to access properties
+		view.addSubview(searchView)
 
 		//Delegates and Datasource
 		searchView.venueSearchBar.delegate = self
@@ -23,12 +23,12 @@ class SearchViewController: UIViewController {
 		searchView.searchMap.delegate = self
 		searchView.collectionView.delegate = self
 		searchView.collectionView.dataSource = self
-
+        
 		//Setup
 		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
 		setupNavigationBar()
 		setupLocation()
-		let check = LocationService.manager.checkForLocationServices()
+		let locationCheck = LocationService.manager.checkForLocationServices()
 
 		//        //Gestures
 		//        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
@@ -46,17 +46,18 @@ class SearchViewController: UIViewController {
 //	let appBar = MDCAppBar()
 
 	// MARK: Properties
-	var locationManager: CLLocationManager! //instance of Location Manager
-	var currentLocation: CLLocation!
 	var near: String = ""
 	private var venues = [Venue]() {
 		didSet {
 			addAnnotationsToMap()
 		}
 	}
-	private var photosForVenues: [UIImage] = []
 	private var annotationsForVenues = [MKAnnotation]()
 	private var currentSelectedVenue: Venue!
+
+	private var selectedVenue: (Venue, [UIImage])!
+	private var selectedVenuePhotos: [UIImage]!
+
 	private var currentSelectedVenuePhoto: UIImage!
 	private var currentSelectedVenuePhotosObject = [PhotoObject]()
 
@@ -65,8 +66,7 @@ class SearchViewController: UIViewController {
 
 	//Custom Methods
 	fileprivate func setupLocation(){
-		determineMyLocation()
-		currentLocation = CLLocation(latitude: 40.743034, longitude: -73.941832) //change
+		LocationService.manager.determineMyLocation()
 	}
 	fileprivate func setupNavigationBar() {
 		navigationItem.title = "Search for Venue"
@@ -112,8 +112,9 @@ extension SearchViewController: UISearchBarDelegate {
 	//search - enter press
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.resignFirstResponder() //resign keyboard
+
 		// validate venue search
-		guard let text = searchView.venueSearchBar.text else {
+		guard let venueSearch = searchView.venueSearchBar.text else {
 			//Venue text is empty - prompt user to enter a venue
 			let alertController = UIAlertController(title: "What Venue are you looking for?", message: "Please enter a Venue", preferredStyle: .alert)
 			let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
@@ -121,20 +122,17 @@ extension SearchViewController: UISearchBarDelegate {
 			present(alertController, animated: true, completion: nil)
 			return
 		}
+		guard !venueSearch.isEmpty else { print("venue text is empty"); return }
+		guard let encodedVenueSearch = venueSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { print("spaces not allowed"); return }
 
-		guard !text.isEmpty else { print("venue text is empty"); return }
-		guard let encodedVenueSearch = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { print("spaces not allowed"); return }
-
-		// check for empty address field. i.e placeholder text
-		var address: String!
-		if let value = searchView.citySearchBar.text {
-			if value.isEmpty { address = nil}
-			else { address = value.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)}
-		}
+		//validate
+		guard let nearSearch = searchView.citySearchBar.text else {return}
+		guard let encodedNearSearch = nearSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { print("spaces not allowed"); return }
 
 		//API Call to get venues
-		//TODO - pass in userLocation from userPreference
-		SearchAPIClient.manager.getVenues(from: encodedVenueSearch, coordinate: "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)", near: near) { (OnlineVenues) in
+		SearchAPIClient.manager.getVenues(from: encodedVenueSearch, coordinate: "\(searchView.searchMap.userLocation.coordinate.latitude),\(searchView.searchMap.userLocation.coordinate.longitude)", near: encodedNearSearch) { (OnlineVenues) in
+			print(self.searchView.searchMap.userLocation.coordinate.latitude)
+			print(self.searchView.searchMap.userLocation.coordinate.longitude)
 			self.venues.removeAll()
 			self.searchView.searchMap.removeAnnotations(self.annotationsForVenues)
 			self.annotationsForVenues.removeAll()
@@ -187,14 +185,15 @@ extension SearchViewController : MKMapViewDelegate {
 	//callout tapped/selected
 	func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
+		//TODO - Testing - 
 		if (view.leftCalloutAccessoryView != nil) {
-			let resultsVC = ResultsViewController(
-			navigationController?.pushViewController(detailVC, animated: true)
+			let resultsVC = ResultsViewController()
+			navigationController?.pushViewController(resultsVC, animated: true)
 		}
 
 
 		//go to detailViewController
-		let detailVC = DetailViewController(venue: currentSelectedVenue)
+        let detailVC = DetailViewController(venue: currentSelectedVenue, image: currentSelectedVenuePhoto)
 		navigationController?.pushViewController(detailVC, animated: true)
 
 		//Phone call
@@ -205,20 +204,11 @@ extension SearchViewController : MKMapViewDelegate {
 
 	//didSelect - setting currentSelected Venue
 	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-
 		//find venue selected
 		let index = annotationsForVenues.index{$0 === view.annotation} //where they match, pass the index
 		guard let annotationIndex = index else {print ("index is nil"); return }
 		let venue = venues[annotationIndex]
 		currentSelectedVenue = venue
-	}
-
-	//drawing directions (point to point) on map using MapKit
-	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-		let renderer = MKPolylineRenderer(overlay: overlay)
-		renderer.strokeColor = UIColor.blue
-		renderer.lineWidth = 5.0
-		return renderer
 	}
 }
 
@@ -296,7 +286,7 @@ extension SearchViewController : UICollectionViewDelegate {
 	//action for selected item
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let venue = venues[indexPath.row]
-		let detailVC = DetailViewController(venue: venue)
+        let detailVC = DetailViewController(venue: venue, image: currentSelectedVenuePhoto)
 		navigationController?.pushViewController(detailVC, animated: true)
 	}
 }

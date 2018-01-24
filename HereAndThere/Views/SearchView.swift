@@ -94,7 +94,7 @@ class SearchView: UIView {
 	private func addUserTrackingButton(){
 		addSubview(userTrackingButton)
 		userTrackingButton.translatesAutoresizingMaskIntoConstraints = false
-		userTrackingButton.topAnchor.constraint(equalTo: searchMap.topAnchor, constant: 35).isActive = true
+		userTrackingButton.topAnchor.constraint(equalTo: searchMap.topAnchor, constant: 5).isActive = true
 		userTrackingButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
 	}
 	private func addCollectionView(){

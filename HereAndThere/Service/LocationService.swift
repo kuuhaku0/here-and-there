@@ -9,8 +9,7 @@ import UIKit
 
 class LocationService: NSObject {
 
-	// MARK: view Lifecycle
-
+	// MARK: View Lifecycle
 	private override init() {
 		super.init() //whenever you override you should call super
 		locationManager = CLLocationManager()
@@ -65,14 +64,14 @@ extension LocationService: CLLocationManagerDelegate {
 		locationManager = CLLocationManager() //create instance of locationManager
 		locationManager.delegate = self //set delegate to SearchViewController
 		locationManager.desiredAccuracy = kCLLocationAccuracyBest
-		//		locationManager.distanceFilter = 1000 //meters
 		locationManager.requestAlwaysAuthorization()
 
 		//if user opted in for location services, start updating
 		if CLLocationManager.locationServicesEnabled() {
 			locationManager.startUpdatingLocation()
+		} else {
+			
 		}
-		//TODO: Prompt user to
 	}
 
 
@@ -82,10 +81,10 @@ extension LocationService: CLLocationManagerDelegate {
 		UserPreference.manager.setLatitude(latitude: location.coordinate.latitude)
 		UserPreference.manager.setLongitude(longitude: location.coordinate.longitude)
 
-		let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
-		searchView.searchMap.setRegion(region, animated: true)
-		searchView.searchMap.showsUserLocation = true
+//		let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//		let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
+//		searchView.searchMap.setRegion(region, animated: true)
+//		searchView.searchMap.showsUserLocation = true
 
 		// broadcast location change via custom delegate
 		//		delegate?.locatonService(self, didUpdateLocation: location)
@@ -118,12 +117,10 @@ extension LocationService: CLLocationManagerDelegate {
 //MARK: Core Location Manager - Delegate
 extension SearchViewController :  CLLocationManagerDelegate  {
 
-
-
 	//did update Location
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
-		searchView.searchMap.setRegion(region, animated: true)
+//		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
+//		searchView.searchMap.setRegion(region, animated: true)
 		searchView.searchMap.showsUserLocation = true
 	}
 
