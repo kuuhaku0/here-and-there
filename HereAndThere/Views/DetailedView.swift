@@ -16,7 +16,7 @@ class DetailedView: UIView {
         let imageV = UIImageView() //default image
         imageV.image = #imageLiteral(resourceName: "placeholder-image")
         imageV.contentMode = .scaleAspectFill
-        imageV.backgroundColor = UIColor.clear
+        imageV.backgroundColor = .white
         return imageV
     }()
     
@@ -50,9 +50,6 @@ class DetailedView: UIView {
         setUpPlaceLabel()
         setUpNotesLabel()
     }
-    
-    
-
     
     func setUpImage() {
         addSubview(imageView)

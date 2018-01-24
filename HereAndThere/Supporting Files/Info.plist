@@ -4,10 +4,6 @@
 <dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>tel</string>
-	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
 		<string>telprompt</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
@@ -34,8 +30,6 @@
 	<string>For the app to work as intended. Please provide location service.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

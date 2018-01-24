@@ -8,36 +8,52 @@ import MapKit
 
 //Custom View for overall Layout of SearchViewController
 class SearchView: UIView {
+    
+    var collectionViewBottomConstraint: NSLayoutConstraint!
+
 
 	// MARK: - Create elements in View
 	lazy var venueSearchBar: UISearchBar = {
 		let sb = UISearchBar()
 		sb.showsCancelButton = false
 		sb.placeholder = "Search for Venue"
-		sb.barTintColor = .white
+		sb.barTintColor = UIColor(red: 55/255, green: 125/255, blue: 255/255, alpha: 1)
+        sb.snapshotView(afterScreenUpdates: true)
 		sb.tag = 0
 		return sb
 	}()
 	lazy var citySearchBar: UISearchBar = {
 		let sb = UISearchBar()
-		sb.showsCancelButton = true
+		sb.showsCancelButton = false
 		sb.placeholder = "New York, NY"
 		sb.barTintColor = .white
+        sb.tintColor = .white
+        sb.layer.borderColor = UIColor.white.cgColor
+            //UIColor(red: 55/255, green: 125/255, blue: 255/255, alpha: 1)
 		//		sb.isSearchResultsButtonSelected = true
 		//		sb.isTranslucent = true
-		//		sb.searchBarStyle = UISearchBarStyle.minimal
+//        sb.searchBarStyle = UISearchBarStyle.minimal
 		sb.tag = 1
+        sb.showsCancelButton = false
 		return sb
 	}()
 
 	lazy var stackSearchBars: UIStackView = {
 		let stackView = UIStackView()
-		stackView.axis  = UILayoutConstraintAxis.vertical
-		stackView.distribution  = UIStackViewDistribution.equalSpacing
+		stackView.axis = UILayoutConstraintAxis.vertical
+		stackView.distribution = UIStackViewDistribution.equalSpacing
 		stackView.alignment = UIStackViewAlignment.center
-		stackView.spacing   = 5.0
+		stackView.spacing = 0
 		return stackView
 	}()
+    
+    lazy var containerView: UIView = {
+        let view = UIView()
+        let blurEffect = UIBlurEffect(style: .extraLight)// .light, .dark, .prominent, .regular, .extraLight
+        let visualEffect = UIVisualEffectView(frame: collectionView.frame)
+        view.backgroundColor = .clear // for testing
+        return view
+    }()
 
 	lazy var searchMap: MKMapView = {
 		let smap = MKMapView()
@@ -60,7 +76,7 @@ class SearchView: UIView {
 		cvLayout.scrollDirection = .horizontal
 		let cv = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: cvLayout)
 		cv.register(SearchCVCell.self, forCellWithReuseIdentifier: "SearchCVCell")
-		cv.backgroundColor = UIColor.clear
+		cv.backgroundColor = .clear
 		return cv
 	}()
 
@@ -81,6 +97,7 @@ class SearchView: UIView {
 		addSearchMap()
 		addUserTrackingButton()
 		userTrackingButton.mapView = searchMap //Configure the MKUserTrackingButton in your setupViews code
+        setupContainerView()
 		addCollectionView()
 	}
 
@@ -89,9 +106,12 @@ class SearchView: UIView {
 	private func addCitySearchBar(){
 		addSubview(citySearchBar)
 		citySearchBar.translatesAutoresizingMaskIntoConstraints = false
+        citySearchBar.layer.borderColor = UIColor.clear.cgColor
 		citySearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-		citySearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-		citySearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        citySearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        citySearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        citySearchBar.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
 	}
 	private func addSearchMap(){
 		addSubview(searchMap)
@@ -113,7 +133,18 @@ class SearchView: UIView {
 		collectionView.centerXAnchor.constraint(equalTo:  searchMap.centerXAnchor).isActive = true
 		collectionView.leadingAnchor.constraint(equalTo: searchMap.leadingAnchor).isActive = true
 		collectionView.trailingAnchor.constraint(equalTo: searchMap.trailingAnchor).isActive = true
-		collectionView.bottomAnchor.constraint(equalTo: searchMap.bottomAnchor).isActive = true
-		collectionView.heightAnchor.constraint(equalTo: searchMap.heightAnchor, multiplier: 0.2).isActive = true
+		collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+		collectionView.heightAnchor.constraint(equalTo: searchMap.heightAnchor, multiplier: 0.25).isActive = true
 	}
+    private func setupContainerView() {
+        addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.centerXAnchor.constraint(equalTo:  searchMap.centerXAnchor).isActive = true
+        containerView.leadingAnchor.constraint(equalTo: searchMap.leadingAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: searchMap.trailingAnchor).isActive = true
+        collectionViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        collectionViewBottomConstraint.isActive = true
+        containerView.heightAnchor.constraint(equalTo: searchMap.heightAnchor, multiplier: 0.25).isActive = true
+    }
+
 }

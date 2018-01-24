@@ -30,6 +30,7 @@
 		81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC7A8A200EA72400010174 /* AppDelegate.swift */; };
 		81AC7A92200EA72400010174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A91200EA72400010174 /* Assets.xcassets */; };
 		81AC7A95200EA72400010174 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A93200EA72400010174 /* LaunchScreen.storyboard */; };
+		81C4783420193F8900CB7AAD /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C4783320193F8900CB7AAD /* MenuBar.swift */; };
 		81E4420120163FB000887641 /* CollectionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E4420020163FB000887641 /* CollectionDetailViewController.swift */; };
 		81E44203201645F000887641 /* CreateTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E44202201645F000887641 /* CreateTipViewController.swift */; };
 		81E442052016460A00887641 /* CollectionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E442042016460A00887641 /* CollectionDetailView.swift */; };
@@ -71,6 +72,7 @@
 		81AC7A91200EA72400010174 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81AC7A94200EA72400010174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81AC7A96200EA72400010174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81C4783320193F8900CB7AAD /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		81E4420020163FB000887641 /* CollectionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailViewController.swift; sourceTree = "<group>"; };
 		81E44202201645F000887641 /* CreateTipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTipViewController.swift; sourceTree = "<group>"; };
 		81E442042016460A00887641 /* CollectionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailView.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				818C8CDF201150FE00E798C6 /* SearchView.swift */,
+				81C4783320193F8900CB7AAD /* MenuBar.swift */,
 				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
 				9324A4AD20169118007A2B64 /* DetailedView.swift */,
 				81E442082016503E00887641 /* AddTipCollectionViewCell.swift */,
@@ -371,6 +374,7 @@
 				81E4420B2016678600887641 /* CollectionVenuesTableViewCell.swift in Sources */,
 				8120359B20165CB400A054E0 /* FourSquareAPIKeys.swift in Sources */,
 				818C8CD7201150EC00E798C6 /* Search.swift in Sources */,
+				81C4783420193F8900CB7AAD /* MenuBar.swift in Sources */,
 				818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */,
 				9324A4AE20169118007A2B64 /* DetailedView.swift in Sources */,
 				81E442072016461E00887641 /* CreateCollectionView.swift in Sources */,
