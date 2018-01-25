@@ -54,8 +54,9 @@ class DetailViewController: UIViewController {
 
 
     @objc func addButtonTapped() {
-        //let vc = CreateTipViewController(venue: venue, image: image)
-        //navigationController?.pushViewController(vc, animated: true)
+        let vc = CreateTipViewController(venue: venue, image: image)
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
 
