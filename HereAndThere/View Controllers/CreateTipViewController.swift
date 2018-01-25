@@ -67,22 +67,24 @@ class CreateTipViewController: UIViewController {
 
 extension CreateTipViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
+        return 10
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VenueCell", for: indexPath)
+        
+        return cell
     }
-    
+
 }
 
 extension CreateTipViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        <#code#>
+
     }
 }
 
 extension CreateTipViewController: UICollectionViewDelegateFlowLayout {
-    
+
 }
 
