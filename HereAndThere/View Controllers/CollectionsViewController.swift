@@ -107,8 +107,11 @@ extension CollectionsViewController {
         return cell
     }
     
+    // Did select cell
+    // Segues to collection detail vc
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let collectionDetailVC = CollectionDetailViewController(collectionName: sortedKeys[indexPath.row], venues: collections[sortedKeys[indexPath.row]]!)
+        navigationController?.pushViewController(collectionDetailVC, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
