@@ -11,6 +11,7 @@ import SnapKit
 
 class DetailedView: UIView {
 
+
     //picture
     lazy var imageView: UIImageView = {
         let imageV = UIImageView() //default image
@@ -60,29 +61,8 @@ class DetailedView: UIView {
             make.right.equalTo(safeAreaLayoutGuide).offset(-10)
             make.height.equalTo(self).multipliedBy(0.65)
             make.centerX.equalTo(self.snp.centerX)
+
+
         }
     }
-    
-    func setUpPlaceLabel() {
-        addSubview(placeLabel)
-
-        placeLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(imageView.snp.bottom).offset(10)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(10)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
-            make.centerX.equalTo(self.snp.centerX)
-        }
-    }
-    
-    func setUpNotesLabel() {
-        addSubview(notesLabel)
-
-        notesLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(placeLabel.snp.bottom).offset(5)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(10)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
-            make.centerX.equalTo(self.snp.centerX)
-        }
-    }
-
 }

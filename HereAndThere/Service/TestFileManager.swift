@@ -11,7 +11,7 @@ import UIKit
 
 struct SavedVenue: Codable {
     let venue: Venue
-    let imgURL: String
+    let venueID: String
     let tip: String?
 }
 
@@ -68,10 +68,10 @@ class DataPersistenceHelper {
     }
     
     //Saving Images To Disk
-    func saveImage(with imgUrl: String, image: UIImage) -> Bool {
+    func saveImage(with venueID: String, image: UIImage) -> Bool {
         
         let imgPng = UIImagePNGRepresentation(image)!
-        let imagePath = dataFilePath(withPathName: "\(imgUrl.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!)")
+        let imagePath = dataFilePath(withPathName: "\(venueID.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!)")
         
         do {
             try imgPng.write(to: imagePath, options: .atomic)
@@ -82,9 +82,9 @@ class DataPersistenceHelper {
         return true
     }
     
-    func getImage(with imgUrl: String) -> UIImage? {
+    func getImage(with venueID: String) -> UIImage? {
         do {
-            let imgPath = dataFilePath(withPathName: "\(imgUrl.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!)")
+            let imgPath = dataFilePath(withPathName: "\(venueID.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!)")
             let data = try Data(contentsOf: imgPath)
             return UIImage(data: data)
         }
@@ -116,13 +116,27 @@ class DataPersistenceHelper {
         
     }
     
+    func addCollection(name: String) -> Bool {
+        if userCollections[name] == nil {
+            userCollections[name] = [SavedVenue]()
+            return true
+        }
+        return false
+    }
+    
     // Also saves the image in the doc dir
-    func addVenueToCollection(collectionName: String, venue: Venue, tip: String?, imgUrl: String, image: UIImage) -> Bool {
+    func addVenueToCollection(collectionName: String, venue: Venue, tip: String?, venueID: String, image: UIImage) -> Bool {
         
-        let venueToSave = [SavedVenue(venue: venue, imgURL: imgUrl, tip: tip)]
-        
-        if saveImage(with: imgUrl, image: image) {
-            userCollections[collectionName] = venueToSave
+        let venueToSave = SavedVenue(venue: venue, venueID: venueID, tip: tip)
+        if saveImage(with: venueID, image: image) {
+            
+            if userCollections[collectionName] == nil {
+                userCollections[collectionName] = [venueToSave]
+            } else {
+                var savedVenues = userCollections[collectionName]!
+                savedVenues.append(venueToSave)
+                userCollections[collectionName] = savedVenues
+            }
             return true
         }
         return false

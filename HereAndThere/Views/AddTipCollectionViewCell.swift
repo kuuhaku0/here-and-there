@@ -30,6 +30,8 @@ class AddTipCollectionViewCell: UICollectionViewCell {
     lazy var addButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "plus"), for: .normal)
+        button.backgroundColor = .clear
+        button.tintColor = .green
         return button
     }()
     

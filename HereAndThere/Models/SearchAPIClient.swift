@@ -5,24 +5,30 @@
 
 import Foundation
 import Alamofire
+import UIKit
+
 
 // MARK: - FourSquare Search API Client
 struct SearchAPIClient {
 	private init(){}
 	static let manager = SearchAPIClient()
 
-	func getVenues(from search: String, coordinate: String, near: String, completion: @escaping ([Venue]) -> Void) {
+	func getVenues(from search: String, coordinate: String?, near: String?, completion: @escaping ([Venue]) -> Void) {
 
-		var FOURSQUARE_URL = ""
-		if near != "" {
-			FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
-		} else {
-			FOURSQUARE_URL = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
+		var url = ""
+
+		// using near
+		if let near = near, near != "" {
+			url = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
+		}
+			// use coordinate
+		else if let coordinate = coordinate {
+			url = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
 		}
 
 
 		//Network call to get data from foursquare
-		Alamofire.request(FOURSQUARE_URL).responseJSON { (response) in
+		Alamofire.request(url).responseJSON { (response) in
 			if response.result.isSuccess {
 				if let data = response.data {
 					do {
@@ -33,11 +39,17 @@ struct SearchAPIClient {
 					catch {print("Error processing data \(error)")}
 				}
 			}
-				//response failed
+			//response failed
 			else {
 				print("Error\(String(describing: response.result.error))")
+//				let alertController = UIAlertController(title: "No Network Connection", message: "The Internet is not available. Try again", preferredStyle: .alert)
+//				let action = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+//				alertController.addAction(action)
+//				present(alertController, animated: true, completion: nil)
 				//TODO: NOTIFY USER OF CONNECTION ISSUE
 			}
 		}
 	}
 }
+
+

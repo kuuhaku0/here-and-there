@@ -26,7 +26,7 @@ class FileManagerHelper{
 	//returns supplied path name in documents directory
 	func dataFilePath(pathName: String)->URL {
 		let path = FileManagerHelper.manager.documentDirectory()
-		print(FileManagerHelper.manager.documentDirectory()) //print file name
+//		print(FileManagerHelper.manager.documentDirectory()) //print file name
 		return path.appendingPathComponent(pathName)
 	}
 	//returns Documents directory path for the App

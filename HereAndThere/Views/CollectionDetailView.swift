@@ -20,7 +20,7 @@ class CollectionDetailView: UIView {
     private func setupTableView() {
         addSubview(tableView)
         tableView.snp.makeConstraints { (maker) in
-            
+
         }
         
         tableView.translatesAutoresizingMaskIntoConstraints = false

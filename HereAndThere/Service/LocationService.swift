@@ -5,23 +5,23 @@
 
 import Foundation
 import CoreLocation
+import UIKit
+import MapKit
 
 class LocationService: NSObject {
 
-	// MARK: view Lifecycle
-
+	// MARK: View Lifecycle
 	private override init() {
 		super.init() //whenever you override you should call super
 		locationManager = CLLocationManager()
 		locationManager.delegate = self
 	}
 	static let manager = LocationService()
-
 	private var locationManager: CLLocationManager!
-
 }
 
-//MARK: Helper functions
+
+//MARK: Custom functions
 extension LocationService {
 	public func checkForLocationServices() -> CLAuthorizationStatus {
 		var status: CLAuthorizationStatus!
@@ -31,23 +31,21 @@ extension LocationService {
 			print("location services available")
 			switch CLLocationManager.authorizationStatus() {
 			case .notDetermined:
-				print("notDetermined")
 				locationManager.requestWhenInUseAuthorization()
 				status = CLAuthorizationStatus.notDetermined
 			case .denied:
-				print("denied")
 				status = CLAuthorizationStatus.denied
 				//opens phone Settings so user can authorize permission
-				//				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
-			//				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
+				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return status}
+				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
 			case .authorizedWhenInUse:
-				print("authorizedWhenInUse")
 				status = CLAuthorizationStatus.authorizedWhenInUse
 			case .authorizedAlways:
-				print("authorizedAlways")
 				status = CLAuthorizationStatus.authorizedAlways
-			default:
-				break
+			case .restricted:
+				status = CLAuthorizationStatus.restricted
+				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return status}
+				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
 			}
 		}
 			//Update UI to inform user
@@ -59,17 +57,44 @@ extension LocationService {
 	}
 }
 
+
+
 //MARK: CLLocationManager Delegate
 extension LocationService: CLLocationManagerDelegate {
+
+	func determineMyLocation() {
+		locationManager = CLLocationManager() //create instance of locationManager
+		locationManager.delegate = self //set delegate to SearchViewController
+		locationManager.desiredAccuracy = kCLLocationAccuracyBest
+		locationManager.requestAlwaysAuthorization()
+
+		//if user opted in for location services, start updating
+		if CLLocationManager.locationServicesEnabled() {
+			locationManager.startUpdatingLocation()
+		}
+	}
+
+
 	//Did update Location
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		guard let location = locations.last else { print("no locations"); return }
-		print("didUpdateLocation: \(location)")
+		//		guard let location = locations.first else { print("no locations"); return }
 		UserPreference.manager.setLatitude(latitude: location.coordinate.latitude)
 		UserPreference.manager.setLongitude(longitude: location.coordinate.longitude)
-		// broadcast location change via custom delegate
-		//		delegate?.locatonService(self, didUpdateLocation: location)
+		//		let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+		//		let region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpan(latitudeDelta: 0.045, longitudeDelta: 0.045))
+		//		searchView.searchMap.setRegion(region, animated: true)
+		//		searchView.searchMap.showsUserLocation = true
+		//        locationManager.stopUpdatingLocation()
 	}
+
+	//did update Location
+	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+		//		let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 100, 100)
+		//		searchView.searchMap.setRegion(region, animated: true)
+		//		searchView.searchMap.showsUserLocation = true
+	}
+
 	//Fail with error
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		print("did fail with error: \(error)")
@@ -81,6 +106,8 @@ extension LocationService: CLLocationManagerDelegate {
 	}
 
 }
+
+
 
 
 
