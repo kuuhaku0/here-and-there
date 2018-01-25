@@ -174,8 +174,8 @@
 		81AC7A89200EA72400010174 /* HereAndThere */ = {
 			isa = PBXGroup;
 			children = (
-				81E75A5620121CA000192870 /* Supporting Files */,
 				81AC7A9D200EA83C00010174 /* Storyboards */,
+				81E75A5620121CA000192870 /* Supporting Files */,
 				818C8CE7201151F900E798C6 /* Service */,
 				81AC7AA3200EA86D00010174 /* Models */,
 				81AC7AA0200EA85700010174 /* Views */,
@@ -213,7 +213,6 @@
 		81AC7AA0200EA85700010174 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8158B83020193E6A00C9955A /* CreateTipView.swift */,
 				818C8CDF201150FE00E798C6 /* SearchView.swift */,
 				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
 				814361972018D59300A2B761 /* CreateCollectionView.swift */,
@@ -222,6 +221,7 @@
 				814361912017E72F00A2B761 /* CollectionMDCCollectionViewCell.swift */,
 				81E4420A2016678600887641 /* CollectionVenuesTableViewCell.swift */,
 				81E442042016460A00887641 /* CollectionDetailView.swift */,
+				8158B83020193E6A00C9955A /* CreateTipView.swift */,
 				814673AD2017CEC000321D7E /* ResultsListView.swift */,
 				814673AF2017D31500321D7E /* ResultsListTableViewCell.swift */,
 				81C7C8BF20191CA800942F06 /* ResultsListDetailView.swift */,
