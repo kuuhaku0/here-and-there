@@ -43,7 +43,7 @@ class SearchViewController: UIViewController {
 
 	// MARK: create instance of SearchView
 	var searchView = SearchView()
-//	let appBar = MDCAppBar()
+    //	let appBar = MDCAppBar()
 
 	// MARK: Properties
 	var near: String = ""

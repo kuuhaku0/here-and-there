@@ -9,7 +9,7 @@
 import UIKit
 
 class CreateTipViewController: UIViewController {
-
+    
     let createTipView = CreateTipView()
     var venue: Venue!
     var image: UIImage!
@@ -25,12 +25,14 @@ class CreateTipViewController: UIViewController {
         view.addSubview(createTipView)
         configureNavBar()
     }
-
+    
     // Function to configure the nav bar
     func configureNavBar() {
         navigationItem.title = "Add to or create collection."
         setupCreateButton()
         setupCancelButton()
+        createTipView.collectionView.dataSource = self
+        createTipView.collectionView.delegate = self
     }
     
     // Function to setup a list button on the nav bar
@@ -62,3 +64,25 @@ class CreateTipViewController: UIViewController {
     
 
 }
+
+extension CreateTipViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        <#code#>
+    }
+    
+}
+
+extension CreateTipViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        <#code#>
+    }
+}
+
+extension CreateTipViewController: UICollectionViewDelegateFlowLayout {
+    
+}
+
