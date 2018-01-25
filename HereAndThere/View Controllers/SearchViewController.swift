@@ -25,7 +25,7 @@ class SearchViewController: UIViewController {
 		searchView.collectionView.dataSource = self
 
 		//Setup
-		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
+		self.view.backgroundColor = UIColor(red: 0.1, green: 0.9, blue: 0.1, alpha: 1.0)
 		setupNavigationBar()
 		setupLocation()
 		let locationCheck = LocationService.manager.checkForLocationServices()
@@ -416,4 +416,3 @@ extension SearchViewController : UICollectionViewDelegate {
 //			}
 //		}
 //		UIApplication.shared.open(number, options: [:], completionHandler: nil)
-
