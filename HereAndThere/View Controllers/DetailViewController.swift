@@ -119,6 +119,7 @@ extension DetailViewController: UITableViewDataSource {
             return cell
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
+            cell.button.addTarget(self, action: #selector(directionsButtonTapped), for: .touchUpInside)
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
@@ -128,4 +129,15 @@ extension DetailViewController: UITableViewDataSource {
     }
     
 }
+    @objc func directionsButtonTapped() {
+        let userCoordinate = CLLocationCoordinate2D(latitude: UserPreference.manager.getLatitude(), longitude: UserPreference.manager.getLongitude())
+        
+        let placeCoordinate = CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng)
+        
+        let directionsURLString = "http://maps.apple.com/?saddr=\(userCoordinate.latitude),\(userCoordinate.longitude)&daddr=\(placeCoordinate.latitude),\(placeCoordinate.longitude)"
+        
+        UIApplication.shared.open( URL(string: directionsURLString)! , options: [:], completionHandler: { (done) in
+            
+        })
+    }
 }

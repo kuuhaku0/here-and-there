@@ -15,15 +15,27 @@ class CreateTipView: UIView {
         return textField
     }()
     
+    private func setupNewCollectionTextField() {
+        
+    }
+    
     lazy var tipLabel: UILabel = {
         let label = UILabel()
         return label
     }()
     
+    private func setupTipLabel() {
+        
+    }
+    
     lazy var tipTextField: UITextField = {
         let textField = UITextField()
         return textField
     }()
+    
+    private func setupTipTextField() {
+        
+    }
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -34,7 +46,9 @@ class CreateTipView: UIView {
         return collectionView
     }()
     
-    
+    private func setupCollectionView() {
+        
+    }
     
     
     override init(frame: CGRect) {
@@ -53,6 +67,10 @@ class CreateTipView: UIView {
     }
     
     private func setupViews() {
+        setupNewCollectionTextField()
+        setupTipLabel()
+        setupTipTextField()
+        setupNewCollectionTextField()
     }
     
 }
