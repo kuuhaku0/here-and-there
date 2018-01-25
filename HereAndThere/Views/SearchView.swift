@@ -127,13 +127,13 @@ class SearchView: UIView {
         citySearchBar.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
   }
-// 	private func addNearSearchBar(){
-// 		addSubview(nearSearchBar)
-// 		nearSearchBar.translatesAutoresizingMaskIntoConstraints = false
-// 		nearSearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-// 		nearSearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-// 		nearSearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-// 	}
+ 	private func addNearSearchBar(){
+ 		addSubview(nearSearchBar)
+ 		nearSearchBar.translatesAutoresizingMaskIntoConstraints = false
+ 		nearSearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+ 		nearSearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+ 		nearSearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+ 	}
   
 	private func addSearchMap(){
 		addSubview(searchMap)

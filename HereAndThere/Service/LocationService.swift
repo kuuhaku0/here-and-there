@@ -5,19 +5,12 @@
 
 import Foundation
 import CoreLocation
-<<<<<<< HEAD:HereAndThere/Models/LocationService.swift
-
-class LocationService: NSObject {
-
-	// MARK: view Lifecycle
-=======
 import UIKit
 import MapKit
 
 class LocationService: NSObject {
 
 	// MARK: View Lifecycle
->>>>>>> abdc9832faae546aae1008b6a4e02d57f54a6e4d:HereAndThere/Service/LocationService.swift
 	private override init() {
 		super.init() //whenever you override you should call super
 		locationManager = CLLocationManager()
@@ -113,6 +106,7 @@ extension LocationService: CLLocationManagerDelegate {
 	}
 
 }
+
 
 
 

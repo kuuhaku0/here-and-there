@@ -26,5 +26,3 @@ struct FourSquareAPIKeys {
 	static let fourSquareAuthorization = "&client_id=\(FourSquareAPIKeys.CLIENT_ID)&client_secret=\(FourSquareAPIKeys.CLIENT_SECRET)&v=\(FourSquareAPIKeys.todaysDate)"
 }
 
-
->>>>>>> abdc9832faae546aae1008b6a4e02d57f54a6e4d

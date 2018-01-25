@@ -13,8 +13,7 @@ struct PhotoAPIClient {
 
 	func getVenuePhotos(venueID: String, completion: @escaping ([PhotoObject]) -> Void) {
 		let FOURSQUARE_PHOTO_URL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?\(FourSquareAPIKeys.fourSquareAuthorization)"
-<<<<<<< HEAD
-        
+
 		Alamofire.request(FOURSQUARE_PHOTO_URL).responseJSON {(response) in
 			if response.result.isSuccess {
 					if let data = response.data {
@@ -34,25 +33,4 @@ struct PhotoAPIClient {
         }
     }
 }
-=======
->>>>>>> abdc9832faae546aae1008b6a4e02d57f54a6e4d
 
-		Alamofire.request(FOURSQUARE_PHOTO_URL).responseJSON {(response) in
-			if response.result.isSuccess {
-				if let data = response.data {
-					do {
-						let JSON = try JSONDecoder().decode(FourSquarePhotoObjectsJSON.self, from: data)
-						let numOfPhotoObjects = JSON.response.photos.count //Int
-						let photoObjects = JSON.response.photos.items //Object
-						completion(photoObjects)
-					}
-					catch {
-						print("Error processing data \(error)")
-					}
-				}
-			} else {
-				print("Error\(String(describing: response.result.error))")
-			}
-		}
-	}
-}

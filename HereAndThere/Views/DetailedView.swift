@@ -48,8 +48,8 @@ class DetailedView: UIView {
     
     func setUpView() {
         setUpImage()
-        setUpPlaceLabel()
-        setUpNotesLabel()
+//        setUpPlaceLabel()
+//        setUpNotesLabel()
     }
     
     func setUpImage() {

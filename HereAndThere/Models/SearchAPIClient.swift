@@ -7,7 +7,6 @@ import Foundation
 import Alamofire
 import UIKit
 
-
 // MARK: - FourSquare Search API Client
 struct SearchAPIClient {
 	private init(){}
@@ -21,13 +20,7 @@ struct SearchAPIClient {
 		if let near = near, near != "" {
 			url = "https://api.foursquare.com/v2/venues/search?near=\(near)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
 		}
-<<<<<<< HEAD
 		// use coordinate
-		else if let coordinate = coordinate {
-			url = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
-		}
-=======
-			// use coordinate
 		else if let coordinate = coordinate {
 			url = "https://api.foursquare.com/v2/venues/search?ll=\(coordinate)&query=\(search)\(FourSquareAPIKeys.fourSquareAuthorization)"
 		}
@@ -57,32 +50,5 @@ struct SearchAPIClient {
 		}
 	}
 }
->>>>>>> abdc9832faae546aae1008b6a4e02d57f54a6e4d
 
 
-		//Network call to get data from foursquare
-		Alamofire.request(url).responseJSON { (response) in
-			if response.result.isSuccess {
-				if let data = response.data {
-					do {
-						let JSON = try JSONDecoder().decode(FourSquareSearchJSON.self, from: data)
-						let venues = JSON.response.venues
-						completion(venues)
-					}
-					catch {print("Error processing data \(error)")}
-				}
-			}
-				//response failed
-			else {
-				print("Error\(String(describing: response.result.error))")
-				let alertController = UIAlertController(title: "No Network Connection", message: "Network connection is not currently available. Please check your connection", preferredStyle: .alert)
-
-<<<<<<< HEAD
-				//TODO: NOTIFY USER OF CONNECTION ISSUE
-			}
-		}
-	}
-}
-=======
-
->>>>>>> c8887e16dee9cbc7795d2a3e8bb8d67f6ff1bead
