@@ -23,9 +23,6 @@ struct Venue: Codable {
 	let categories: [Category]
 	let verified: Bool //true
 	let url: String? //"http://www.papajohns.com"  (company website)
-	//added properties
-	var smallImageStr: String?
-	var largeImageStr: String?
 }
 
 struct Contact:  Codable {

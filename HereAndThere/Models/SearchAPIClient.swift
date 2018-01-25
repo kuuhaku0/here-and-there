@@ -5,6 +5,8 @@
 
 import Foundation
 import Alamofire
+import UIKit
+
 
 // MARK: - FourSquare Search API Client
 struct SearchAPIClient {
@@ -43,11 +45,13 @@ struct SearchAPIClient {
 					catch {print("Error processing data \(error)")}
 				}
 			}
-				//response failed
+			//response failed
 			else {
 				print("Error\(String(describing: response.result.error))")
-				let alertController = UIAlertController(title: "No Network Connection", message: "Network connection is not currently available. Please check your connection", preferredStyle: .alert)
-
+//				let alertController = UIAlertController(title: "No Network Connection", message: "The Internet is not available. Try again", preferredStyle: .alert)
+//				let action = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+//				alertController.addAction(action)
+//				present(alertController, animated: true, completion: nil)
 				//TODO: NOTIFY USER OF CONNECTION ISSUE
 			}
 		}
@@ -73,8 +77,12 @@ struct SearchAPIClient {
 				print("Error\(String(describing: response.result.error))")
 				let alertController = UIAlertController(title: "No Network Connection", message: "Network connection is not currently available. Please check your connection", preferredStyle: .alert)
 
+<<<<<<< HEAD
 				//TODO: NOTIFY USER OF CONNECTION ISSUE
 			}
 		}
 	}
 }
+=======
+
+>>>>>>> c8887e16dee9cbc7795d2a3e8bb8d67f6ff1bead

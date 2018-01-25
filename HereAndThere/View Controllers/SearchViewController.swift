@@ -19,7 +19,7 @@ class SearchViewController: UIViewController {
 
 		//Delegates and Datasource
 		searchView.venueSearchBar.delegate = self
-		searchView.citySearchBar.delegate = self
+		searchView.nearSearchBar.delegate = self
 		searchView.searchMap.delegate = self
 		searchView.collectionView.delegate = self
 		searchView.collectionView.dataSource = self
@@ -42,45 +42,69 @@ class SearchViewController: UIViewController {
 
 
 	// MARK: create instance of SearchView
-	var searchView = SearchView()
-//	let appBar = MDCAppBar()
+	private var searchView = SearchView()
+	//	let appBar = MDCAppBar()
 
 	// MARK: Properties
-	var near: String = ""
+	private var near: String = ""
 	private var venues = [Venue]() {
 		didSet {
 			addAnnotationsToMap()
+			//			for venue in venues {
+			//				PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
+			//					if !onlinePhotoObjects.isEmpty {
+			//						for onlinePhotoObject in onlinePhotoObjects {
+			//							let imageStr = "\(onlinePhotoObject.prefix)500x500\(onlinePhotoObject.suffix)"
+			//							ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
+			//								let venuePhotosObject: String:[UIImage] =
+			//	= [venue.id: []] onlineImage
+			//								self.currentSelectedVenuePhoto = onlineImage
+			//								self.currentSelectedVenuePhotos.append(onlineImage)
+			//								customCell.setNeedsLayout()
+			//							}, errorHandler: {print($0)})
+			//						}
+			//					}
+			//				}
+			//			}
 		}
 	}
-	private var annotationsForVenues = [MKAnnotation]()
-	private var currentSelectedVenue: Venue!
+	fileprivate var venuePhotosArray: [String: [UIImage]] = [:]
 
-	private var selectedVenue: (Venue, [UIImage])!
-	private var selectedVenuePhotos: [UIImage]!
+	fileprivate var annotationsForVenues = [MKAnnotation]()
 
-	private var currentSelectedVenuePhoto: UIImage!
-	private var currentSelectedVenuePhotosObject = [PhotoObject]()
+	fileprivate var selectedVenue: Venue!
+	fileprivate var selectedVenuePhotoObjects = [PhotoObject]()
+	fileprivate var selectedVenuePhoto: UIImage!
+	fileprivate var selectedVenuePhotos: [UIImage]!
 
-	let cellSpacing: CGFloat = 1.0 //cellspacing Property for collectionView Flow Layout
+
+	fileprivate var currentSelectedVenue: Venue!
+	fileprivate var currentSelectedVenuePhoto: UIImage!
+	fileprivate var currentSelectedVenuePhotos: [UIImage] = []
+	fileprivate var currentSelectedVenuePhotosObject = [PhotoObject]()
+	//	fileprivate var currentSelectedVenuePhotosObject = [String: [PhotoObject]]()
+
+
+	fileprivate let cellSpacing: CGFloat = 1.0 //cellspacing Property for collectionView Flow Layout
 
 
 	//Custom Methods
-	fileprivate func setupLocation(){
+	private func setupLocation(){
 		LocationService.manager.determineMyLocation()
 	}
-	fileprivate func setupNavigationBar() {
+	private func setupNavigationBar() {
 		navigationItem.title = "Search"
-		navigationController?.navigationBar.prefersLargeTitles = true
+		//		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.titleView = searchView.venueSearchBar
 
 		//right bar button for toggling between map & list
-		let toggleBarItem = UIBarButtonItem(image:  imageLiteral(resourceName: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
+		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "list-1"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
 		navigationItem.rightBarButtonItem = toggleBarItem
 	}
-	@objc func toggleListAndMap() {
-        let resultsVC = ResultsListViewController(venues: venues)
-        self.navigationController?.pushViewController(resultsVC, animated: true)
+	@objc private func toggleListAndMap() {
+		let resultsVC = ResultsListViewController(venues: venues)
+		self.navigationController?.pushViewController(resultsVC, animated: true)
 	}
 
 	private func addAnnotationsToMap(){
@@ -97,51 +121,71 @@ class SearchViewController: UIViewController {
 		}
 	}
 
-	private func callNumber(phoneNumber: String) {
-//		if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
-		if let phoneCallURL = URL(string: "telprompt://\(phoneNumber)") {
+	//	private func callNumber(phoneNumber: String) {
+	////		if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+	//		if let phoneCallURL = URL(string: "telprompt://\(phoneNumber)") {
+	//			if (UIApplication.shared.canOpenURL(phoneCallURL)) {
+	//				UIApplication.shared.open(phoneCallURL, options: [:], completionHandler: nil)
+	//			}
+	//		}
+	//	}
+	@objc func callNumber() {
+		print("Attempting phone call")
+		//		if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+		if let phoneCallURL = URL(string: "telprompt://\(String(describing: currentSelectedVenue.contact.phone))") {
 			if (UIApplication.shared.canOpenURL(phoneCallURL)) {
 				UIApplication.shared.open(phoneCallURL, options: [:], completionHandler: nil)
 			}
 		}
 	}
+
 }
 
 
 // MARK: SearchBar Delegate
 extension SearchViewController: UISearchBarDelegate {
 	//search - enter press
-	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+	internal func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.resignFirstResponder() //resign keyboard
+		currentSelectedVenuePhotos.removeAll()
 
-		// validate venue search
-		guard let venueSearch = searchView.venueSearchBar.text else {
-			//Venue text is empty - prompt user to enter a venue
-			let alertController = UIAlertController(title: "What Venue are you looking for?", message: "Please enter a Venue", preferredStyle: .alert)
+		//validate venue search
+		guard let venueSearch = searchView.venueSearchBar.text else {return}
+		guard !venueSearch.isEmpty else {
+			let alertController = UIAlertController(title: "Enter a Venue", message: nil, preferredStyle: UIAlertControllerStyle.alert)
 			let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
 			alertController.addAction(okAction)
 			present(alertController, animated: true, completion: nil)
 			return
 		}
-		guard !venueSearch.isEmpty else { print("venue text is empty"); return }
-		guard let encodedVenueSearch = venueSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { print("spaces not allowed"); return }
+		guard let encodedVenueSearch = venueSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
 
-		//validate
-		guard let nearSearch = searchView.citySearchBar.text else {return}
-		guard let encodedNearSearch = nearSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { print("spaces not allowed"); return }
+		//validate near search
+		guard let nearSearch = searchView.nearSearchBar.text else {return}
+		guard let encodedNearSearch = nearSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
 
 		//API Call to get venues
 		SearchAPIClient.manager.getVenues(from: encodedVenueSearch, coordinate: "\(searchView.searchMap.userLocation.coordinate.latitude),\(searchView.searchMap.userLocation.coordinate.longitude)", near: encodedNearSearch) { (OnlineVenues) in
-			print(self.searchView.searchMap.userLocation.coordinate.latitude)
-			print(self.searchView.searchMap.userLocation.coordinate.longitude)
 			self.venues.removeAll()
 			self.searchView.searchMap.removeAnnotations(self.annotationsForVenues)
 			self.annotationsForVenues.removeAll()
 			self.venues = OnlineVenues
 		}
+		searchView.nearSearchBar.isHidden = true
 	}
-	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+	internal func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.text = ""
+		searchView.nearSearchBar.isHidden = true
+	}
+	func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
+		searchView.nearSearchBar.isHidden = true
+
+	}
+	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+		searchView.nearSearchBar.isHidden = false
+	}
+	func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+		searchView.nearSearchBar.isHidden = true
 	}
 }
 
@@ -151,8 +195,8 @@ extension SearchViewController: UISearchBarDelegate {
 // MARK: MAPVIEW Delegate
 extension SearchViewController : MKMapViewDelegate {
 	//view for each annotation
-	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-		//this keeps the user location point as a default blue dot. Ignore the userlocation.
+	internal func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+		//this keeps the user location point as a default blue dot.
 		if annotation is MKUserLocation { return nil }
 
 		//setup annotation view for map - we can fully customize the marker
@@ -161,41 +205,55 @@ extension SearchViewController : MKMapViewDelegate {
 		//setup annotation view
 		if annotationView == nil {
 			annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "PlaceAnnotationView")
-			annotationView?.canShowCallout = true
-			annotationView?.animatesWhenAdded = true
 
 			//right callout
 			annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
 
 			//left callout
 			let imageView = UIImageView.init(frame: CGRect(origin: CGPoint(x:0,y:0),size:CGSize(width:30,height:30)))
+			imageView.clipsToBounds = true
 			imageView.image = UIImage(named: "phone")
 			annotationView!.leftCalloutAccessoryView = imageView
+
+			annotationView?.canShowCallout = true
+			annotationView?.animatesWhenAdded = true
+			annotationView?.markerTintColor = .green
+			annotationView?.isHighlighted = true
+
 		} else { //display as is
 			annotationView?.annotation = annotation
 		}
+		searchView.nearSearchBar.isHidden = true
 		return annotationView
 	}
 
 	//callout tapped/selected
-	func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+	internal func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+		searchView.nearSearchBar.isHidden = true
+		if control == view.rightCalloutAccessoryView {
+			control.addTarget(self, action: #selector(callNumber), for: UIControlEvents.allTouchEvents) 	//Phone call
+		}
+		if control == view.leftCalloutAccessoryView {
+			control.addTarget(self, action: #selector(callNumber), for: UIControlEvents.allTouchEvents) 	//Phone call
+		}
+
 		//go to detailViewController
 		let detailVC = DetailViewController(venue: currentSelectedVenue, image: currentSelectedVenuePhoto)
 		navigationController?.pushViewController(detailVC, animated: true)
-
-		//Phone call
-		if let phoneNumber = currentSelectedVenue.contact.phone {
-			callNumber(phoneNumber: phoneNumber)
-		}
+		searchView.nearSearchBar.isHidden = true
 	}
 
+
 	//didSelect - setting currentSelected Venue
-	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-		//find venue selected
-		let index = annotationsForVenues.index{$0 === view.annotation} //where they match, pass the index
+	internal func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+		//to change color on annotation already selected
+		if let view = view as? MKMarkerAnnotationView {view.markerTintColor = UIColor.lightGray}
+		//find venue selected - where they match, pass the index
+		let index = annotationsForVenues.index{$0 === view.annotation}
 		guard let annotationIndex = index else {print ("index is nil"); return }
 		let venue = venues[annotationIndex]
 		currentSelectedVenue = venue
+		//		searchView.nearSearchBar.isHidden = true
 	}
 }
 
@@ -205,36 +263,38 @@ extension SearchViewController : MKMapViewDelegate {
 //MARK: CollectionView Datasource
 extension SearchViewController : UICollectionViewDataSource {
 	//# of sections
-	func numberOfSections(in collectionView: UICollectionView) -> Int {
+	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
 		return 1
 	}
 	//# of items in section
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return venues.count
 	}
 	//setup for cell
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+	internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCVCell", for: indexPath) as! SearchCVCell
 
 		//altering Cell shape & border
 		customCell.layer.cornerRadius = 5.0
-		customCell.layer.borderColor = UIColor.blue.cgColor
-		customCell.layer.borderWidth = 1.0
 
 		//setup attributes
-		customCell.backgroundColor = UIColor.clear //cell color
+		customCell.backgroundColor = UIColor.white //cell color
 		// property
 		let venue = venues[indexPath.row]
 		customCell.nameLabel.text = venue.name
+		customCell.addressLabel.text = venue.location.address
+		customCell.categoryLabel.text = venue.categories.first?.shortName
+		customCell.phoneLabel.text = venue.contact.formattedPhone
 
 		PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
 			self.currentSelectedVenuePhotosObject = onlinePhotoObjects
 			if !self.currentSelectedVenuePhotosObject.isEmpty {
-				let imageStr = "\(self.currentSelectedVenuePhotosObject[0].prefix)100x100\(self.currentSelectedVenuePhotosObject[0].suffix)"
+				let imageStr = "\(self.currentSelectedVenuePhotosObject[0].prefix)500x500\(self.currentSelectedVenuePhotosObject[0].suffix)"
 				ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
 					customCell.imageView.image = nil
 					customCell.imageView.image = onlineImage
 					self.currentSelectedVenuePhoto = onlineImage
+					self.currentSelectedVenuePhotos.append(onlineImage)
 					customCell.setNeedsLayout()
 				}, errorHandler: {print($0)})
 			} else {
@@ -248,22 +308,22 @@ extension SearchViewController : UICollectionViewDataSource {
 //MARK: CollectionView - Delegate Flow Layout
 extension SearchViewController : UICollectionViewDelegateFlowLayout {
 	//Layout - Size for item
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let numCells: CGFloat = 4
+	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		let numCells: CGFloat = 1.7
 		let numSpaces: CGFloat = numCells + 1
 		let screenWidth = UIScreen.main.bounds.width
 		return CGSize(width: (screenWidth - (cellSpacing * numSpaces)) / numCells, height: collectionView.bounds.height - (cellSpacing * 2))
 	}
 	//Layout - Inset for section
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 		return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 	}
 	//Layout - line spacing
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-		return cellSpacing + 5
+	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+		return cellSpacing + 10
 	}
 	//Layout - inter item spacing
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 		return cellSpacing
 	}
 }
@@ -271,9 +331,10 @@ extension SearchViewController : UICollectionViewDelegateFlowLayout {
 //MARK: CollectionView Delegate
 extension SearchViewController : UICollectionViewDelegate {
 	//action for selected item
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+	internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let venue = venues[indexPath.row]
-		let detailVC = DetailViewController(venue: venue, image: currentSelectedVenuePhoto)
+		let image = currentSelectedVenuePhotos[indexPath.row]
+		let detailVC = DetailViewController(venue: venue, image: image)
 		navigationController?.pushViewController(detailVC, animated: true)
 	}
 }
@@ -321,21 +382,6 @@ extension SearchViewController : UICollectionViewDelegate {
 //        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation2.coordinate, addressDictionary: nil))
 //        request.requestsAlternateRoutes = true
 //        request.transportType = .Automobile
-
-
-//Make Phone Call
-//		guard let number = URL(string: "tel://61234567890") else { return }
-//		UIApplication.shared.open(number)
-
-//		if let phoneCallURL:URL = URL(string: "tel:\(currentSelectedVenue.contact.phone!)") {
-//			let application:UIApplication = UIApplication.shared
-//			if (application.canOpenURL(phoneCallURL)) {
-//				let alertController = UIAlertController(title: "MyApp", message: "Are you sure you want to call \n\(self.strPhoneNumber)?", preferredStyle: .alert)
-//				let yesPressed = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-//					application.openURL(phoneCallURL)
-//				})
-//				let noPressed = UIAlertAction(title: "No", style: .default, handler: { (action) in
-//
 //
 //        let directions = MKDirections(request: request)
 //
@@ -370,3 +416,4 @@ extension SearchViewController : UICollectionViewDelegate {
 //			}
 //		}
 //		UIApplication.shared.open(number, options: [:], completionHandler: nil)
+

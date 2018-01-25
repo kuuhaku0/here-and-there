@@ -7,9 +7,16 @@
 //
 
 import UIKit
+import MapKit
+import SnapKit
 
 class MapCell: UITableViewCell {
 
+    lazy var mapV: MKMapView = {
+        let mv = MKMapView()
+        mv.clipsToBounds = true
+        return mv
+    }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,7 +33,14 @@ class MapCell: UITableViewCell {
     }
     
     func setUpMap() {
-        
+        addSubview(mapV)
+        mapV.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(safeAreaLayoutGuide)
+            make.left.equalTo(safeAreaLayoutGuide).offset(5)
+            make.right.equalTo(safeAreaLayoutGuide).offset(-5)
+            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.centerX.equalTo(self.snp.centerX)
     }
 
+}
 }

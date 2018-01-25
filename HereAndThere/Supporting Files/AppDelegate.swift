@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        DataPersistenceHelper.manager.loadCollections()
+        
         //Search VC
         let searchVC = SearchViewController()
         searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
@@ -23,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Collections VC
         let collectionsVC = CollectionsViewController()
-        collectionsVC.tabBarItem = UITabBarItem(title: "Collections", image: #imageLiteral(resourceName: "listCollection1"), tag: 1)
+        collectionsVC.tabBarItem = UITabBarItem(title: "Collections", image: #imageLiteral(resourceName: "list"), tag: 1)
         let collectionsNavController = UINavigationController(rootViewController: collectionsVC)
 
         

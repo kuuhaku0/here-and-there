@@ -14,6 +14,8 @@ class CollectionMDCCollectionViewCell: MDCCollectionViewCell {
     
     lazy var collectionNameLabel: UILabel = {
        let label = UILabel()
+        label.text = "HELLO"
+        label.backgroundColor = .purple
         return label
     }()
     
