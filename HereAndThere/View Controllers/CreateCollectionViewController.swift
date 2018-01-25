@@ -12,27 +12,50 @@ class CreateCollectionViewController: UIViewController {
 
     let createCollectionView = CreateCollectionView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        view.addSubview(createCollectionView)
+        configureCreateNavBar()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Configure nav bar when add button is tapped
+    func configureCreateNavBar() {
+        navigationItem.title = "Add a collection."
+        configureCreateButton()
+        configureCancelButton()
     }
-    */
+    
+    // Create button
+    func configureCreateButton() {
+        let createButton = UIBarButtonItem(title: "Create", style: .plain, target: self, action: #selector(createButtonTapped))
+        navigationItem.rightBarButtonItem = createButton
+    }
+    
+    @objc func createButtonTapped() {
+        print("CREATE TAPPED")
+        
+        guard let text = createCollectionView.collectionNameTextField.text else { return }
+        
+        if DataPersistenceHelper.manager.addCollection(name: text.capitalized) {
+            print("saved a collection")
+        }
+        
+        
+        navigationController?.popViewController(animated: true)
+    }
+    
+    // Cancel button
+    func configureCancelButton() {
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
+        navigationItem.leftBarButtonItem = cancelButton
+        
+    }
+    
+    @objc func cancelButtonTapped() {
+        navigationItem.leftBarButtonItem = nil
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
 
 }

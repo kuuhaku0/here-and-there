@@ -116,13 +116,27 @@ class DataPersistenceHelper {
         
     }
     
+    func addCollection(name: String) -> Bool {
+        if userCollections[name] == nil {
+            userCollections[name] = [SavedVenue]()
+            return true
+        }
+        return false
+    }
+    
     // Also saves the image in the doc dir
     func addVenueToCollection(collectionName: String, venue: Venue, tip: String?, venueID: String, image: UIImage) -> Bool {
         
-        let venueToSave = [SavedVenue(venue: venue, venueID: venueID, tip: tip)]
-        
+        let venueToSave = SavedVenue(venue: venue, venueID: venueID, tip: tip)
         if saveImage(with: venueID, image: image) {
-            userCollections[collectionName] = venueToSave
+            
+            if userCollections[collectionName] == nil {
+                userCollections[collectionName] = [venueToSave]
+            } else {
+                var savedVenues = userCollections[collectionName]!
+                savedVenues.append(venueToSave)
+                userCollections[collectionName] = savedVenues
+            }
             return true
         }
         return false
