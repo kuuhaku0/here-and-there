@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Collections VC
         let collectionsVC = CollectionsViewController()
-        collectionsVC.tabBarItem = UITabBarItem(title: "Collections", image: #imageLiteral(resourceName: "listCollection1"), tag: 1)
+        collectionsVC.tabBarItem = UITabBarItem(title: "Collections", image: #imageLiteral(resourceName: "list"), tag: 1)
         let collectionsNavController = UINavigationController(rootViewController: collectionsVC)
 
         

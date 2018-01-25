@@ -25,7 +25,6 @@ class SearchViewController: UIViewController {
 		searchView.collectionView.dataSource = self
         
 		//Setup
-		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
 		setupNavigationBar()
 		setupLocation()
 		let locationCheck = LocationService.manager.checkForLocationServices()
@@ -38,7 +37,11 @@ class SearchViewController: UIViewController {
 		//        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
 		//        swipeUp.direction = UISwipeGestureRecognizerDirection.up
 		//        searchView.collectionView.addGestureRecognizer(swipeUp)
-	}
+        
+        let toggleBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "search"), tag: 0)
+        tabBarController?.tabBar.tintColor = .white
+        
+    }
 
 
 	// MARK: create instance of SearchView
@@ -54,6 +57,8 @@ class SearchViewController: UIViewController {
 	}
 	fileprivate var annotationsForVenues = [MKAnnotation]()
 
+	let cellSpacing: CGFloat = 8 
+  
 	fileprivate var selectedVenue: (Venue, [PhotoObject])!
 	fileprivate var selectedVenuePhotoObjects = [PhotoObject]()
 	fileprivate var selectedVenuePhoto: UIImage!
@@ -63,26 +68,48 @@ class SearchViewController: UIViewController {
 	fileprivate var currentSelectedVenuePhoto: UIImage!
 	fileprivate var currentSelectedVenuePhotosObject = [PhotoObject]()
 
-	fileprivate let cellSpacing: CGFloat = 1.0 //cellspacing Property for collectionView Flow Layout
-
-
 	//Custom Methods
 	fileprivate func setupLocation(){
 		LocationService.manager.determineMyLocation()
 	}
 	fileprivate func setupNavigationBar() {
-		navigationItem.title = "Search"
-//		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.titleView = searchView.venueSearchBar
-
+        
 		//right bar button for toggling between map & list
-		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "list-1"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
+		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu2"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
 		navigationItem.rightBarButtonItem = toggleBarItem
+        navigationController?.navigationBar.barTintColor = UIColor(red: 55/255, green: 125/255, blue: 255/255, alpha: 1)
+        
+        toggleBarItem.tintColor = .white
+        tabBarController?.tabBar.barTintColor = UIColor(red: 55/255, green: 125/255, blue: 255/255, alpha: 1)
 	}
+    
+	@objc func toggleListAndMap() {
+    let resultsVC = ResultsListViewController(venues: venues)
+    self.navigationController?.pushViewController(resultsVC, animated: true)
+	}
+
+	fileprivate func checkUserLocationPermission(){
+		switch CLLocationManager.authorizationStatus() {
+		case .authorizedAlways, .authorizedWhenInUse:
+			print(); print("Authorized"); print()
+		case .denied:
+			print(); print("Denied"); print()
+
+			//opens phone Settings so user can authorize permission
+			guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return}
+			UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
+		case .notDetermined:
+			print(); print("Not Determined"); print()
+			locationManager.requestWhenInUseAuthorization()
+		case .restricted:
+			print(); print("Restricted"); print()
+		}
+
 	@objc private func toggleListAndMap() {
         let resultsVC = ResultsListViewController(venues: venues)
         self.navigationController?.pushViewController(resultsVC, animated: true)
+
 	}
 
 	private func addAnnotationsToMap(){
@@ -239,25 +266,28 @@ extension SearchViewController : MKMapViewDelegate {
 
 //MARK: CollectionView Datasource
 extension SearchViewController : UICollectionViewDataSource {
-	//# of sections
-	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
-		return 1
-	}
-	//# of items in section
+
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return venues.count
 	}
+    
 	//setup for cell
 	internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCVCell", for: indexPath) as! SearchCVCell
 
 		//altering Cell shape & border
-		customCell.layer.cornerRadius = 5.0
+        customCell.layer.cornerRadius = 5.0
+        customCell.layer.borderColor = UIColor(red: 218/255, green: 232/255, blue: 249/255, alpha: 1).cgColor
+        customCell.layer.borderWidth = 5
+        
+        //setup attributes
+        customCell.backgroundColor = .white //cell color
+        customCell.layer.shadowOffset.height = 2
+        customCell.layer.shadowOffset.width = 2
 
-		//setup attributes
-		customCell.backgroundColor = UIColor.white //cell color
 		// property
-		let venue = venues[indexPath.row]
+		customCell.nameLabel.text = "TEST"
+   let venue = venues[indexPath.row]
 		customCell.nameLabel.text = venue.name
 		customCell.addressLabel.text = venue.location.address
 		customCell.categoryLabel.text = venue.categories.first?.shortName
@@ -276,41 +306,44 @@ extension SearchViewController : UICollectionViewDataSource {
 			} else {
 				customCell.imageView.image = #imageLiteral(resourceName: "placeholder-image")
 			}
-		}
+                            }
 		return customCell
 	}
 }
 
 //MARK: CollectionView - Delegate Flow Layout
 extension SearchViewController : UICollectionViewDelegateFlowLayout {
-	//Layout - Size for item
-	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let numCells: CGFloat = 1.7
-		let numSpaces: CGFloat = numCells + 1
-		let screenWidth = UIScreen.main.bounds.width
-		return CGSize(width: (screenWidth - (cellSpacing * numSpaces)) / numCells, height: collectionView.bounds.height - (cellSpacing * 2))
-	}
-	//Layout - Inset for section
-	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-		return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-	}
-	//Layout - line spacing
-	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-		return cellSpacing + 10
-	}
-	//Layout - inter item spacing
-	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-		return cellSpacing
-	}
+
+    //Layout - Size for item
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numCells: CGFloat = 3
+        let numSpaces: CGFloat = numCells + 1
+        let screenWidth = UIScreen.main.bounds.width
+        return CGSize(width: (screenWidth - (cellSpacing * (numSpaces - 5.5))) / numCells, height: (screenWidth - (cellSpacing * (numSpaces + 3))) / numCells)
+    }
+    //Layout - Inset for section
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+    }
+    //Layout - line spacing
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return cellSpacing
+    }
+    //Layout - inter item spacing
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return cellSpacing
+    }
 }
 
 //MARK: CollectionView Delegate
 extension SearchViewController : UICollectionViewDelegate {
-	//action for selected item
-	internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+
+internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let venue = venues[indexPath.row]
         let detailVC = DetailViewController(venue: venue, image: currentSelectedVenuePhoto)
 		navigationController?.pushViewController(detailVC, animated: true)
+
 	}
 }
 

@@ -11,31 +11,58 @@ import SnapKit
 
 class DetailedView: UIView {
 
-    lazy var tableView: UITableView = {
-        let tbV = UITableView()
-        return tbV
+
+    //picture
+    lazy var imageView: UIImageView = {
+        let imageV = UIImageView() //default image
+        imageV.image = #imageLiteral(resourceName: "placeholder-image")
+        imageV.contentMode = .scaleAspectFill
+        imageV.backgroundColor = .white
+        return imageV
     }()
     
-        override init(frame: CGRect) {
-            super.init(frame: UIScreen.main.bounds)
-            setUpView()
-        }
+    //type of place label
+    lazy var placeLabel: UILabel = {
+       let label = UILabel()
+        label.text = "Place Label"
+        return label
+    }()
     
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
+    //notes label
+    lazy var notesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Notes Label"
+        return label
+    }()
     
-        }
-    
-    func setUpView() {
-        setUpTableView()
+
+    override init(frame: CGRect) {
+        super.init(frame: UIScreen.main.bounds)
+        setUpView()
     }
     
-    func setUpTableView() {
-        addSubview(tableView)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         
-                tableView.snp.makeConstraints { (make) -> Void in
-                    make.edges.equalTo(safeAreaLayoutGuide)
-                }
+    }
+    
+    func setUpView() {
+        setUpImage()
+        setUpPlaceLabel()
+        setUpNotesLabel()
+    }
+    
+    func setUpImage() {
+        addSubview(imageView)
 
-}
+        imageView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(safeAreaLayoutGuide).offset(20)
+            make.left.equalTo(safeAreaLayoutGuide).offset(10)
+            make.right.equalTo(safeAreaLayoutGuide).offset(-10)
+            make.height.equalTo(self).multipliedBy(0.65)
+            make.centerX.equalTo(self.snp.centerX)
+
+
+        }
+    }
 }

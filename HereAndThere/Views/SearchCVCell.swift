@@ -4,21 +4,27 @@
 //  Copyright © 2018 Winston Maragh. All rights reserved.
 
 import UIKit
-//import MaterialComponents.MDCCollectionViewCell
+import MaterialComponents.MDCCollectionViewCell
 import UIKit
 
 //Custom CollectionView Cell for SearchViewController
-class SearchCVCell: UICollectionViewCell {
+class SearchCVCell: MDCCollectionViewCell {
 
 	// MARK: - Create elements in Cell
 	lazy var imageView: UIImageView = {
 		let imageV = UIImageView() //default image
 		imageV.image = #imageLiteral(resourceName: "placeholder-image")
+        imageV.contentMode = .scaleAspectFill
 		imageV.backgroundColor = UIColor.clear
+        imageV.clipsToBounds = true
+        imageV.layer.masksToBounds = true
 		return imageV
 	}()
+  
 	lazy var nameLabel: UILabel = {
 		let label = UILabel()
+    label.layer.masksToBounds = true
+    label.backgroundColor = .white
 		label.text = "Name" //default
 		label.textAlignment = .left
 		label.textColor = UIColor.black
@@ -62,7 +68,6 @@ class SearchCVCell: UICollectionViewCell {
 		addCategoryLabel()
 		addAddressLabel()
 		addPhoneLabel()
-
 	}
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -71,24 +76,36 @@ class SearchCVCell: UICollectionViewCell {
 
 	// MARK: - Add elements & layout constraints to Cell
 	private func addImageView(){
+        
 		addSubview(imageView)
 		imageView.translatesAutoresizingMaskIntoConstraints = false
-//		imageView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-//		imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
-		imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
-//		imageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-		imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.9).isActive = true
-		imageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3).isActive = true
-		imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+		imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+		imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+		imageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+		imageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
+
+// //		imageView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+// //		imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
+// 		imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
+// //		imageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+// 		imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.9).isActive = true
+// 		imageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3).isActive = true
+// 		imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 	}
 	private func addNameLabel(){
 		addSubview(nameLabel)
 		nameLabel.translatesAutoresizingMaskIntoConstraints = false
-		nameLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
-		nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5).isActive = true
-//		nameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6).isActive = true
-//		nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-//		nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+		nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+		nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+		nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+
+// 		nameLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+// 		nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5).isActive = true
+// //		nameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6).isActive = true
+// //		nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+// //		nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 	}
 	private func addCategoryLabel(){
 		addSubview(categoryLabel)

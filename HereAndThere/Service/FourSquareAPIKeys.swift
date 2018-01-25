@@ -7,6 +7,7 @@ import Foundation
 
 //git Ignore
 struct FourSquareAPIKeys {
+
 	static let CLIENT_ID = "PWWSABHMRSWVYZNHL1QG20A5050WJAI2MIU3AUFWVRQHCITA"
 	static let CLIENT_SECRET = "WFF2451MT2QIYKDCQEXN3ADT5ZKCYQOFIRXPODYUZSSYBSDT"
 	
@@ -21,6 +22,7 @@ struct FourSquareAPIKeys {
 
 //    static let CLIENT_ID = "1ARUA4GY1EFGGPPBIHLSO25W0L4CMYWR15MFGI1L15X3DUTG"
 //    static let CLIENT_SECRET = "BDF2YZASPV2YKUQL2LJRI2SQYM23MZIPG3RKFGE4XOPK0KIY"
+
 	static let todaysDate = Date().description.prefix(10).replacingOccurrences(of: "-", with: "")
 	static let fourSquareAuthorization = "&client_id=\(FourSquareAPIKeys.CLIENT_ID)&client_secret=\(FourSquareAPIKeys.CLIENT_SECRET)&v=\(FourSquareAPIKeys.todaysDate)"
 }
