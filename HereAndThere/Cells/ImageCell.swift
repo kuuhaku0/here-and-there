@@ -36,10 +36,10 @@ class ImageCell: UITableViewCell {
         addSubview(imageV)
         
         imageV.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(safeAreaLayoutGuide).offset(20)
+            make.top.equalTo(safeAreaLayoutGuide)
             make.left.equalTo(safeAreaLayoutGuide).offset(5)
             make.right.equalTo(safeAreaLayoutGuide).offset(-5)
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-20)
+            make.bottom.equalTo(safeAreaLayoutGuide)
             make.centerX.equalTo(self.snp.centerX)
         }
     }

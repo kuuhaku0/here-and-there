@@ -31,7 +31,7 @@ class CollectionsViewController: MDCCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        collectionView?.register(MDCCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView?.register(CollectionMDCCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView?.showsVerticalScrollIndicator = false
         
         configureNavBar()
@@ -39,7 +39,6 @@ class CollectionsViewController: MDCCollectionViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         collections = DataPersistenceHelper.manager.getCollections()
     }
     
@@ -57,7 +56,10 @@ class CollectionsViewController: MDCCollectionViewController {
     }
     
     @objc func addButtonTapped() {
-        configureCreateNavBar()
+        let createCollectionVC = CreateCollectionViewController()
+        
+        navigationController?.pushViewController(createCollectionVC, animated: true)
+//        configureCreateNavBar()
     }
     
     // Back button
@@ -71,35 +73,7 @@ class CollectionsViewController: MDCCollectionViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    // Configure nav bar when add button is tapped
-    func configureCreateNavBar() {
-        navigationItem.title = "Add to or create collection."
-        configureCreateButton()
-        configureCancelButton()
-    }
-    
-    // Create button
-    func configureCreateButton() {
-        let createButton = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(createButtonTapped))
-        navigationItem.rightBarButtonItem = createButton
-    }
-    
-    @objc func createButtonTapped() {
-        // TODO: - Save collection
-        configureNavBar()
-    }
-    
-    // Cancel button
-    func configureCancelButton() {
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
-        navigationItem.leftBarButtonItem = cancelButton
 
-    }
-    
-    @objc func cancelButtonTapped() {
-        navigationItem.leftBarButtonItem = nil
-        configureNavBar()
-    }
     
 }
 
@@ -125,17 +99,19 @@ extension CollectionsViewController {
             
             if let image = DataPersistenceHelper.manager.getImage(with: venue.venueID) {
                 cell.collectionImageView.image = image
-            } else {
-                cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder-image")
             }
         }
+        
         cell.collectionNameLabel.text = sortedKeys[indexPath.row]
 
         return cell
     }
     
+    // Did select cell
+    // Segues to collection detail vc
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let collectionDetailVC = CollectionDetailViewController(collectionName: sortedKeys[indexPath.row], venues: collections[sortedKeys[indexPath.row]]!)
+        navigationController?.pushViewController(collectionDetailVC, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -160,3 +136,35 @@ extension CollectionsViewController {
     
 }
 
+/*
+
+// Configure nav bar when add button is tapped
+func configureCreateNavBar() {
+    navigationItem.title = "Add to or create collection."
+    configureCreateButton()
+    configureCancelButton()
+}
+
+// Create button
+func configureCreateButton() {
+    let createButton = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(createButtonTapped))
+    navigationItem.rightBarButtonItem = createButton
+}
+
+@objc func createButtonTapped() {
+    // TODO: - Save collection
+    configureNavBar()
+}
+
+// Cancel button
+func configureCancelButton() {
+    let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
+    navigationItem.leftBarButtonItem = cancelButton
+    
+}
+
+@objc func cancelButtonTapped() {
+    navigationItem.leftBarButtonItem = nil
+    configureNavBar()
+}
+*/

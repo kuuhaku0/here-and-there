@@ -46,6 +46,7 @@
 		81E4420D2016E1E100887641 /* TestFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E4420C2016E1E100887641 /* TestFileManager.swift */; };
 		9300D26720191EB000E0FB55 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300D26620191EB000E0FB55 /* ImageCell.swift */; };
 		9324A4AE20169118007A2B64 /* DetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9324A4AD20169118007A2B64 /* DetailedView.swift */; };
+		93501CCC2019382400D87D88 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93501CCB2019382400D87D88 /* ButtonCell.swift */; };
 		938D90EB2017CF1000573C5C /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C8CE92011523300E798C6 /* ImageHelper.swift */; };
 		93C58AC620192DA300E50EA9 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C58AC520192DA300E50EA9 /* MapCell.swift */; };
 /* End PBXBuildFile section */
@@ -97,6 +98,7 @@
 		8B0642CD03CECFC9A6F0DBF2 /* Pods_HereAndThere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HereAndThere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9300D26620191EB000E0FB55 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		9324A4AD20169118007A2B64 /* DetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedView.swift; sourceTree = "<group>"; };
+		93501CCB2019382400D87D88 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		93C58AC520192DA300E50EA9 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,6 +259,7 @@
 			children = (
 				9300D26620191EB000E0FB55 /* ImageCell.swift */,
 				93C58AC520192DA300E50EA9 /* MapCell.swift */,
+				93501CCB2019382400D87D88 /* ButtonCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				9324A4AE20169118007A2B64 /* DetailedView.swift in Sources */,
 				814673B02017D31500321D7E /* ResultsListTableViewCell.swift in Sources */,
 				81E442052016460A00887641 /* CollectionDetailView.swift in Sources */,
+				93501CCC2019382400D87D88 /* ButtonCell.swift in Sources */,
 				818C8CED2011523400E798C6 /* FileManagerHelper.swift in Sources */,
 				818C8CD02011507C00E798C6 /* SearchViewController.swift in Sources */,
 				93C58AC620192DA300E50EA9 /* MapCell.swift in Sources */,
