@@ -6,12 +6,12 @@
 import UIKit
 
 class ResultsListViewController: UIViewController {
-
+    
     //create an instance of my view
     var resultsView = ResultsListView()
     
     var venues: [Venue]!
-
+    
     init(venues: [Venue]) {
         super.init(nibName: nil, bundle: nil)
         self.venues = venues
@@ -19,7 +19,7 @@ class ResultsListViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad(){
         view.backgroundColor = .cyan
         view.addSubview(resultsView)
@@ -39,7 +39,7 @@ class ResultsListViewController: UIViewController {
 extension ResultsListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            print("Selected Row \(indexPath.row)")
+        print("Selected Row \(indexPath.row)")
         let venue = venues[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath)
         let detailVC = ResultsListDetailViewController(venue: venue, image: (cell?.imageView?.image)!)
@@ -58,28 +58,30 @@ extension ResultsListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let venue = venues[indexPath.row]
-//        var cell = resultsView.tableView.dequeueReusableCell(withIdentifier: "ResultsTableViewCell", for: indexPath)
+        //        var cell = resultsView.tableView.dequeueReusableCell(withIdentifier: "ResultsTableViewCell", for: indexPath)
         let cell = UITableViewCell(style: UITableViewCellStyle.subtitle,
-                               reuseIdentifier: "ResultsTableViewCell")
+                                   reuseIdentifier: "ResultsTableViewCell")
         cell.textLabel?.text = venue.name
         cell.detailTextLabel?.text = venue.categories.first?.name ?? "N/A"
         
         //To get images
-         PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
-         if !onlinePhotoObjects.isEmpty {
-         let imageStr = "\(onlinePhotoObjects[0].prefix)100x100\(onlinePhotoObjects[0].suffix)"
-            
-         ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
-            cell.imageView?.image = nil
-            cell.imageView?.image = onlineImage
-         cell.setNeedsLayout()
-            //TODO: Round the edges of the images
-         }, errorHandler: {print($0)})
-         } else {
-            cell.imageView?.image = #imageLiteral(resourceName: "placeholder-image")
-         }
-         }
- 
+        PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
+            if !onlinePhotoObjects.isEmpty {
+                let imageStr = "\(onlinePhotoObjects[0].prefix)100x100\(onlinePhotoObjects[0].suffix)"
+                
+                ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
+                    cell.imageView?.image = nil
+                    cell.imageView?.image = onlineImage
+                    //Round the edges of the images
+                    cell.layer.cornerRadius = 20
+                    //cell.imageView?.clipsToBounds = true
+                    cell.setNeedsLayout()
+                }, errorHandler: {print($0)})
+            } else {
+                cell.imageView?.image = #imageLiteral(resourceName: "placeholder-image")
+            }
+        }
+        
         return cell
     }
     
@@ -89,4 +91,3 @@ extension ResultsListViewController: UITableViewDataSource {
         return 100.0//Choose your custom row height
     }
 }
-
