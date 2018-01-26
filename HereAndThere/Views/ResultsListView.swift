@@ -32,12 +32,12 @@ class ResultsListView: UIView {
         
     }
     
-    func setViews(){
+    private func setViews(){
         //add all the views I'm setting up
         setTableView()
     }
     
-    func setTableView() {
+    private func setTableView() {
         addSubview(tableView)
         tableView.snp.makeConstraints {(make) in
             make.edges.equalTo(self)

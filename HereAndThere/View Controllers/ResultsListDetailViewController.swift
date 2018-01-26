@@ -29,7 +29,6 @@ class ResultsListDetailViewController: UIViewController {
         setAllLabelText()
     }
     
-    
     func setAllLabelText() {
         detailView.imageView.image = image
         detailView.venueNameLabel.text = venue.name
@@ -38,6 +37,5 @@ class ResultsListDetailViewController: UIViewController {
         detailView.contactButton.setTitle(venue.contact.formattedPhone, for: .normal)
         detailView.urlButton.titleLabel?.text = venue.url
     }
-    
 }
 

@@ -85,13 +85,25 @@ PODS:
   - MDFInternationalization (1.0.4)
   - MDFTextAccessibility (1.2.0)
   - SnapKit (4.0.0)
+  - SVProgressHUD (2.2.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5)
   - MaterialComponents/AppBar
   - MaterialComponents/Buttons
   - MaterialComponents/Collections
+  - MaterialComponents/ShadowElevations
   - SnapKit (~> 4.0.0)
+  - SVProgressHUD (from `https://github.com/SVProgressHUD/SVProgressHUD.git`)
+
+EXTERNAL SOURCES:
+  SVProgressHUD:
+    :git: https://github.com/SVProgressHUD/SVProgressHUD.git
+
+CHECKOUT OPTIONS:
+  SVProgressHUD:
+    :commit: 31da76a27a06a5152ca54d26c3166350dba0361d
+    :git: https://github.com/SVProgressHUD/SVProgressHUD.git
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
@@ -99,7 +111,8 @@ SPEC CHECKSUMS:
   MDFInternationalization: e355b0cebecf53d60233bd267084e49366c82513
   MDFTextAccessibility: 94098925e0853551c5a311ce7c1ecefbe297cdb6
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
 
-PODFILE CHECKSUM: 8211cf1da73367aae4adc085150a5230133568db
+PODFILE CHECKSUM: 88e5d5505c18783094e09be8aeea4b80809548c9
 
 COCOAPODS: 1.4.0.beta.2
