@@ -37,7 +37,7 @@ class CreateCollectionViewController: UIViewController {
         guard let text = createCollectionView.collectionNameTextField.text else { return }
         
         if DataPersistenceHelper.manager.addCollection(name: text.capitalized) {
-            alertController(title: "Success", message: "You have saved a new collection.")
+            alertControllerAndPop(title: "Success", message: "You have saved a new collection.")
         }
         
         navigationController?.popViewController(animated: true)
@@ -61,10 +61,10 @@ class CreateCollectionViewController: UIViewController {
 
 // MARK: - Helper Functions
 extension CreateCollectionViewController {
-    func alertController(title: String, message: String) {
+    func alertControllerAndPop(title: String, message: String) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel){ (done) in self.navigationController?.popViewController(animated: true) })
         self.present(alert, animated: true, completion: nil)
         
     }
