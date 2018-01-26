@@ -42,10 +42,11 @@ extension ResultsListViewController: UITableViewDelegate {
         print("Selected Row \(indexPath.row)")
         let venue = venues[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath)
-        let detailVC = ResultsListDetailViewController(venue: venue, image: (cell?.imageView?.image)!)
+        let detailVC = DetailViewController(venue: venue, image: (cell?.imageView?.image)!)
         detailVC.modalTransitionStyle = .crossDissolve
         detailVC.modalPresentationStyle = .overCurrentContext
         navigationController?.pushViewController(detailVC, animated: true)
+    
         //present(detailVC, animated: true, completion: nil)
     }
     
@@ -73,8 +74,8 @@ extension ResultsListViewController: UITableViewDataSource {
                     cell.imageView?.image = nil
                     cell.imageView?.image = onlineImage
                     //Round the edges of the images
-                    cell.layer.cornerRadius = 20
-                    //cell.imageView?.clipsToBounds = true
+                    cell.imageView?.layer.cornerRadius = 10
+                    cell.imageView?.clipsToBounds = true
                     cell.setNeedsLayout()
                 }, errorHandler: {print($0)})
             } else {
@@ -90,4 +91,5 @@ extension ResultsListViewController: UITableViewDataSource {
     {
         return 100.0//Choose your custom row height
     }
+
 }
