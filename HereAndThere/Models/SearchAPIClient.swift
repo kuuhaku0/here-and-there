@@ -6,6 +6,7 @@
 import Foundation
 import Alamofire
 import UIKit
+import CoreLocation
 
 
 // MARK: - FourSquare Search API Client

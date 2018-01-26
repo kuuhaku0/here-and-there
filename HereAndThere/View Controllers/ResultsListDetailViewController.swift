@@ -21,20 +21,23 @@ class ResultsListDetailViewController: UIViewController {
         self.venue = venue
         self.image = image
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
         view.addSubview(detailView)
-        setLabelText()
+        setAllLabelText()
     }
     
-    func venuelabel(){
-        detailView.venueNameLabel.text = venue.name
-    }
-
-    func setLabelText() {
+    
+    func setAllLabelText() {
         detailView.imageView.image = image
+        detailView.venueNameLabel.text = venue.name
+        detailView.venueLocationLabel.text = " \(venue.location.address ?? "n/a"), \(venue.location.city ?? "n/a"), \(venue.location.postalCode ?? "n/a")"
+        //detailView.contactButton.titleLabel?.text = venue.contact.formattedPhone
+        detailView.contactButton.setTitle(venue.contact.formattedPhone, for: .normal)
+        detailView.urlButton.titleLabel?.text = venue.url
     }
     
 }
+
