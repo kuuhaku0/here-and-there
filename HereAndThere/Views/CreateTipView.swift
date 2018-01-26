@@ -72,7 +72,7 @@ class CreateTipView: UIView {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: safeAreaLayoutGuide.layoutFrame, collectionViewLayout: layout)
         collectionView.register(AddTipCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionCell")
-        collectionView.backgroundColor = .cyan
+        collectionView.backgroundColor = UIColor(red: 6/255, green: 101/255, blue: 143/255, alpha: 1)
         return collectionView
     }()
     

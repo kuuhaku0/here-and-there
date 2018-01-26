@@ -14,6 +14,7 @@ class AddTipCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .black
         label.backgroundColor = .clear
+        label.textAlignment = .center
         return label
     }()
     

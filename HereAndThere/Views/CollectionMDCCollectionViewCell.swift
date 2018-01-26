@@ -16,6 +16,8 @@ class CollectionMDCCollectionViewCell: MDCCollectionViewCell {
        let label = UILabel()
         label.textColor = .black
         label.backgroundColor = .clear
+        //label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
     

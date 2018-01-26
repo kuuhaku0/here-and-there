@@ -73,12 +73,7 @@ class CollectionsViewController: MDCCollectionViewController {
         navigationController?.popViewController(animated: true)
     }
     
-
-    
 }
-
-
-
 
 
 extension CollectionsViewController {
@@ -89,7 +84,7 @@ extension CollectionsViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionMDCCollectionViewCell
-        
+        cell.layer.cornerRadius = 15
         let collection = collections[sortedKeys[indexPath.row]]
         if (collection?.isEmpty)! {
             cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder-image")

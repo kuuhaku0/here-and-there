@@ -115,7 +115,7 @@ extension CreateTipViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! AddTipCollectionViewCell
-        
+        cell.layer.cornerRadius = 15
         let collection = collections[sortedKeys[indexPath.row]]
         if (collection?.isEmpty)! {
             cell.venueImageView.image = #imageLiteral(resourceName: "placeholder-image")
