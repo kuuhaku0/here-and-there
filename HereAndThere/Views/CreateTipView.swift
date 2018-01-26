@@ -7,34 +7,58 @@
 //
 
 import UIKit
+import SnapKit
 
 class CreateTipView: UIView {
     
     lazy var newCollectionTextField: UITextField = {
         let textField = UITextField()
+        textField.tintColor = .black
+        textField.backgroundColor = .white
         return textField
     }()
     
     private func setupNewCollectionTextField() {
-        
+        addSubview(newCollectionTextField)
+        newCollectionTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.height.equalTo(25)
+        }
     }
     
     lazy var tipLabel: UILabel = {
         let label = UILabel()
+        label.text = "Enter a tip!"
         return label
     }()
     
     private func setupTipLabel() {
-        
+        addSubview(tipLabel)
+        tipLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(newCollectionTextField.snp.bottom).offset(8)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.height.equalTo(25)
+        }
     }
     
     lazy var tipTextField: UITextField = {
         let textField = UITextField()
+        textField.tintColor = .black
+        textField.backgroundColor = .white
         return textField
     }()
     
     private func setupTipTextField() {
-        
+        addSubview(tipTextField)
+        tipTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(tipLabel.snp.bottom)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.height.equalTo(25)
+        }
     }
     
     lazy var collectionView: UICollectionView = {
@@ -47,7 +71,13 @@ class CreateTipView: UIView {
     }()
     
     private func setupCollectionView() {
-        
+        addSubview(collectionView)
+        collectionView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.50)
+        }
     }
     
     
@@ -71,6 +101,7 @@ class CreateTipView: UIView {
         setupTipLabel()
         setupTipTextField()
         setupNewCollectionTextField()
+        setupCollectionView()
     }
     
 }

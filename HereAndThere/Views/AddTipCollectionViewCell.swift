@@ -10,9 +10,27 @@ import UIKit
 
 class AddTipCollectionViewCell: UICollectionViewCell {
     
+    lazy var collectionNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.backgroundColor = .clear
+        return label
+    }()
+    
+    private func setupCollectionNameLabel() {
+        addSubview(collectionNameLabel)
+        collectionNameLabel.snp.makeConstraints { (maker) in
+            maker.bottom.equalTo(self.snp.bottom)
+            maker.leading.equalTo(self.snp.leading)
+            maker.trailing.equalTo(self.snp.trailing)
+            maker.height.equalTo(25)
+        }
+    }
+    
     lazy var venueImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -23,7 +41,7 @@ class AddTipCollectionViewCell: UICollectionViewCell {
             venueImageView.topAnchor.constraint(equalTo: topAnchor),
             venueImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             venueImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            venueImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            venueImageView.bottomAnchor.constraint(equalTo: collectionNameLabel.topAnchor)
             ])
     }
     
@@ -60,6 +78,7 @@ class AddTipCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupViews() {
+        setupCollectionNameLabel()
         setupVenueImageView()
         setupAddButton()
     }

@@ -37,7 +37,7 @@ extension CollectionDetailViewController: UITableViewDataSource {
         return collectionVenues.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionVenuesTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VenueCell", for: indexPath) as! CollectionVenuesTableViewCell
         
         let venue = collectionVenues[indexPath.row]
         cell.textLabel?.text = venue.venue.name
