@@ -195,12 +195,12 @@
 			children = (
 				818C8CCB2011507C00E798C6 /* SearchViewController.swift */,
 				818C8CC92011507C00E798C6 /* DetailViewController.swift */,
+				818C8CC82011507B00E798C6 /* ResultsListViewController.swift */,
+				81C7C8C12019229D00942F06 /* ResultsListDetailViewController.swift */,
 				818C8CCA2011507C00E798C6 /* CollectionsViewController.swift */,
 				814361932018D48400A2B761 /* CreateCollectionViewController.swift */,
 				81E44202201645F000887641 /* CreateTipViewController.swift */,
 				81E4420020163FB000887641 /* CollectionDetailViewController.swift */,
-				818C8CC82011507B00E798C6 /* ResultsListViewController.swift */,
-				81C7C8C12019229D00942F06 /* ResultsListDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";

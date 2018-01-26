@@ -5,7 +5,7 @@
 
 import UIKit
 //import MaterialComponents.MDCCollectionViewCell
-import UIKit
+
 
 //Custom CollectionView Cell for SearchViewController
 class SearchCVCell: UICollectionViewCell {
@@ -13,9 +13,14 @@ class SearchCVCell: UICollectionViewCell {
 	// MARK: - Create elements in Cell
 	lazy var imageView: UIImageView = {
 		let imageV = UIImageView() //default image
-		imageV.image =  imageLiteral(resourceName: "placeholder-image")
+		imageV.image =  #imageLiteral(resourceName: "placeholder-image")
 		imageV.backgroundColor = UIColor.clear
 		return imageV
+	}()
+	lazy var spinner: UIActivityIndicatorView = {
+		let spinner = UIActivityIndicatorView()
+		spinner.startAnimating()
+		return spinner
 	}()
 	lazy var nameLabel: UILabel = {
 		let label = UILabel()
@@ -58,6 +63,7 @@ class SearchCVCell: UICollectionViewCell {
 		super.init(frame: UIScreen.main.bounds)
 		addImageView()
 		imageView.layer.masksToBounds = true
+		addSpinner()
 		addNameLabel()
 		addCategoryLabel()
 		addAddressLabel()
@@ -80,6 +86,12 @@ class SearchCVCell: UICollectionViewCell {
 		imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.9).isActive = true
 		imageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3).isActive = true
 		imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+	}
+	private func addSpinner(){
+		addSubview(spinner)
+		spinner.translatesAutoresizingMaskIntoConstraints = false
+		spinner.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
+		spinner.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
 	}
 	private func addNameLabel(){
 		addSubview(nameLabel)

@@ -27,6 +27,7 @@ class DetailViewController: UIViewController {
 		view.backgroundColor = .white
 		detailedView.tableView.delegate = self
 		detailedView.tableView.dataSource = self
+
 		detailedView.tableView.register(ImageCell.self, forCellReuseIdentifier: "ImageCell")
 		detailedView.tableView.register(MapCell.self, forCellReuseIdentifier: "MapCell")
 		detailedView.tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")

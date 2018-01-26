@@ -6,19 +6,10 @@
 import UIKit
 import MapKit
 
-//Custom View for overall Layout of SearchViewController
+
 class SearchView: UIView {
 
 	// MARK: - Create elements in View
-	lazy var optionsView: UIScrollView = {
-		let scrollView = UIScrollView()
-		scrollView.showsHorizontalScrollIndicator = true
-		scrollView.isScrollEnabled = true
-		return scrollView
-	}()
-
-
-
 	lazy var venueSearchBar: UISearchBar = {
 		let sb = UISearchBar()
 		sb.showsCancelButton = false
