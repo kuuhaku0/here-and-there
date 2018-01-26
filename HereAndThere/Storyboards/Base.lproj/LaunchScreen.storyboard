@@ -19,7 +19,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Untitled-1-2" translatesAutoresizingMaskIntoConstraints="NO" id="l71-n7-8sP">
                                 <rect key="frame" x="0.0" y="0.0" width="537" height="695"/>
-                                <color key="backgroundColor" red="0.12457934767007828" green="0.15266463160514832" blue="0.17353871464729309" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.17207106947898865" green="0.18364706635475159" blue="0.22100692987442017" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.03000715933740139" green="0.39315474033355713" blue="0.55954653024673462" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-33" translatesAutoresizingMaskIntoConstraints="NO" id="BeY-KY-MaD">
