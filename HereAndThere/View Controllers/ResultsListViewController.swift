@@ -12,11 +12,13 @@ class ResultsListViewController: UIViewController {
     var resultsView = ResultsListView()
     
     var venues: [Venue]!
-    
-    init(venues: [Venue]) {
+    var photoForVenue: [String: UIImage] = [:] //venueID: UIImage
+    init(venues: [Venue], photoForVenue: [String:UIImage]) {
         super.init(nibName: nil, bundle: nil)
         self.venues = venues
+        self.photoForVenue = photoForVenue
     }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -67,27 +69,28 @@ extension ResultsListViewController: UITableViewDataSource {
         cell.imageView?.image = #imageLiteral(resourceName: "placeholder-image")
         cell.textLabel?.text = venue.name
         cell.detailTextLabel?.text = venue.categories.first?.name ?? "N/A"
-        
+        cell.imageView?.image = photoForVenue[venue.id]
+        cell.indicator.stopAnimating()
         //To get images
-        PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
-            if !onlinePhotoObjects.isEmpty {
-                let imageStr = "\(onlinePhotoObjects[0].prefix)100x100\(onlinePhotoObjects[0].suffix)"
-                
-                ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
-                    cell.imageView?.image = onlineImage
-                    //Round the edges of the images
-
-                    cell.imageView?.layer.cornerRadius = 10
-                    cell.imageView?.clipsToBounds = true
-
-                    cell.setNeedsLayout()
-                }, errorHandler: {print($0)})
-            } else {
-                cell.indicator.stopAnimating()
-                cell.indicator.isHidden = true
-                cell.imageView?.image = #imageLiteral(resourceName: "placeholder-image")
-            }
-        }
+//        PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
+//            if !onlinePhotoObjects.isEmpty {
+//                let imageStr = "\(onlinePhotoObjects[0].prefix)100x100\(onlinePhotoObjects[0].suffix)"
+//
+//                ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
+//                    cell.imageView?.image = onlineImage
+//                    //Round the edges of the images
+//
+//                    cell.imageView?.layer.cornerRadius = 10
+//                    cell.imageView?.clipsToBounds = true
+//
+//                    cell.setNeedsLayout()
+//                }, errorHandler: {print($0)})
+//            } else {
+//                cell.indicator.stopAnimating()
+//                cell.indicator.isHidden = true
+//                cell.imageView?.image = #imageLiteral(resourceName: "placeholder-image")
+//            }
+//        }
         
         return cell
     }
