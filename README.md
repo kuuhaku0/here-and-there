@@ -11,7 +11,8 @@ Ashlee | Flex
 Winston | Project Lead
 # Gifs
 PLace Holder gif
-![gif1](https://github.com/C4Q/AC-iOS-Unit4FinalAssessment/blob/master/snowmangifone.gif)
+![gif1](https:http://jmp.sh/zITvdKK)
+![gif2](http://jmp.sh/xHuwVil)
 
 # Overview
 Here and There is a FourSquare like app that uses MapKit and CoreLocation frameworks.
