@@ -17,13 +17,14 @@ class CreateCollectionView: UIView {
         textField.layer.borderWidth = 2
         textField.tintColor = .black
         textField.backgroundColor = .white
+        textField.placeholder = "Enter a collection name."
         return textField
     }()
     
     private func setupCollectionNameTextField() {
         addSubview(collectionNameTextField)
         collectionNameTextField.snp.makeConstraints { (maker) in
-            maker.top.equalTo(safeAreaLayoutGuide.snp.top).offset(-8)
+            maker.top.equalTo(safeAreaLayoutGuide.snp.top).offset(-20)
             maker.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(8)
             maker.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-8)
             maker.height.equalTo(safeAreaLayoutGuide.snp.height).dividedBy(10)
