@@ -68,9 +68,17 @@ extension ResultsListViewController: UITableViewDataSource {
         cell.indicator.isHidden = false
         cell.imageView?.image = #imageLiteral(resourceName: "placeholder-image")
         cell.textLabel?.text = venue.name
+        cell.imageView?.layer.cornerRadius = 10
+        cell.imageView?.clipsToBounds = true
         cell.detailTextLabel?.text = venue.categories.first?.name ?? "N/A"
         cell.imageView?.image = photoForVenue[venue.id]
         cell.indicator.stopAnimating()
+        
+        if cell.imageView?.image == nil {
+            cell.imageView?.image = #imageLiteral(resourceName: "placeholder-image")
+
+        }
+        
         //To get images
 //        PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
 //            if !onlinePhotoObjects.isEmpty {
