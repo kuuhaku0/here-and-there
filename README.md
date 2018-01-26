@@ -10,7 +10,7 @@ Reiaz |Tech Lead
 Ashlee | Flex
 Winston | Project Lead
 # Gifs
-![gif1](http://jmp.sh/zITvdKK)
+![gif1](https://storage.jumpshare.com/preview/6yxZqQKkMo0HZNMHMtU0Brl9PwTMvcABFYPFhoH5pRLQBTAP8yZHqmvGuP23s-A8Jgg9C_UavsiM1U2uRtwdAd0Iq-_ZMIwlJNqsu6s4bO0F1kR3dMUjedqC16uBUu85)
 ![gif2](http://jmp.sh/xHuwVil)
 
 # Overview
