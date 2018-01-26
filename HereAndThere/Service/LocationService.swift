@@ -36,6 +36,7 @@ extension LocationService {
 			case .denied:
 				status = CLAuthorizationStatus.denied
 				//opens phone Settings so user can authorize permission
+
 				guard let validSettingsURL: URL = URL(string: UIApplicationOpenSettingsURLString) else {return status}
 				UIApplication.shared.open(validSettingsURL, options: [:], completionHandler: nil)
 			case .authorizedWhenInUse:
