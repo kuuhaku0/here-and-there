@@ -10,8 +10,7 @@ Reiaz |Tech Lead
 Ashlee | Flex
 Winston | Project Lead
 # Gifs
-PLace Holder gif
-![gif1](https:http://jmp.sh/zITvdKK)
+![gif1](http://jmp.sh/zITvdKK)
 ![gif2](http://jmp.sh/xHuwVil)
 
 # Overview
