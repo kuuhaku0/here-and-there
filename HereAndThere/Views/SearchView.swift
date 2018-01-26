@@ -17,21 +17,20 @@ class SearchView: UIView {
 		return scrollView
 	}()
 	
-
-
 	lazy var venueSearchBar: UISearchBar = {
 		let sb = UISearchBar()
 		sb.showsCancelButton = false
 		sb.placeholder = "Search for Venue"
-		sb.barTintColor = .white
+        sb.barTintColor =  UIColor(red: 1/255, green: 163/255, blue: 225/255, alpha: 1)
 		sb.tag = 0
 		return sb
 	}()
+    
 	lazy var nearSearchBar: UISearchBar = {
 		let sb = UISearchBar()
 		sb.showsCancelButton = true
 		sb.placeholder = "New York, NY"
-		sb.barTintColor = .white
+		sb.barTintColor = UIColor(red: 1/255, green: 163/255, blue: 225/255, alpha: 1)
 		//		sb.isSearchResultsButtonSelected = true
 		//		sb.isTranslucent = true
 		//		sb.searchBarStyle = UISearchBarStyle.minimal
@@ -40,6 +39,7 @@ class SearchView: UIView {
 		sb.tag = 1
 		return sb
 	}()
+    
 	lazy var searchMap: MKMapView = {
 		let smap = MKMapView()
 		smap.mapType = MKMapType.standard
@@ -54,11 +54,13 @@ class SearchView: UIView {
 //		view.addSubview(scale)
 		return smap
 	}()
+    
 	lazy var userTrackingButton: MKUserTrackingButton = {
 		let trackingButton = MKUserTrackingButton()
 		trackingButton.backgroundColor = UIColor.white
 		return trackingButton
 	}()
+    
 	lazy var collectionView: UICollectionView = {
 		let cvLayout = UICollectionViewFlowLayout()
 		cvLayout.scrollDirection = .horizontal
@@ -67,7 +69,6 @@ class SearchView: UIView {
 		cv.backgroundColor = UIColor.clear
 		return cv
 	}()
-
 
 	// MARK: - Setup elements in View
 	override init(frame: CGRect){
@@ -87,7 +88,6 @@ class SearchView: UIView {
 		userTrackingButton.mapView = searchMap //Configure the MKUserTrackingButton in your setupViews code
 		addCollectionView()
 	}
-
 
 	// MARK: - Add elements & layout constraints to View
 	private func addNearSearchBar(){
@@ -118,7 +118,7 @@ class SearchView: UIView {
 		collectionView.leadingAnchor.constraint(equalTo: searchMap.leadingAnchor).isActive = true
 		collectionView.trailingAnchor.constraint(equalTo: searchMap.trailingAnchor).isActive = true
 		collectionView.bottomAnchor.constraint(equalTo: searchMap.bottomAnchor, constant: -5).isActive = true
-		collectionView.heightAnchor.constraint(equalTo: searchMap.heightAnchor, multiplier: 0.15).isActive = true
+		collectionView.heightAnchor.constraint(equalTo: searchMap.heightAnchor, multiplier: 0.17).isActive = true
 	}
 }
 

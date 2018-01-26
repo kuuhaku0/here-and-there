@@ -25,13 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Collections VC
         let collectionsVC = CollectionsViewController()
-        collectionsVC.tabBarItem = UITabBarItem(title: "Collections", image: #imageLiteral(resourceName: "listCollection1"), tag: 1)
+        collectionsVC.tabBarItem = UITabBarItem(title: "Collections", image: #imageLiteral(resourceName: "list"), tag: 1)
         let collectionsNavController = UINavigationController(rootViewController: collectionsVC)
 
         
         //TabBar Controller
         let tabBC = UITabBarController()
         tabBC.setViewControllers([searchNavController, collectionsNavController], animated: true)
+        tabBC.tabBar.tintColor = UIColor(red: 6/255, green: 101/255, blue: 143/255, alpha: 1)
         
         //setup Window
         window = UIWindow(frame: UIScreen.main.bounds)
