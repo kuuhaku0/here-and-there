@@ -88,6 +88,25 @@ class CreateTipViewController: UIViewController {
 
 }
 
+// MARK: - Helper Functions
+extension CreateTipViewController {
+    func alertControllerAndPop(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel){ (done) in self.navigationController?.popViewController(animated: true) })
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func alertController(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+}
+
 extension CreateTipViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -133,22 +152,7 @@ extension CreateTipViewController: UICollectionViewDelegate {
         // let collectionDetailVC = CollectionDetailViewController(collectionName: sortedKeys[indexPath.row], venues: collections[sortedKeys[indexPath.row]]!)
         // navigationController?.pushViewController(collectionDetailVC, animated: true)
     }
-    
-    func alertControllerAndPop(title: String, message: String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel){ (done) in self.navigationController?.popViewController(animated: true) })
-        self.present(alert, animated: true, completion: nil)
-        
-    }
-    
-    func alertController(title: String, message: String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
-        self.present(alert, animated: true, completion: nil)
-        
-    }
+
 
     
 }
