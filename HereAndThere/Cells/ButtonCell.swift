@@ -14,7 +14,7 @@ class ButtonCell: UITableViewCell {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "car"), for: .normal)
         button.setTitle("     Get Directions", for: .normal)
-        button.backgroundColor = .red
+        button.backgroundColor = UIColor(red: 6/255, green: 101/255, blue: 143/255, alpha: 1)
         button.titleLabel?.textAlignment = .center
         button.layer.cornerRadius = 10
         button.clipsToBounds = true

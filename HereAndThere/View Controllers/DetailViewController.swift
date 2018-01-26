@@ -103,11 +103,12 @@ extension DetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
             
             if tipString != "" {
-                cell.textLabel?.text = tipString
+                cell.textLabel?.text = "Tip: " + tipString
+                cell.textLabel?.textColor = .black
             } else {
                 cell.textLabel?.text = "Tips Are Great"
+                cell.textLabel?.textColor = .lightGray
             }
-            cell.textLabel?.textColor = .lightGray
             cell.selectionStyle = .none
             return cell
         case 3:
