@@ -11,7 +11,7 @@ import MapKit
 import SnapKit
 
 class MapCell: UITableViewCell {
-
+    
     lazy var mapV: MKMapView = {
         let mv = MKMapView()
         mv.clipsToBounds = true
@@ -25,7 +25,6 @@ class MapCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
     }
     
     func setUpView() {
@@ -40,7 +39,6 @@ class MapCell: UITableViewCell {
             make.right.equalTo(safeAreaLayoutGuide).offset(-5)
             make.bottom.equalTo(safeAreaLayoutGuide)
             make.centerX.equalTo(self.snp.centerX)
+        }
     }
-
-}
 }

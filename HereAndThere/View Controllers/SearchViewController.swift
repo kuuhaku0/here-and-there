@@ -25,7 +25,7 @@ class SearchViewController: UIViewController {
 		searchView.collectionView.dataSource = self
         
 		//Setup
-		self.view.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.9, alpha: 1.0)
+		self.view.backgroundColor = UIColor(red: 1/255, green: 163/255, blue: 225/255, alpha: 1)
 		setupNavigationBar()
 		setupLocation()
 		let locationCheck = LocationService.manager.checkForLocationServices()
@@ -39,7 +39,6 @@ class SearchViewController: UIViewController {
 		//        swipeUp.direction = UISwipeGestureRecognizerDirection.up
 		//        searchView.collectionView.addGestureRecognizer(swipeUp)
 	}
-
 
 	// MARK: create instance of SearchView
 	private var searchView = SearchView()
@@ -77,7 +76,9 @@ class SearchViewController: UIViewController {
 		navigationItem.titleView = searchView.venueSearchBar
 
 		//right bar button for toggling between map & list
-		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "list-1"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
+		let toggleBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "database"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(toggleListAndMap))
+        toggleBarItem.tintColor = UIColor(red: 6/255, green: 101/255, blue: 143/255, alpha: 1)
+        toggleBarItem.style = .plain
 		navigationItem.rightBarButtonItem = toggleBarItem
 	}
 	@objc private func toggleListAndMap() {
@@ -107,6 +108,7 @@ class SearchViewController: UIViewController {
 //			}
 //		}
 //	}
+    
 	@objc private func callNumber() {
 		print("Attempting phone call")
 		//		if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
@@ -124,7 +126,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
 	//search - enter press
 	internal func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-		searchBar.resignFirstResponder() //resign keyboard
+		searchBar.resignFirstResponder()
 
 		//validate venue search
 		guard let venueSearch = searchView.venueSearchBar.text else {return}
@@ -194,7 +196,7 @@ extension SearchViewController : MKMapViewDelegate {
 
 			annotationView?.canShowCallout = true
 			annotationView?.animatesWhenAdded = true
-			annotationView?.markerTintColor = .green
+			annotationView?.markerTintColor = UIColor(red: 238/255, green: 83/255, blue: 80/255, alpha: 1)
 			annotationView?.isHighlighted = true
 
 		} else { //display as is
@@ -253,6 +255,8 @@ extension SearchViewController : UICollectionViewDataSource {
 
 		//altering Cell shape & border
 		customCell.layer.cornerRadius = 5.0
+        customCell.layer.borderWidth = 3
+        customCell.layer.borderColor = UIColor(red: 210/255, green: 215/255, blue: 219/255, alpha: 1).cgColor
 
 		//setup attributes
 		customCell.backgroundColor = UIColor.white //cell color
@@ -285,14 +289,14 @@ extension SearchViewController : UICollectionViewDataSource {
 extension SearchViewController : UICollectionViewDelegateFlowLayout {
 	//Layout - Size for item
 	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let numCells: CGFloat = 1.7
+		let numCells: CGFloat = 2
 		let numSpaces: CGFloat = numCells + 1
 		let screenWidth = UIScreen.main.bounds.width
-		return CGSize(width: (screenWidth - (cellSpacing * numSpaces)) / numCells, height: collectionView.bounds.height - (cellSpacing * 2))
+		return CGSize(width: (screenWidth - (cellSpacing * numSpaces)) / numCells, height: collectionView.bounds.height - (cellSpacing))
 	}
 	//Layout - Inset for section
 	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-		return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
 	}
 	//Layout - line spacing
 	internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

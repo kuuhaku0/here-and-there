@@ -4,8 +4,7 @@
 //  Copyright © 2018 Winston Maragh. All rights reserved.
 
 import UIKit
-//import MaterialComponents.MDCCollectionViewCell
-import UIKit
+import SnapKit
 
 //Custom CollectionView Cell for SearchViewController
 class SearchCVCell: UICollectionViewCell {
@@ -15,32 +14,40 @@ class SearchCVCell: UICollectionViewCell {
 		let imageV = UIImageView() //default image
 		imageV.image = #imageLiteral(resourceName: "placeholder-image")
 		imageV.backgroundColor = UIColor.clear
+        imageV.contentMode = .scaleAspectFill
 		return imageV
 	}()
+    
 	lazy var nameLabel: UILabel = {
 		let label = UILabel()
 		label.text = "Name" //default
 		label.textAlignment = .left
+        label.numberOfLines = 0
 		label.textColor = UIColor.black
-		label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+		label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
 		return label
 	}()
+    
 	lazy var categoryLabel: UILabel = {
 		let label = UILabel()
 		label.text = "Category" //default
 		label.textAlignment = .left
+        label.numberOfLines = 0
 		label.textColor = UIColor.gray
 		label.font = UIFont.systemFont(ofSize: 12, weight: .light)
 		return label
 	}()
+    
 	lazy var addressLabel: UILabel = {
 		let label = UILabel()
 		label.text = "Address" //default
 		label.textAlignment = .left
+        label.numberOfLines = 0
 		label.textColor = UIColor.black
 		label.font = UIFont.systemFont(ofSize: 12, weight: .light)
 		return label
 	}()
+    
 	lazy var phoneLabel: UILabel = {
 		let label = UILabel()
 		label.text = "Phone" //default
@@ -49,9 +56,6 @@ class SearchCVCell: UICollectionViewCell {
 		label.font = UIFont.systemFont(ofSize: 12, weight: .light)
 		return label
 	}()
-
-
-
 
 	// MARK: - Setup elements in Cell
 	override init(frame: CGRect){
@@ -78,16 +82,16 @@ class SearchCVCell: UICollectionViewCell {
 		imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
 //		imageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.9).isActive = true
-		imageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3).isActive = true
+		imageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4).isActive = true
 		imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 	}
 	private func addNameLabel(){
 		addSubview(nameLabel)
 		nameLabel.translatesAutoresizingMaskIntoConstraints = false
-		nameLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4).isActive = true
 		nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5).isActive = true
-//		nameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6).isActive = true
-//		nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+//        nameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6).isActive = true
+        nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 //		nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 	}
 	private func addCategoryLabel(){
