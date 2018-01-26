@@ -56,17 +56,19 @@ class CreateTipViewController: UIViewController {
     
     // Function to setup a list button on the nav bar
     func setupCreateButton() {
-        let createBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(createButtonTapped))
+        let createBarButtonItem = UIBarButtonItem(title: "Create", style: .plain, target: self, action: #selector(createButtonTapped))
         navigationItem.rightBarButtonItem = createBarButtonItem
     }
     
     // Function that's called when the list button is tapped
     @objc func createButtonTapped() {
-        // TODO:
+        
         guard let text = createTipView.newCollectionTextField.text else { return }
+        guard text != "" else { alertController(title: "Error", message: "Please enter a name for your collection.");  return }
         
         if DataPersistenceHelper.manager.addVenueToCollection(collectionName: text, venue: venue, tip: createTipView.tipTextField.text, venueID: venue.id, image: image) {
-            print("successfully saved")
+            alertControllerAndPop(title: "Success", message: "You have saved a venue to a new collection.")
+            //navigationController?.popViewController(animated: true)
         }
     }
     
@@ -84,6 +86,25 @@ class CreateTipViewController: UIViewController {
     
     
 
+}
+
+// MARK: - Helper Functions
+extension CreateTipViewController {
+    func alertControllerAndPop(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel){ (done) in self.navigationController?.popViewController(animated: true) })
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func alertController(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+        self.present(alert, animated: true, completion: nil)
+        
+    }
 }
 
 extension CreateTipViewController: UICollectionViewDataSource {
@@ -120,10 +141,18 @@ extension CreateTipViewController: UICollectionViewDelegate {
     // Did select cell
     // Segues to collection detail vc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let collectionDetailVC = CollectionDetailViewController(collectionName: sortedKeys[indexPath.row], venues: collections[sortedKeys[indexPath.row]]!)
-        navigationController?.pushViewController(collectionDetailVC, animated: true)
+        
+        
+        if DataPersistenceHelper.manager.addVenueToCollection(collectionName: sortedKeys[indexPath.row], venue: venue, tip: createTipView.tipTextField.text, venueID: venue.id, image: image) {
+            alertControllerAndPop(title: "Success", message: "You have saved a venue.")
+            
+        }
+        
+        // For segueing to the collection
+        // let collectionDetailVC = CollectionDetailViewController(collectionName: sortedKeys[indexPath.row], venues: collections[sortedKeys[indexPath.row]]!)
+        // navigationController?.pushViewController(collectionDetailVC, animated: true)
     }
-    
+
 
     
 }

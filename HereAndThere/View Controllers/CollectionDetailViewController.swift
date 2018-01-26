@@ -53,7 +53,7 @@ extension CollectionDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CollectionVenuesTableViewCell
         let venue = collectionVenues[indexPath.row]
-        let detailVC = DetailViewController(venue: venue.venue, image: cell.imageView?.image ?? #imageLiteral(resourceName: "placeholder-image"))
+        let detailVC = DetailViewController(venue: venue.venue, image: cell.imageView?.image ?? #imageLiteral(resourceName: "placeholder-image"), tip: venue.tip)
         
         navigationController?.pushViewController(detailVC, animated: true)
     }

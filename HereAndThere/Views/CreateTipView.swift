@@ -13,8 +13,11 @@ class CreateTipView: UIView {
     
     lazy var newCollectionTextField: UITextField = {
         let textField = UITextField()
+        textField.borderStyle = UITextBorderStyle.roundedRect
+        textField.layer.borderWidth = 2
         textField.tintColor = .black
         textField.backgroundColor = .white
+        textField.placeholder = "Enter a new collection title here."
         return textField
     }()
     
@@ -22,9 +25,9 @@ class CreateTipView: UIView {
         addSubview(newCollectionTextField)
         newCollectionTextField.snp.makeConstraints { (make) in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.height.equalTo(25)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(20)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-20)
+            make.height.equalTo(35)
         }
     }
     
@@ -38,7 +41,7 @@ class CreateTipView: UIView {
         addSubview(tipLabel)
         tipLabel.snp.makeConstraints { (make) in
             make.top.equalTo(newCollectionTextField.snp.bottom).offset(8)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(20)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
             make.height.equalTo(25)
         }
@@ -46,8 +49,11 @@ class CreateTipView: UIView {
     
     lazy var tipTextField: UITextField = {
         let textField = UITextField()
+        textField.borderStyle = UITextBorderStyle.roundedRect
+        textField.layer.borderWidth = 2
         textField.tintColor = .black
         textField.backgroundColor = .white
+        textField.placeholder = "Write your tip here."
         return textField
     }()
     
@@ -55,9 +61,9 @@ class CreateTipView: UIView {
         addSubview(tipTextField)
         tipTextField.snp.makeConstraints { (make) in
             make.top.equalTo(tipLabel.snp.bottom)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.height.equalTo(25)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(20)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-20)
+            make.height.equalTo(80)
         }
     }
     
@@ -66,7 +72,7 @@ class CreateTipView: UIView {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: safeAreaLayoutGuide.layoutFrame, collectionViewLayout: layout)
         collectionView.register(AddTipCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionCell")
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .cyan
         return collectionView
     }()
     
