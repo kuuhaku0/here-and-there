@@ -12,6 +12,7 @@ class DetailViewController: UIViewController {
     var detailedView = DetailedView()
     private var venue: Venue!
     private var image: UIImage!
+    var tipString = ""
     
     lazy var addButton: UIBarButtonItem = {
         let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
@@ -41,6 +42,13 @@ class DetailViewController: UIViewController {
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    convenience init(venue: Venue, image: UIImage, tip: String?) {
+        self.init(venue: venue, image: image)
+        if let tip = tip {
+            tipString = tip
+        }
     }
     
     // MARK :
@@ -93,8 +101,14 @@ extension DetailViewController: UITableViewDataSource {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
-            cell.textLabel?.text = "Tips Are Great"
-            cell.textLabel?.textColor = .lightGray
+            
+            if tipString != "" {
+                cell.textLabel?.text = "Tip: " + tipString
+                cell.textLabel?.textColor = .black
+            } else {
+                cell.textLabel?.text = "Tips Are Great"
+                cell.textLabel?.textColor = .lightGray
+            }
             cell.selectionStyle = .none
             return cell
         case 3:
@@ -117,6 +131,7 @@ extension DetailViewController: UITableViewDataSource {
             return cell
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
+            cell.button.addTarget(self, action: #selector(directionsButtonTapped), for: .touchUpInside)
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
@@ -125,4 +140,18 @@ extension DetailViewController: UITableViewDataSource {
             return cell
         }
     }
+    
+
+    @objc func directionsButtonTapped() {
+        let userCoordinate = CLLocationCoordinate2D(latitude: UserPreference.manager.getLatitude(), longitude: UserPreference.manager.getLongitude())
+        
+        let placeCoordinate = CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng)
+        
+        let directionsURLString = "http://maps.apple.com/?saddr=\(userCoordinate.latitude),\(userCoordinate.longitude)&daddr=\(placeCoordinate.latitude),\(placeCoordinate.longitude)"
+        
+        UIApplication.shared.open( URL(string: directionsURLString)! , options: [:], completionHandler: { (done) in
+            
+        })
+    }
+
 }

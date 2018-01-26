@@ -43,7 +43,7 @@ extension UserPreference {
 	}
 	//Get Longitude
 	public func getLongitude() -> Double {
-		guard let longitude = UserDefaults.standard.object(forKey: UserKeys.currentLatitudeKey) as? Double else { print("no stored longitude"); return 0.0 }
+		guard let longitude = UserDefaults.standard.object(forKey: UserKeys.currentLongitudeKey) as? Double else { print("no stored longitude"); return 0.0 }
 		return longitude
 	}
 	//Get Address

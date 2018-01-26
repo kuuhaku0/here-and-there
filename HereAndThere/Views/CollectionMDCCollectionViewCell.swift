@@ -14,8 +14,8 @@ class CollectionMDCCollectionViewCell: MDCCollectionViewCell {
     
     lazy var collectionNameLabel: UILabel = {
        let label = UILabel()
-        label.text = "HELLO"
-        label.backgroundColor = .purple
+        label.textColor = .black
+        label.backgroundColor = .clear
         return label
     }()
     
@@ -25,11 +25,9 @@ class CollectionMDCCollectionViewCell: MDCCollectionViewCell {
             maker.bottom.equalTo(self.snp.bottom)
             maker.leading.equalTo(self.snp.leading)
             maker.trailing.equalTo(self.snp.trailing)
-            
-            
+            maker.height.equalTo(25)
         }
     }
-    
     
     lazy var collectionImageView: UIImageView = {
        let imageView = UIImageView()
@@ -47,8 +45,6 @@ class CollectionMDCCollectionViewCell: MDCCollectionViewCell {
             maker.top.equalTo(self.snp.top)
         })
     }
-    
-    
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)

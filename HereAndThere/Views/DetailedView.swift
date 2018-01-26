@@ -10,21 +10,21 @@ import UIKit
 import SnapKit
 
 class DetailedView: UIView {
-
+    
     lazy var tableView: UITableView = {
         let tbV = UITableView()
         return tbV
     }()
     
-        override init(frame: CGRect) {
-            super.init(frame: UIScreen.main.bounds)
-            setUpView()
-        }
+    override init(frame: CGRect) {
+        super.init(frame: UIScreen.main.bounds)
+        setUpView()
+    }
     
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-    
-        }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+    }
     
     func setUpView() {
         setUpTableView()
@@ -33,9 +33,9 @@ class DetailedView: UIView {
     func setUpTableView() {
         addSubview(tableView)
         
-                tableView.snp.makeConstraints { (make) -> Void in
-                    make.edges.equalTo(safeAreaLayoutGuide)
-                }
-
-}
+        tableView.snp.makeConstraints { (make) -> Void in
+            make.edges.equalTo(safeAreaLayoutGuide)
+        }
+        
+    }
 }

@@ -13,8 +13,10 @@ class CreateCollectionView: UIView {
 
     lazy var collectionNameTextField: UITextField = {
         let textField = UITextField()
-        textField.tintColor = .white
-        textField.backgroundColor = .black
+        textField.borderStyle = UITextBorderStyle.roundedRect
+        textField.layer.borderWidth = 2
+        textField.tintColor = .black
+        textField.backgroundColor = .white
         return textField
     }()
     

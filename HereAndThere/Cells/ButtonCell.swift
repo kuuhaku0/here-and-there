@@ -12,9 +12,10 @@ class ButtonCell: UITableViewCell {
 
     lazy var button: UIButton = {
         let button = UIButton()
-        button.setTitle("Get Directions", for: .normal)
+        button.setImage(#imageLiteral(resourceName: "car"), for: .normal)
+        button.setTitle("     Get Directions", for: .normal)
+        button.backgroundColor = UIColor(red: 6/255, green: 101/255, blue: 143/255, alpha: 1)
         button.titleLabel?.textAlignment = .center
-        button.backgroundColor = UIColor.lightGray
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         return button
@@ -37,7 +38,10 @@ class ButtonCell: UITableViewCell {
     func setUpButton() {
         addSubview(button)
         button.snp.makeConstraints { (make) -> Void in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.top.equalTo(snp.top)
+            make.bottom.equalTo(snp.bottom)
+            make.centerX.equalTo(snp.centerX)
+            make.width.equalTo(safeAreaLayoutGuide.snp.width).multipliedBy(0.50)
         }
         
     }

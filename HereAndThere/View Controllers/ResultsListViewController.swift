@@ -47,6 +47,7 @@ extension ResultsListViewController: UITableViewDelegate {
         detailVC.modalTransitionStyle = .crossDissolve
         detailVC.modalPresentationStyle = .overCurrentContext
         navigationController?.pushViewController(detailVC, animated: true)
+    
         //present(detailVC, animated: true, completion: nil)
     }
     
@@ -75,7 +76,10 @@ extension ResultsListViewController: UITableViewDataSource {
                 ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
                     cell.imageView?.image = onlineImage
                     //Round the edges of the images
-                    //cell.imageView?.clipsToBounds = true
+
+                    cell.imageView?.layer.cornerRadius = 10
+                    cell.imageView?.clipsToBounds = true
+
                     cell.setNeedsLayout()
                 }, errorHandler: {print($0)})
             } else {
@@ -93,4 +97,5 @@ extension ResultsListViewController: UITableViewDataSource {
     {
         return 100.0//Choose your custom row height
     }
+
 }
