@@ -6,6 +6,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import SVProgressHUD
 //import MaterialComponents.MaterialCollections
 //import MaterialComponents.MaterialCollectionLayoutAttributes
 //import MaterialComponents.MDCShadowLayer
@@ -257,32 +258,68 @@ extension SearchViewController : UICollectionViewDataSource {
         customCell.layer.cornerRadius = 5.0
         customCell.layer.borderWidth = 3
         customCell.layer.borderColor = UIColor(red: 210/255, green: 215/255, blue: 219/255, alpha: 1).cgColor
+
+
+		//setup attributes
+		customCell.backgroundColor = UIColor.white //cell color
+        customCell.indicator.startAnimating()
+        customCell.indicator.isHidden = false
         
-        //setup attributes
-        customCell.backgroundColor = UIColor.white //cell color
-        // property
-        let venue = venues[indexPath.row]
-        customCell.nameLabel.text = venue.name
-        customCell.addressLabel.text = venue.location.address
-        customCell.categoryLabel.text = venue.categories.first?.shortName
-        customCell.phoneLabel.text = venue.contact.formattedPhone
+		// property
+		let venue = venues[indexPath.row]
+		customCell.nameLabel.text = venue.name
+		customCell.addressLabel.text = venue.location.address
+		customCell.categoryLabel.text = venue.categories.first?.shortName
+		customCell.phoneLabel.text = venue.contact.formattedPhone
+
+		PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
+			self.currentSelectedVenuePhotosObject = onlinePhotoObjects
+			if !self.currentSelectedVenuePhotosObject.isEmpty {
+				let imageStr = "\(self.currentSelectedVenuePhotosObject[0].prefix)100x100\(self.currentSelectedVenuePhotosObject[0].suffix)"
+				ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
+					customCell.imageView.image = nil
+					customCell.imageView.image = onlineImage
+					self.currentSelectedVenuePhoto = onlineImage
+                    customCell.indicator.stopAnimating()
+                    customCell.indicator.isHidden = true
+					customCell.setNeedsLayout()
+				}, errorHandler: {print($0)})
+			} else {
+				customCell.imageView.image = #imageLiteral(resourceName: "placeholder-image")
+                customCell.indicator.stopAnimating()
+                customCell.indicator.isHidden = true
+			}
+		}
+		return customCell
+	}
+// =======
         
-        PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
-            self.currentSelectedVenuePhotosObject = onlinePhotoObjects
-            if !self.currentSelectedVenuePhotosObject.isEmpty {
-                let imageStr = "\(self.currentSelectedVenuePhotosObject[0].prefix)100x100\(self.currentSelectedVenuePhotosObject[0].suffix)"
-                ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
-                    customCell.imageView.image = nil
-                    customCell.imageView.image = onlineImage
-                    self.currentSelectedVenuePhoto = onlineImage
-                    customCell.setNeedsLayout()
-                }, errorHandler: {print($0)})
-            } else {
-                customCell.imageView.image = #imageLiteral(resourceName: "placeholder-image")
-            }
-        }
-        return customCell
-    }
+//         //setup attributes
+//         customCell.backgroundColor = UIColor.white //cell color
+//         // property
+//         let venue = venues[indexPath.row]
+//         customCell.nameLabel.text = venue.name
+//         customCell.addressLabel.text = venue.location.address
+//         customCell.categoryLabel.text = venue.categories.first?.shortName
+//         customCell.phoneLabel.text = venue.contact.formattedPhone
+        
+//         PhotoAPIClient.manager.getVenuePhotos(venueID: venue.id) { (onlinePhotoObjects) in
+//             self.currentSelectedVenuePhotosObject = onlinePhotoObjects
+//             if !self.currentSelectedVenuePhotosObject.isEmpty {
+//                 let imageStr = "\(self.currentSelectedVenuePhotosObject[0].prefix)100x100\(self.currentSelectedVenuePhotosObject[0].suffix)"
+//                 ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
+//                     customCell.imageView.image = nil
+//                     customCell.imageView.image = onlineImage
+//                     self.currentSelectedVenuePhoto = onlineImage
+//                     customCell.setNeedsLayout()
+//                 }, errorHandler: {print($0)})
+//             } else {
+//                 customCell.imageView.image = #imageLiteral(resourceName: "placeholder-image")
+//             }
+//         }
+//         return customCell
+//     }
+// >>>>>>> qa
 }
 
 //MARK: CollectionView - Delegate Flow Layout

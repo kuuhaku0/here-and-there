@@ -4,6 +4,7 @@
 //  Copyright © 2018 HereAndThere. All rights reserved.
 
 import UIKit
+import SVProgressHUD
 
 class ResultsListViewController: UIViewController {
     
@@ -59,9 +60,11 @@ extension ResultsListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let venue = venues[indexPath.row]
-        //        var cell = resultsView.tableView.dequeueReusableCell(withIdentifier: "ResultsTableViewCell", for: indexPath)
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle,
-                                   reuseIdentifier: "ResultsTableViewCell")
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ResultsTableViewCell", for: indexPath) as! ResultsListTableViewCell
+        cell.indicator.startAnimating()
+        cell.indicator.isHidden = false
+        cell.imageView?.image = #imageLiteral(resourceName: "placeholder-image")
         cell.textLabel?.text = venue.name
         cell.detailTextLabel?.text = venue.categories.first?.name ?? "N/A"
         
@@ -71,14 +74,17 @@ extension ResultsListViewController: UITableViewDataSource {
                 let imageStr = "\(onlinePhotoObjects[0].prefix)100x100\(onlinePhotoObjects[0].suffix)"
                 
                 ImageHelper.manager.getImage(from: imageStr, completionHandler: { (onlineImage) in
-                    cell.imageView?.image = nil
                     cell.imageView?.image = onlineImage
                     //Round the edges of the images
+
                     cell.imageView?.layer.cornerRadius = 10
                     cell.imageView?.clipsToBounds = true
+
                     cell.setNeedsLayout()
                 }, errorHandler: {print($0)})
             } else {
+                cell.indicator.stopAnimating()
+                cell.indicator.isHidden = true
                 cell.imageView?.image = #imageLiteral(resourceName: "placeholder-image")
             }
         }
