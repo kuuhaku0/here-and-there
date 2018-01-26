@@ -20,7 +20,7 @@ class CreateCollectionViewController: UIViewController {
     
     // Configure nav bar when add button is tapped
     func configureCreateNavBar() {
-        navigationItem.title = "Add a collection."
+        navigationItem.title = "Add a Collection"
         configureCreateButton()
         configureCancelButton()
     }

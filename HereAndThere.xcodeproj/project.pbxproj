@@ -36,6 +36,7 @@
 		81AC7A8B200EA72400010174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AC7A8A200EA72400010174 /* AppDelegate.swift */; };
 		81AC7A92200EA72400010174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A91200EA72400010174 /* Assets.xcassets */; };
 		81AC7A95200EA72400010174 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AC7A93200EA72400010174 /* LaunchScreen.storyboard */; };
+
 		81C7C8C020191CA800942F06 /* ResultsListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C7C8BF20191CA800942F06 /* ResultsListDetailView.swift */; };
 		81C7C8C22019229D00942F06 /* ResultsListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C7C8C12019229D00942F06 /* ResultsListDetailViewController.swift */; };
 		81E4420120163FB000887641 /* CollectionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E4420020163FB000887641 /* CollectionDetailViewController.swift */; };
@@ -176,8 +177,8 @@
 		81AC7A89200EA72400010174 /* HereAndThere */ = {
 			isa = PBXGroup;
 			children = (
-				81E75A5620121CA000192870 /* Supporting Files */,
 				81AC7A9D200EA83C00010174 /* Storyboards */,
+				81E75A5620121CA000192870 /* Supporting Files */,
 				818C8CE7201151F900E798C6 /* Service */,
 				81AC7AA3200EA86D00010174 /* Models */,
 				81AC7AA0200EA85700010174 /* Views */,
@@ -215,8 +216,8 @@
 		81AC7AA0200EA85700010174 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8158B83020193E6A00C9955A /* CreateTipView.swift */,
 				818C8CDF201150FE00E798C6 /* SearchView.swift */,
+				81C4783320193F8900CB7AAD /* MenuBar.swift */,
 				818C8CDD201150FE00E798C6 /* SearchCVCell.swift */,
 				814361972018D59300A2B761 /* CreateCollectionView.swift */,
 				9324A4AD20169118007A2B64 /* DetailedView.swift */,
@@ -224,6 +225,7 @@
 				814361912017E72F00A2B761 /* CollectionMDCCollectionViewCell.swift */,
 				81E4420A2016678600887641 /* CollectionVenuesTableViewCell.swift */,
 				81E442042016460A00887641 /* CollectionDetailView.swift */,
+				8158B83020193E6A00C9955A /* CreateTipView.swift */,
 				814673AD2017CEC000321D7E /* ResultsListView.swift */,
 				814673AF2017D31500321D7E /* ResultsListTableViewCell.swift */,
 				81C7C8BF20191CA800942F06 /* ResultsListDetailView.swift */,
@@ -410,6 +412,7 @@
 				81E4420B2016678600887641 /* CollectionVenuesTableViewCell.swift in Sources */,
 				8120359B20165CB400A054E0 /* FourSquareAPIKeys.swift in Sources */,
 				818C8CD7201150EC00E798C6 /* Search.swift in Sources */,
+				81C4783420193F8900CB7AAD /* MenuBar.swift in Sources */,
 				818C8CCF2011507C00E798C6 /* CollectionsViewController.swift in Sources */,
 				9324A4AE20169118007A2B64 /* DetailedView.swift in Sources */,
 				814673B02017D31500321D7E /* ResultsListTableViewCell.swift in Sources */,

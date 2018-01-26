@@ -7,7 +7,7 @@ import UIKit
 import MapKit
 
 class DetailViewController: UIViewController {
-
+    
     
     var detailedView = DetailedView()
     private var venue: Venue!
@@ -19,9 +19,9 @@ class DetailViewController: UIViewController {
         return addButton
     }()
     
-	// MARK: View Overrides
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    // MARK: View Overrides
+    override func viewDidLoad() {
+        super.viewDidLoad()
         view.addSubview(detailedView)
         view.backgroundColor = .white
         detailedView.tableView.delegate = self
@@ -30,9 +30,9 @@ class DetailViewController: UIViewController {
         detailedView.tableView.register(MapCell.self, forCellReuseIdentifier: "MapCell")
         detailedView.tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")
         detailedView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
-		configureNavBar()
-	}
-
+        configureNavBar()
+    }
+    
     //Custom Initializer
     init(venue: Venue, image: UIImage) {
         super.init(nibName: nil, bundle: nil)
@@ -51,17 +51,14 @@ class DetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = addButton
         
     }
-
-
+    
+    
     @objc func addButtonTapped() {
         let vc = CreateTipViewController(venue: venue, image: image)
         navigationController?.pushViewController(vc, animated: true)
         
     }
-    
-
 }
-
 
 extension DetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -85,10 +82,10 @@ extension DetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath) as! ImageCell
-        cell.imageV.image = image
-        cell.selectionStyle = .none
-        return cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath) as! ImageCell
+            cell.imageV.image = image
+            cell.selectionStyle = .none
+            return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
             cell.textLabel?.text = venue.categories[0].name
@@ -113,6 +110,7 @@ extension DetailViewController: UITableViewDataSource {
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
             if venue != nil {
+                //MARK: - SHIT IS NIL SOMETIMES
                 cell.textLabel?.text = "Address: \(venue.location.address!), \(venue.location.city!), \(venue.location.country)"
             }
             cell.selectionStyle = .none
@@ -125,10 +123,11 @@ extension DetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
             cell.textLabel?.text = "default cell"
             cell.selectionStyle = .none
-        return cell
+            return cell
+        }
     }
     
-}
+
     @objc func directionsButtonTapped() {
         let userCoordinate = CLLocationCoordinate2D(latitude: UserPreference.manager.getLatitude(), longitude: UserPreference.manager.getLongitude())
         
@@ -140,4 +139,5 @@ extension DetailViewController: UITableViewDataSource {
             
         })
     }
+
 }

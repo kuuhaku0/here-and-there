@@ -1,3 +1,4 @@
+////////////////////////////////////////////
 //
 //  ResultsListDetailView.swift
 //  HereAndThere
@@ -10,10 +11,14 @@ import UIKit
 import SnapKit
 
 class ResultsListDetailView: UIView {
-
+    
+    //TODO: Fix visual stuff, text syle, hover shade
+    
     //set up my objects
     lazy var imageView: UIImageView = {
         let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.layer.cornerRadius = 20
         return image
     }()
     
@@ -22,6 +27,7 @@ class ResultsListDetailView: UIView {
         let label = UILabel()
         label.text = "hello"
         label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: label.font.pointSize)
         return label
     }()
     
@@ -34,19 +40,19 @@ class ResultsListDetailView: UIView {
     }()
     
     //contact
-    lazy var contactLabel: UILabel = {
-        let label = UILabel()
-        label.text = "4678468345"
-        label.textAlignment = .center
-        return label
+    lazy var contactButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Call", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        return button
     }()
     
     //url
-    lazy var urlLabel: UILabel = {
-        let label = UILabel()
-        label.text = "4678468345"
-        label.textAlignment = .center
-        return label
+    lazy var urlButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("www.dfjbk.com", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        return button
     }()
     
     
@@ -60,7 +66,7 @@ class ResultsListDetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         setViews()
-        backgroundColor = .yellow
+        backgroundColor = .white
         
     }
     
@@ -69,15 +75,16 @@ class ResultsListDetailView: UIView {
         setImageView()
         setVenueNameLabel()
         setLocationNameLabel()
-        setContactLabel()
-        setUrlLabel()
+        setContactButton()
+        //setUrlButton()
     }
     
     func setImageView() {
         addSubview(imageView)
         imageView.snp.makeConstraints{(make) in
             let safeArea = safeAreaLayoutGuide
-            make.size.equalTo(200)
+            make.size.equalTo(350)
+            make.top.equalTo(safeArea).inset(40)
             make.centerX.equalTo(safeArea)
             
         }
@@ -85,18 +92,39 @@ class ResultsListDetailView: UIView {
     
     func setVenueNameLabel() {
         addSubview(venueNameLabel)
+        let safeArea = safeAreaLayoutGuide
+        venueNameLabel.snp.makeConstraints{(make) in
+            make.width.equalTo(safeArea)
+            make.top.equalTo(imageView).offset(400)
+            make.centerX.equalTo(safeArea)
+        }
     }
     
     func setLocationNameLabel() {
         addSubview(venueLocationLabel)
+        let safeArea = safeAreaLayoutGuide
+        venueLocationLabel.snp.makeConstraints{(make) in
+            make.top.equalTo(venueNameLabel).offset(30)
+            make.centerX.equalTo(safeArea)
+        }
+    }
+    func setUrlButton() {
+        addSubview(urlButton)
+        urlButton.snp.makeConstraints{(make) in
+            make.centerX.equalTo(snp.centerX)
+            make.top.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-30)
+        }
     }
     
-    func setContactLabel() {
-        addSubview(contactLabel)
+    func setContactButton() {
+        addSubview(contactButton)
+        contactButton.snp.makeConstraints{(make) in
+            make.centerX.equalTo(snp.centerX)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-10)
+        }
     }
     
-    func setUrlLabel() {
-        addSubview(urlLabel)
-    }
-
+    
+    
+    
 }
