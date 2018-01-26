@@ -11,10 +11,12 @@ target 'HereAndThere' do
 
 pod 'Alamofire', '~> 4.5'
 pod 'SnapKit', '~> 4.0.0'
+pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git'
+
 
 # Pods for MDC-Tutorial
   pod 'MaterialComponents/AppBar'
   pod 'MaterialComponents/Buttons'
   pod 'MaterialComponents/Collections'
-  pod 'MaterialComponents/ShadowElevations
+  pod 'MaterialComponents/ShadowElevations'
 end

@@ -5,6 +5,7 @@
 
 import UIKit
 import SnapKit
+import SVProgressHUD
 
 //Custom CollectionView Cell for SearchViewController
 class SearchCVCell: UICollectionViewCell {
@@ -56,6 +57,13 @@ class SearchCVCell: UICollectionViewCell {
 		label.font = UIFont.systemFont(ofSize: 12, weight: .light)
 		return label
 	}()
+    
+    lazy var indicator: UIActivityIndicatorView = {
+        let ind = UIActivityIndicatorView()
+        ind.activityIndicatorViewStyle = .gray
+        ind.color = UIColor(red: 210/255, green: 215/255, blue: 219/255, alpha: 1)
+        return ind
+    }()
 
 	// MARK: - Setup elements in Cell
 	override init(frame: CGRect){
@@ -66,7 +74,7 @@ class SearchCVCell: UICollectionViewCell {
 		addCategoryLabel()
 		addAddressLabel()
 		addPhoneLabel()
-
+        addIndicatorView()
 	}
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -115,5 +123,11 @@ class SearchCVCell: UICollectionViewCell {
 		phoneLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5).isActive = true
 //		starsLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4).isActive = true
 	}
-
+    private func addIndicatorView() {
+        addSubview(indicator)
+        indicator.snp.makeConstraints {
+            $0.centerX.equalTo(snp.centerX)
+            $0.centerY.equalTo(snp.centerY)
+        }
+    }
 }

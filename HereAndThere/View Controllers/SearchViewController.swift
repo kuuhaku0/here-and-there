@@ -6,6 +6,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import SVProgressHUD
 //import MaterialComponents.MaterialCollections
 //import MaterialComponents.MaterialCollectionLayoutAttributes
 //import MaterialComponents.MDCShadowLayer
@@ -260,6 +261,9 @@ extension SearchViewController : UICollectionViewDataSource {
 
 		//setup attributes
 		customCell.backgroundColor = UIColor.white //cell color
+        customCell.indicator.startAnimating()
+        customCell.indicator.isHidden = false
+        
 		// property
 		let venue = venues[indexPath.row]
 		customCell.nameLabel.text = venue.name
@@ -275,10 +279,14 @@ extension SearchViewController : UICollectionViewDataSource {
 					customCell.imageView.image = nil
 					customCell.imageView.image = onlineImage
 					self.currentSelectedVenuePhoto = onlineImage
+                    customCell.indicator.stopAnimating()
+                    customCell.indicator.isHidden = true
 					customCell.setNeedsLayout()
 				}, errorHandler: {print($0)})
 			} else {
 				customCell.imageView.image = #imageLiteral(resourceName: "placeholder-image")
+                customCell.indicator.stopAnimating()
+                customCell.indicator.isHidden = true
 			}
 		}
 		return customCell
